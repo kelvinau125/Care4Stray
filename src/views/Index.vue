@@ -752,6 +752,7 @@ import IndexNavbar from "@/components/Navbars/IndexNavbar.vue";
 import FooterComponent from "@/components/Footers/Footer.vue";
 
 import patternVue from "@/assets/img/pattern_vue.png";
+import headerBackground from "@/assets/img/header-background.png";
 import componentBtn from "@/assets/img/component-btn.png";
 import componentProfileCard from "@/assets/img/component-profile-card.png";
 import componentInfoCard from "@/assets/img/component-info-card.png";
@@ -767,6 +768,7 @@ export default {
   data() {
     return {
       patternVue,
+      headerBackground,
       componentBtn,
       componentProfileCard,
       componentInfoCard,

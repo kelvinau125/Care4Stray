@@ -7,27 +7,42 @@
       >
         <div
           class="absolute top-0 w-full h-full bg-center bg-cover"
-          style="
-            background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80');
-          "
+          :style="{ backgroundImage: `url(${headerBackground})` }"
         >
-          <span
+          <!-- <span
             id="blackOverlay"
             class="w-full h-full absolute opacity-75 bg-black"
-          ></span>
+          ></span> -->
         </div>
         <div class="container relative mx-auto">
           <div class="items-center flex flex-wrap">
-            <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
+            <div class="w-full px-4 ml-auto mr-auto text-left">
               <div class="pr-12">
-                <h1 class="text-white font-semibold text-5xl">
-                  Your story starts with us.
+                <h1 class="text-amber-100 font-bold text-5xl" style="text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);">
+                  Stay For Strays
                 </h1>
-                <p class="mt-4 text-lg text-blueGray-200">
-                  This is a simple example of a Landing Page you can build using
-                  Vue Notus. It features multiple CSS components based on the
-                  Tailwind CSS design system.
+                <p class="mt-4 lg:w-6/12 text-2xl text-amber-100" style="text-shadow: 4px 4px 5.7px rgba(0, 0, 0, 0.5);">
+                  Join us in making a difference, one paw at a time
                 </p>
+                <div class="sm:block flex flex-col mt-16">
+                  <a
+                    href="https://www.creative-tim.com/learning-lab/tailwind/vue/overview/notus?ref=vn-index"
+                    target="_blank"
+                    class="get-started text-emerald-700 font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-amber-100 active:bg-amber-100 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+                  >
+                    Volunteer
+                  </a>
+
+                  <a
+                    href="https://github.com/creativetimofficial/vue-notus?ref=vn-index"
+                    target="_blank"
+                    class="text-amber-100 sm:ml-1 background-transparent font-bold uppercase px-8 py-3 outline-none focus:outline-none mr-1 mb-1 text-sm ease-linear transition-all duration-150"
+                  >
+                    Contact Us
+                  </a>
+
+                </div>
+
               </div>
             </div>
           </div>
@@ -604,6 +619,8 @@ import team2 from "@/assets/img/team-2-800x800.jpg";
 import team3 from "@/assets/img/team-3-800x800.jpg";
 import team4 from "@/assets/img/team-4-470x470.png";
 
+import headerBackground from "@/assets/img/header-background.png";
+
 export default {
   data() {
     return {
@@ -611,6 +628,7 @@ export default {
       team2,
       team3,
       team4,
+      headerBackground,
     };
   },
   components: {

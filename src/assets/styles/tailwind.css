@@ -1,6 +1,6 @@
 /*! tailwindcss v2.0.4 | MIT License | https://tailwindcss.com */
 
-/*! modern-normalize v1.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+/*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
 /*
 Document
@@ -12,8 +12,8 @@ Use a better box model (opinionated).
 */
 
 *,
-*::before,
-*::after {
+::before,
+::after {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
@@ -22,7 +22,7 @@ Use a better box model (opinionated).
 Use a more readable tab size (opinionated).
 */
 
-:root {
+html {
   -moz-tab-size: 4;
   -o-tab-size: 4;
      tab-size: 4;
@@ -1348,6 +1348,11 @@ select {
   background-color: rgba(234, 179, 8, var(--tw-bg-opacity));
 }
 
+.bg-amber-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(254, 243, 199, var(--tw-bg-opacity));
+}
+
 .bg-orange-200 {
   --tw-bg-opacity: 1;
   background-color: rgba(254, 215, 170, var(--tw-bg-opacity));
@@ -1441,6 +1446,11 @@ select {
 .active\:bg-emerald-600:active {
   --tw-bg-opacity: 1;
   background-color: rgba(5, 150, 105, var(--tw-bg-opacity));
+}
+
+.active\:bg-amber-100:active {
+  --tw-bg-opacity: 1;
+  background-color: rgba(254, 243, 199, var(--tw-bg-opacity));
 }
 
 .active\:bg-blueGray-50:active {
@@ -2129,6 +2139,10 @@ select {
   height: 0px;
 }
 
+.h-1 {
+  height: 0.25rem;
+}
+
 .h-2 {
   height: 0.5rem;
 }
@@ -2288,6 +2302,10 @@ select {
 
 .m-8 {
   margin: 2rem;
+}
+
+.m-10 {
+  margin: 2.5rem;
 }
 
 .m-14 {
@@ -2733,6 +2751,14 @@ select {
   padding: 2rem;
 }
 
+.p-14 {
+  padding: 3.5rem;
+}
+
+.p-16 {
+  padding: 4rem;
+}
+
 .px-0 {
   padding-left: 0px;
   padding-right: 0px;
@@ -2791,6 +2817,11 @@ select {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .py-10 {
@@ -3298,6 +3329,16 @@ select {
   color: rgba(5, 150, 105, var(--tw-text-opacity));
 }
 
+.text-emerald-700 {
+  --tw-text-opacity: 1;
+  color: rgba(4, 120, 87, var(--tw-text-opacity));
+}
+
+.text-amber-100 {
+  --tw-text-opacity: 1;
+  color: rgba(254, 243, 199, var(--tw-text-opacity));
+}
+
 .text-orange-500 {
   --tw-text-opacity: 1;
   color: rgba(249, 115, 22, var(--tw-text-opacity));
@@ -3592,6 +3633,10 @@ select {
 
 .break-all {
   word-break: break-all;
+}
+
+.w-1 {
+  width: 0.25rem;
 }
 
 .w-5 {
@@ -4112,10 +4157,6 @@ select {
 
   .lg\:mb-0 {
     margin-bottom: 0px;
-  }
-
-  .lg\:mr-1 {
-    margin-right: 0.25rem;
   }
 
   .lg\:mr-4 {
