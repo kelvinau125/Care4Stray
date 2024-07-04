@@ -1136,6 +1136,18 @@ select {
   }
 }
 
+.space-x-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+
 .space-x-4 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(1rem * var(--tw-space-x-reverse));
@@ -1511,6 +1523,11 @@ select {
   border-collapse: separate;
 }
 
+.border-emerald-300 {
+  --tw-border-opacity: 1;
+  border-color: rgba(110, 231, 183, var(--tw-border-opacity));
+}
+
 .border-emerald-700 {
   --tw-border-opacity: 1;
   border-color: rgba(4, 120, 87, var(--tw-border-opacity));
@@ -1586,6 +1603,10 @@ select {
 
 .rounded-lg {
   border-radius: 0.5rem;
+}
+
+.rounded-2xl {
+  border-radius: 1rem;
 }
 
 .rounded-full {
@@ -2179,6 +2200,10 @@ select {
   height: auto;
 }
 
+.h-5\/6 {
+  height: 83.333333%;
+}
+
 .h-full {
   height: 100%;
 }
@@ -2282,6 +2307,10 @@ select {
 
 .list-none {
   list-style-type: none;
+}
+
+.list-disc {
+  list-style-type: disc;
 }
 
 .m-1 {
@@ -2425,6 +2454,10 @@ select {
   margin-top: 1.25rem;
 }
 
+.mr-5 {
+  margin-right: 1.25rem;
+}
+
 .mb-5 {
   margin-bottom: 1.25rem;
 }
@@ -2447,6 +2480,10 @@ select {
 
 .mt-10 {
   margin-top: 2.5rem;
+}
+
+.ml-10 {
+  margin-left: 2.5rem;
 }
 
 .mt-12 {
@@ -2900,6 +2937,10 @@ select {
   padding-left: 1rem;
 }
 
+.pb-5 {
+  padding-bottom: 1.25rem;
+}
+
 .pt-6 {
   padding-top: 1.5rem;
 }
@@ -2912,16 +2953,16 @@ select {
   padding-top: 2rem;
 }
 
+.pt-10 {
+  padding-top: 2.5rem;
+}
+
 .pl-10 {
   padding-left: 2.5rem;
 }
 
 .pt-12 {
   padding-top: 3rem;
-}
-
-.pr-12 {
-  padding-right: 3rem;
 }
 
 .pt-16 {
@@ -3324,11 +3365,6 @@ select {
   color: rgba(16, 185, 129, var(--tw-text-opacity));
 }
 
-.text-emerald-600 {
-  --tw-text-opacity: 1;
-  color: rgba(5, 150, 105, var(--tw-text-opacity));
-}
-
 .text-emerald-700 {
   --tw-text-opacity: 1;
   color: rgba(4, 120, 87, var(--tw-text-opacity));
@@ -3667,6 +3703,10 @@ select {
   width: 50%;
 }
 
+.w-4\/5 {
+  width: 80%;
+}
+
 .w-6\/12 {
   width: 50%;
 }
@@ -3697,6 +3737,10 @@ select {
 
 .z-50 {
   z-index: 50;
+}
+
+.gap-4 {
+  gap: 1rem;
 }
 
 .gap-6 {
@@ -3898,6 +3942,10 @@ select {
 
   .sm\:mr-2 {
     margin-right: 0.5rem;
+  }
+
+  .sm\:mt-10 {
+    margin-top: 2.5rem;
   }
 
   .sm\:pt-0 {

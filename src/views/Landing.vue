@@ -14,10 +14,10 @@
             class="w-full h-full absolute opacity-75 bg-black"
           ></span> -->
         </div>
-        <div class="container relative mx-auto">
+        <div class="container relative mx-auto mt-16">
           <div class="items-center flex flex-wrap">
             <div class="w-full px-4 ml-auto mr-auto text-left">
-              <div class="pr-12">
+              <div class="">
                 <h1 class="text-amber-100 font-bold text-5xl" style="text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);">
                   Stay For Strays
                 </h1>
@@ -40,8 +40,11 @@
                   >
                     Contact Us
                   </a>
-
                 </div>
+
+                <p class="mt-6 sm:mt-10 font-bold text-2xl text-amber-100 text-right" style="text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);">
+                  - Where Every Paw Finds a Home!
+                </p>
 
               </div>
             </div>
@@ -68,7 +71,7 @@
         </div>
       </div>
 
-      <section class="pb-20 bg-blueGray-200 -mt-24">
+      <!-- <section class="pb-20 bg-blueGray-200 -mt-24">
         <div class="container mx-auto px-4">
           <div class="flex flex-wrap">
             <div class="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
@@ -192,7 +195,7 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> -->
 
       <section class="relative py-20">
         <div
@@ -216,75 +219,147 @@
         </div>
 
         <div class="container mx-auto px-4">
-          <div class="items-center flex flex-wrap">
-            <div class="w-full md:w-4/12 ml-auto mr-auto px-4">
-              <img
-                alt="..."
-                class="max-w-full rounded-lg shadow-lg"
-                src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-              />
-            </div>
-            <div class="w-full md:w-5/12 ml-auto mr-auto px-4">
-              <div class="md:pr-12">
-                <div
-                  class="text-emerald-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-emerald-300"
-                >
-                  <i class="fas fa-rocket text-xl"></i>
+          <div class="flex flex-wrap md:flex-nowrap items-start">
+            <!-- Left Side Column -->
+            <div class="w-full md:w-6/12 flex flex-col space-y-4">
+              <!-- First Div -->
+              <div class="px-4 bg-amber-100 border-emerald-300 border-2 rounded-2xl mb-5">
+                <div class="flex-auto px-4 lg:px-10 py-10 pt-10">
+                  <form>
+                    <div class="relative w-full mb-3">
+                      <label
+                        class="block uppercase text-blueGray-600 text-sm font-bold mb-2"
+                        htmlFor="grid-password"
+                      >
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-lg shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        placeholder="Email"
+                      />
+                    </div>
+
+                    <div class="relative w-full mb-3">
+                      <label
+                        class="block uppercase text-blueGray-600 text-sm font-bold mb-2"
+                        htmlFor="grid-password"
+                      >
+                        Password
+                      </label>
+                      <input
+                        type="password"
+                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-lg shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        placeholder="Password"
+                      />
+                    </div>
+
+                    <div class="text-center mt-6">
+                      <button
+                        class="bg-emerald-400 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                        type="button"
+                      >
+                        Sign In
+                      </button>
+                    </div>
+                  </form>
+
+                  <div class="text-center text-lg mt-6">
+                    <p>Don’t have an account? 
+                      <span>                  
+                        <a
+                          href="https://github.com/creativetimofficial/vue-notus?ref=vn-index"
+                          target="_blank"
+                          class="ml-1 background-transparent font-bold outline-none focus:outline-none ease-linear transition-all duration-150 underline"
+                        >
+                          Sign Up
+                        </a>
+                      </span>
+                    </p>
+                  </div>
                 </div>
-                <h3 class="text-3xl font-semibold">A growing company</h3>
-                <p class="mt-4 text-lg leading-relaxed text-blueGray-500">
-                  The extension comes with three pre-built pages to help you get
-                  started faster. You can change the text and images and you're
-                  good to go.
-                </p>
-                <ul class="list-none mt-6">
-                  <li class="py-2">
-                    <div class="flex items-center">
-                      <div>
-                        <span
-                          class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-emerald-600 bg-emerald-200 mr-3"
-                        >
-                          <i class="fas fa-fingerprint"></i>
-                        </span>
+              </div>
+
+              <!-- Second Div -->
+              <div class="px-4 border-2 border-emerald-300 rounded-2xl mt-4 pb-4 flex-auto flex flex-col justify-between">
+                <div>
+                  <div class="text-center text-2xl font-bold text-emerald-700 mt-4 mb-6">
+                    <div class="flex ml-2">
+                      <img :src="takeMeHome" alt="take me home" class="w-8 h-8 mr-2">
+                      Take Me Home
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div v-for="(pet, index) in pets" :key="index" class="border p-4 rounded-lg shadow-lg flex flex-col bg-amber-100">
+                      <img :src="pet.image" alt="Pet Image" class="w-full h-auto mb-4 rounded-lg">
+                      <div class="flex flex-row items-end">
+                        <h2 class="text-xl font-bold mb-2 mr-2">{{ pet.name }}</h2>
+                        <p class="text-gray-600 mb-2">{{ pet.age }}</p>
                       </div>
-                      <div>
-                        <h4 class="text-blueGray-500">
-                          Carefully crafted components
-                        </h4>
+                      <ul class="text-left list-disc list-inside mb-4">
+                        <li v-for="(trait, tIndex) in pet.traits" :key="tIndex">{{ trait }}</li>
+                      </ul>
+                      <div class="flex space-x-2">
+                        <span class="material-icons"><img :src="vaccine" alt="vaccine" class="w-8 h-8 p-1"></span>
+                        <span class="material-icons"><img :src="worm" alt="warm" class="w-8 h-8 p-1"></span>
                       </div>
                     </div>
-                  </li>
-                  <li class="py-2">
-                    <div class="flex items-center">
+                  </div>
+                </div>
+                <div class="text-right mt-4 mr-3 text-emerald-700">
+                  <span>                  
+                    <a
+                      href="https://github.com/creativetimofficial/vue-notus?ref=vn-index"
+                      target="_blank"
+                      class="ml-1 background-transparent font-bold outline-none focus:outline-none ease-linear transition-all duration-150"
+                    >
+                      Show More...
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Side -->
+            <div class="w-full md:w-8/12 px-4 border-2 border-emerald-300 rounded-2xl pb-5 ml-10 flex-grow">
+              <div class="text-emerald-700 font-bold text-3xl mt-4 mb-4 flex items-center ml-1">
+                <img :src="animalNews" alt="animal news" class="w-10 h-10 mr-2">
+                <p>Animal News</p>
+              </div>
+              <div>
+                <div v-for="(item, index) in paginatedItems" :key="index" class="mb-4">
+                  <div class="border-2 border-emerald-300 p-4 rounded-lg shadow-lg flex">
+                    <div class="w-full mr-5 flex items-center justify-center">
+                      <img :src="item.image" alt="picture" class="w-4/5 h-auto rounded-md">  
+                    </div>
+                    <div class="flex flex-col justify-between">
                       <div>
-                        <span
-                          class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-emerald-600 bg-emerald-200 mr-3"
-                        >
-                          <i class="fab fa-html5"></i>
-                        </span>
+                        <h2 class="text-xl font-bold mb-2">{{ item.title }}</h2>
+                        <p>{{ item.description }}</p>
                       </div>
-                      <div>
-                        <h4 class="text-blueGray-500">
-                          Amazing page examples
-                        </h4>
+                      <div class="flex justify-between">
+                        <p class="text-sm text-gray-600">{{ item.author }}</p>
+                        <p class="text-sm text-gray-600">{{ item.date }}</p>
                       </div>
                     </div>
-                  </li>
-                  <li class="py-2">
-                    <div class="flex items-center">
-                      <div>
-                        <span
-                          class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-emerald-600 bg-emerald-200 mr-3"
-                        >
-                          <i class="far fa-paper-plane"></i>
-                        </span>
-                      </div>
-                      <div>
-                        <h4 class="text-blueGray-500">Dynamic components</h4>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
+                  </div>
+                </div>
+                
+                <div class="flex justify-center space-x-2 mt-6">
+                  <button
+                    v-for="page in totalPages"
+                    :key="page"
+                    @click="currentPage = page"
+                    :class="{
+                      'px-3 py-1 border-2 border-emerald-300 rounded-full': true,
+                      'bg-emerald-300 text-white': currentPage === page,
+                      'bg-white text-emerald-300': currentPage !== page
+                    }"
+                  >
+                    {{ page }}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -619,7 +694,12 @@ import team2 from "@/assets/img/team-2-800x800.jpg";
 import team3 from "@/assets/img/team-3-800x800.jpg";
 import team4 from "@/assets/img/team-4-470x470.png";
 
+import takeMeHome from "@/assets/img/takeMeHome.png";
+import animalNews from "@/assets/img/animalNews.png";
 import headerBackground from "@/assets/img/header-background.png";
+import vaccine from "@/assets/img/tabler_vaccine.png";
+import worm from "@/assets/img/contrast_worm.png";
+
 
 export default {
   data() {
@@ -628,12 +708,103 @@ export default {
       team2,
       team3,
       team4,
+      takeMeHome,
+      animalNews,
       headerBackground,
+      vaccine,
+      worm,
+
+      items: [
+        {
+          image: require('@/assets/img/team-1-800x800.jpg').default, // replace with actual path
+          title: "Rescued dog 'trapped for several days' down well",
+          description: "A dog rescued from a well had been trapped for several days and was 'giving up' in front of his rescuers' eyes, it has emerged.",
+          author: "Federica Bedendo",
+          date: "2 days ago",
+        },
+        {
+          image: require('@/assets/img/team-2-800x800.jpg').default, // replace with actual path
+          title: "Rescued dog 'trapped for several days' down well",
+          description: "A dog rescued from a well had been trapped for several days and was 'giving up' in front of his rescuers' eyes, it has emerged.",
+          author: "Federica Bedendo",
+          date: "2 days ago",
+        },
+        {
+          image: require('@/assets/img/team-4-470x470.png').default, // replace with actual path
+          title: "Rescued dog 'trapped for several days' down well",
+          description: "A dog rescued from a well had been trapped for several days and was 'giving up' in front of his rescuers' eyes, it has emerged.",
+          author: "Federica Bedendo",
+          date: "2 days ago",
+        },
+        {
+          image: require('@/assets/img/sketch.jpg').default, // replace with actual path
+          title: "Rescued dog 'trapped for several days' down well",
+          description: "A dog rescued from a well had been trapped for several days and was 'giving up' in front of his rescuers' eyes, it has emerged.",
+          author: "Federica Bedendo",
+          date: "2 days ago",
+        },
+        {
+          image: require('@/assets/img/sketch.jpg').default, // replace with actual path
+          title: "Rescued dog 'trapped for several days' down well",
+          description: "A dog rescued from a well had been trapped for several days and was 'giving up' in front of his rescuers' eyes, it has emerged.",
+          author: "Federica Bedendo",
+          date: "2 days ago",
+        },
+        {
+          image: require('@/assets/img/sketch.jpg').default, // replace with actual path
+          title: "Rescued dog 'trapped for several days' down well",
+          description: "A dog rescued from a well had been trapped for several days and was 'giving up' in front of his rescuers' eyes, it has emerged.",
+          author: "Federica Bedendo",
+          date: "2 days ago",
+        },
+        // Repeat this object to fill the list
+      ],
+      currentPage: 1,
+      itemsPerPage: 5, // Adjust this number based on how many items you want per page
+
+      pets: [
+        {
+          image: require('@/assets/img/sketch.jpg').default, // replace with actual path
+          name: "Mimi",
+          age: "3 years",
+          traits: ["Litter trained", "Food critic approved with a love of play", "Affectionate feline"],
+        },
+        {
+          image: require('@/assets/img/sketch.jpg').default, // replace with actual path
+          name: "Mimi",
+          age: "3 years",
+          traits: ["Litter trained", "Food critic approved with a love of play", "Affectionate feline"],
+        },
+        {
+          image: require('@/assets/img/sketch.jpg').default, // replace with actual path
+          name: "Mimi",
+          age: "3 years",
+          traits: ["Litter trained", "Food critic approved with a love of play", "Affectionate feline"],
+        },
+        {
+          image: require('@/assets/img/sketch.jpg').default, // replace with actual path
+          name: "Mimi",
+          age: "3 years",
+          traits: ["Litter trained", "Food critic approved with a love of play", "Affectionate feline"],
+        },
+        // Repeat this object to fill the list
+      ],
     };
   },
   components: {
     Navbar,
     FooterComponent,
+  },
+
+  computed: {
+    totalPages() {
+      return Math.ceil(this.items.length / this.itemsPerPage);
+    },
+    paginatedItems() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.items.slice(start, end);
+    },
   },
 };
 </script>
