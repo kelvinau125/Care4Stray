@@ -366,7 +366,7 @@
         </div>
       </section>
 
-      <section class="pt-20 pb-48">
+      <!-- <section class="pt-20 pb-48">
         <div class="container mx-auto px-4">
           <div class="flex flex-wrap justify-center text-center mb-24">
             <div class="w-full lg:w-6/12 px-4">
@@ -529,9 +529,9 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> -->
 
-      <section class="pb-20 relative block bg-blueGray-800">
+      <section class="pb-4 relative block bg-emerald-300">
         <div
           class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
           style="transform: translateZ(0);"
@@ -546,139 +546,41 @@
             y="0"
           >
             <polygon
-              class="text-blueGray-800 fill-current"
+              class="text-emerald-300 fill-current"
               points="2560 0 2560 100 0 100"
             ></polygon>
           </svg>
         </div>
 
-        <div class="container mx-auto px-4 lg:pt-24 lg:pb-64">
-          <div class="flex flex-wrap text-center justify-center">
-            <div class="w-full lg:w-6/12 px-4">
-              <h2 class="text-4xl font-semibold text-white">
-                Build something
-              </h2>
-              <p class="text-lg leading-relaxed mt-4 mb-4 text-blueGray-400">
-                Put the potentially record low maximum sea ice extent tihs year
-                down to low ice. According to the National Oceanic and
-                Atmospheric Administration, Ted, Scambos.
-              </p>
-            </div>
-          </div>
-          <div class="flex flex-wrap mt-12 justify-center">
-            <div class="w-full lg:w-3/12 px-4 text-center">
-              <div
-                class="text-blueGray-800 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center"
-              >
-                <i class="fas fa-medal text-xl"></i>
-              </div>
-              <h6 class="text-xl mt-5 font-semibold text-white">
-                Excelent Services
-              </h6>
-              <p class="mt-2 mb-4 text-blueGray-400">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-            </div>
-            <div class="w-full lg:w-3/12 px-4 text-center">
-              <div
-                class="text-blueGray-800 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center"
-              >
-                <i class="fas fa-poll text-xl"></i>
-              </div>
-              <h5 class="text-xl mt-5 font-semibold text-white">
-                Grow your market
-              </h5>
-              <p class="mt-2 mb-4 text-blueGray-400">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-            </div>
-            <div class="w-full lg:w-3/12 px-4 text-center">
-              <div
-                class="text-blueGray-800 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center"
-              >
-                <i class="fas fa-lightbulb text-xl"></i>
-              </div>
-              <h5 class="text-xl mt-5 font-semibold text-white">
-                Launch time
-              </h5>
-              <p class="mt-2 mb-4 text-blueGray-400">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="relative block py-24 lg:pt-0 bg-blueGray-800">
-        <div class="container mx-auto px-4">
-          <div class="flex flex-wrap justify-center lg:-mt-64 -mt-48">
-            <div class="w-full lg:w-6/12 px-4">
-              <div
-                class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200"
-              >
-                <div class="flex-auto p-5 lg:p-10">
-                  <h4 class="text-2xl font-semibold">
-                    Want to work with us?
-                  </h4>
-                  <p class="leading-relaxed mt-1 mb-4 text-blueGray-500">
-                    Complete this form and we will get back to you in 24 hours.
-                  </p>
-                  <div class="relative w-full mb-3 mt-8">
-                    <label
-                      class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                      htmlFor="full-name"
-                    >
-                      Full Name
-                    </label>
-                    <input
-                      type="text"
-                      class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Full Name"
-                    />
-                  </div>
-
-                  <div class="relative w-full mb-3">
-                    <label
-                      class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                      htmlFor="email"
-                    >
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Email"
-                    />
-                  </div>
-
-                  <div class="relative w-full mb-3">
-                    <label
-                      class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                      htmlFor="message"
-                    >
-                      Message
-                    </label>
-                    <textarea
-                      rows="4"
-                      cols="80"
-                      class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                      placeholder="Type a message..."
-                    />
-                  </div>
-                  <div class="text-center mt-6">
-                    <button
-                      class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      type="button"
-                    >
-                      Send Message
-                    </button>
-                  </div>
+        <div class="container mx-auto px-4 lg:pt-24 lg:pb-32">
+          <div class="flex">
+            <div class="w-full">
+              <div class="flex mb-5">
+                <img :src="logo" alt="logo" class="w-28 h-auto mr-10">
+                <div>
+                  <h2 class="text-4xl font-semibold text-amber-100">
+                    Spare a Paw, Share Some Love:
+                  </h2>
+                  <span class="inline-block text-4xl font-semibold text-amber-100 mt-2">Donate to Care4Strays!</span>
                 </div>
               </div>
+              <p class="text-3xl leading-relaxed mt-10 mb-4 text-amber-100 lg:w-9/12">
+                Together, we're making a meaningful difference in their lives. Thank you for believing in Care4Strays 
+              </p>
             </div>
           </div>
+
+          <div class="mt-10">
+            <a
+              href="https://www.creative-tim.com/learning-lab/tailwind/vue/overview/notus?ref=vn-index"
+              target="_blank"
+              class="get-started text-emerald-700 font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-amber-100 active:bg-amber-100 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+            >
+              Donate for Strays 
+            </a>
+          </div>
+
+      
         </div>
       </section>
     </main>
@@ -699,6 +601,7 @@ import animalNews from "@/assets/img/animalNews.png";
 import headerBackground from "@/assets/img/header-background.png";
 import vaccine from "@/assets/img/tabler_vaccine.png";
 import worm from "@/assets/img/contrast_worm.png";
+import logo from "@/assets/img/logo.png";
 
 
 export default {
@@ -713,6 +616,7 @@ export default {
       headerBackground,
       vaccine,
       worm,
+      logo,
 
       items: [
         {
