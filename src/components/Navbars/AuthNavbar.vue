@@ -80,7 +80,7 @@ export default {
 
   computed: {
     navbarStyle() {
-      if (this.$route.path === '/landing') {
+      if (this.$route.path === '/') {
         return {};
       } else {
         return {

@@ -70,6 +70,12 @@
         No Layout
       </span>
       <router-link
+        to="/index"
+        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+      >
+        Index
+      </router-link>
+      <router-link
         to="/landing"
         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
       >

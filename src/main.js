@@ -33,6 +33,7 @@ import Donation from "@/views/Donation.vue";
 import Landing from "@/views/Landing.vue";
 import Profile from "@/views/Profile.vue";
 import Index from "@/views/Index.vue";
+import Main from "@/views/Main.vue";
 
 // routes
 
@@ -85,9 +86,13 @@ const routes = [
   },
   {
     path: "/",
-    component: Index,
+    component: Main,
   },
   { path: "/:pathMatch(.*)*", redirect: "/" },
+  {
+    path: "/index",
+    component: Index
+  },
   {
     path: "/registermodal",
     component: RegisterModal
