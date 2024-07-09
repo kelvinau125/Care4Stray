@@ -82,6 +82,13 @@ export default {
     navbarStyle() {
       if (this.$route.path === '/') {
         return {};
+      } else if (this.$route.path.includes('/user')) {
+        return {
+          position: 'fixed',
+          backgroundImage: `url(${this.headerBackground})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        };
       } else {
         return {
           backgroundImage: `url(${this.headerBackground})`,

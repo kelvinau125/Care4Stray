@@ -13,6 +13,7 @@ import App from "@/App.vue";
 
 import Admin from "@/layouts/Admin.vue";
 import Auth from "@/layouts/Auth.vue";
+import User from "@/layouts/User.vue";
 
 // views for Admin layout
 
@@ -26,6 +27,11 @@ import Maps from "@/views/admin/Maps.vue";
 import Login from "@/views/auth/Login.vue";
 import Register from "@/views/auth/Register.vue";
 import RegisterModal from "@/views/auth/RegisterModal.vue";
+
+// views for User layout
+
+import AdoptionStatus from "@/views/user/AdoptionStatus.vue";
+import News from "@/views/user/News.vue";
 
 // views without layouts
 import ContactUs from "@/views/ContactUs.vue";
@@ -77,6 +83,29 @@ const routes = [
     ],
   },
   {
+    path: "/user",
+    redirect: "/user/news",
+    component: User,
+    children: [
+      {
+        path: "/user/adoptionstatus",
+        component: AdoptionStatus,
+      },
+      {
+        path: "/user/news",
+        component: News,
+      },
+      {
+        path: "/user/tables",
+        component: Tables,
+      },
+      {
+        path: "/user/maps",
+        component: Maps,
+      },
+    ],
+  },
+  {
     path: "/landing",
     component: Landing,
   },
@@ -104,7 +133,8 @@ const routes = [
   {
     path: "/donation",
     component: Donation
-  }
+  },
+  
 ];
 
 const router = createRouter({
