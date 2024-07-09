@@ -1,6 +1,10 @@
 <template>
   <div>
     <navbar />
+    <RegisterModal
+      :showRegModal="isRegisterModalVisible"
+      :closeRegModal="closeRegisterModal"
+    />
     <main>
       <div
         class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75"
@@ -267,13 +271,11 @@
                   <div class="text-center text-lg mt-6">
                     <p>Don’t have an account? 
                       <span>                  
-                        <a
-                          href="https://github.com/creativetimofficial/vue-notus?ref=vn-index"
-                          target="_blank"
-                          class="ml-1 background-transparent font-bold outline-none focus:outline-none ease-linear transition-all duration-150 underline"
+                        <button @click="this.showRegisterModal"
+                        class='ml-1 background-transparent font-bold outline-none focus:outline-none ease-linear transition-all duration-150 underline'
                         >
                           Sign Up
-                        </a>
+                        </button>
                       </span>
                     </p>
                   </div>
@@ -603,6 +605,9 @@ import vaccine from "@/assets/img/tabler_vaccine.png";
 import worm from "@/assets/img/contrast_worm.png";
 import logo from "@/assets/img/logo.png";
 
+import RegisterModal from "@/views/auth/RegisterModal.vue";
+
+import { ref } from "vue";
 
 export default {
   data() {
@@ -617,6 +622,7 @@ export default {
       vaccine,
       worm,
       logo,
+      isRegisterModalVisible: ref(false),
 
       items: [
         {
@@ -698,6 +704,7 @@ export default {
   components: {
     Navbar,
     FooterComponent,
+    RegisterModal
   },
 
   computed: {
@@ -710,5 +717,14 @@ export default {
       return this.items.slice(start, end);
     },
   },
+
+  methods: {
+    showRegisterModal() {
+      this.isRegisterModalVisible = true;
+    },
+    closeRegisterModal() {
+      this.isRegisterModalVisible = false;
+    },
+  }
 };
 </script>

@@ -2,7 +2,6 @@ import { createApp } from "vue";
 import { createWebHistory, createRouter } from "vue-router";
 
 // styles
-
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "@/assets/styles/tailwind.css";
 
@@ -26,6 +25,7 @@ import Maps from "@/views/admin/Maps.vue";
 
 import Login from "@/views/auth/Login.vue";
 import Register from "@/views/auth/Register.vue";
+import RegisterModal from "@/views/auth/RegisterModal.vue";
 
 // views without layouts
 
@@ -87,6 +87,10 @@ const routes = [
     component: Index,
   },
   { path: "/:pathMatch(.*)*", redirect: "/" },
+  {
+    path: "/RegisterModal",
+    component: RegisterModal
+  }
 ];
 
 const router = createRouter({
