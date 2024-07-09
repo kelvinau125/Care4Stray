@@ -37,13 +37,12 @@
                     Volunteer
                   </a>
 
-                  <a
-                    href="https://github.com/creativetimofficial/vue-notus?ref=vn-index"
-                    target="_blank"
+                  <router-link
+                    to="/contactus"
                     class="text-amber-100 sm:ml-1 background-transparent font-bold uppercase px-8 py-3 outline-none focus:outline-none mr-1 mb-1 text-sm ease-linear transition-all duration-150"
                   >
                     Contact Us
-                  </a>
+                  </router-link>
                 </div>
 
                 <p class="mt-6 sm:mt-10 font-bold text-2xl text-amber-100 text-right" style="text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);">

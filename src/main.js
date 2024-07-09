@@ -28,7 +28,8 @@ import Register from "@/views/auth/Register.vue";
 import RegisterModal from "@/views/auth/RegisterModal.vue";
 
 // views without layouts
-
+import ContactUs from "@/views/ContactUs.vue";
+import Donation from "@/views/Donation.vue";
 import Landing from "@/views/Landing.vue";
 import Profile from "@/views/Profile.vue";
 import Index from "@/views/Index.vue";
@@ -88,8 +89,16 @@ const routes = [
   },
   { path: "/:pathMatch(.*)*", redirect: "/" },
   {
-    path: "/RegisterModal",
+    path: "/registermodal",
     component: RegisterModal
+  },
+  {
+    path: "/contactus",
+    component: ContactUs
+  },
+  {
+    path: "/donation",
+    component: Donation
   }
 ];
 

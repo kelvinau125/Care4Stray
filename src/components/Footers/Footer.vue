@@ -93,7 +93,7 @@
       >
         <div class="w-full md:w-4/12 px-4 mx-auto text-center">
           <div class="text-sm text-blueGray-500 font-semibold py-1">
-            Copyright © {{ date }} Care4Strays
+            Copyright © {{ date }} Care4Strays. All rights reserved.
             .
           </div>
         </div>

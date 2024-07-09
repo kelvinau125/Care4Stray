@@ -1573,11 +1573,6 @@ select {
   border-color: rgba(100, 116, 139, var(--tw-border-opacity));
 }
 
-.border-blueGray-600 {
-  --tw-border-opacity: 1;
-  border-color: rgba(71, 85, 105, var(--tw-border-opacity));
-}
-
 .focus\:border-black:focus {
   --tw-border-opacity: 1;
   border-color: rgba(0, 0, 0, var(--tw-border-opacity));
@@ -2909,6 +2904,10 @@ select {
   padding-top: 0.5rem;
 }
 
+.pt-3 {
+  padding-top: 0.75rem;
+}
+
 .pl-3 {
   padding-left: 0.75rem;
 }
@@ -3348,6 +3347,11 @@ select {
   color: rgba(110, 231, 183, var(--tw-text-opacity));
 }
 
+.text-emerald-400 {
+  --tw-text-opacity: 1;
+  color: rgba(52, 211, 153, var(--tw-text-opacity));
+}
+
 .text-emerald-500 {
   --tw-text-opacity: 1;
   color: rgba(16, 185, 129, var(--tw-text-opacity));
@@ -3431,11 +3435,6 @@ select {
 .hover\:text-emerald-600:hover {
   --tw-text-opacity: 1;
   color: rgba(5, 150, 105, var(--tw-text-opacity));
-}
-
-.hover\:text-blueGray-300:hover {
-  --tw-text-opacity: 1;
-  color: rgba(203, 213, 225, var(--tw-text-opacity));
 }
 
 .hover\:text-blueGray-500:hover {
