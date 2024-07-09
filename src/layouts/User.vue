@@ -1,24 +1,34 @@
 <template>
   <div>
     <auth-navbar />
-    <div class="flex">
-      <user-sidebar />
-      <div class="relative md:ml-64 bg-blueGray-100 flex-1">
-        <user-navbar />
-        <header-stats />
-        <div class="px-4 md:px-10 mx-auto w-full -m-24">
+    <user-navbar />
+    <div class="flex flex-col md:flex-row">
+      <!-- User Sidebar -->
+      <div class="w-full md:w-1/4">
+        <user-sidebar />
+      </div>
+      <!-- Main Content -->
+      <div class="w-full bg-white">
+        <!-- <userHeaderStats /> -->
+        <div class="px-4 md:px-10 mx-auto w-full md:pt-56 relative">
           <router-view />
           <footer-admin />
         </div>
       </div>
+      <!-- Donation Sidebar -->
+      <div class="w-full md:w-1/4">
+        <donation-sidebar />
+      </div>
     </div>
   </div>
 </template>
+
 <script>
 import UserNavbar from "@/components/Navbars/UserNavbar.vue";
 import AuthNavbar from "@/components/Navbars/AuthNavbar.vue";
 import UserSidebar from "@/components/Sidebar/UserSidebar.vue";
-import HeaderStats from "@/components/Headers/HeaderStats.vue";
+import DonationSidebar from "@/components/Sidebar/DonationSidebar.vue";
+// import UserHeaderStats from "@/components/Headers/UserHeaderStats.vue";
 import FooterAdmin from "@/components/Footers/FooterAdmin.vue";
 
 export default {
@@ -27,7 +37,8 @@ export default {
     UserNavbar,
     AuthNavbar,
     UserSidebar,
-    HeaderStats,
+    DonationSidebar,
+    // UserHeaderStats,
     FooterAdmin,
   },
 };

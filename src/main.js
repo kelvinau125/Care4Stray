@@ -34,12 +34,15 @@ import AdoptionStatus from "@/views/user/AdoptionStatus.vue";
 import News from "@/views/user/News.vue";
 
 // views without layouts
+
 import ContactUs from "@/views/ContactUs.vue";
 import Donation from "@/views/Donation.vue";
 import Landing from "@/views/Landing.vue";
 import Profile from "@/views/Profile.vue";
 import Index from "@/views/Index.vue";
 import Main from "@/views/Main.vue";
+
+import UserNavbar from "@/components/Navbars/UserNavbar.vue";
 
 // routes
 
@@ -133,6 +136,10 @@ const routes = [
   {
     path: "/donation",
     component: Donation
+  },
+  {
+    path: "/UserNavbar",
+    component: UserNavbar
   },
   
 ];

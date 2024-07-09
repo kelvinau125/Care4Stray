@@ -88,6 +88,8 @@ export default {
           backgroundImage: `url(${this.headerBackground})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+          backgroundColor: 'white', 
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', 
         };
       } else {
         return {
