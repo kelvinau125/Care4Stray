@@ -8,12 +8,9 @@
         <user-sidebar />
       </div>
       <!-- Main Content -->
-      <div class="w-full bg-white">
-        <!-- <userHeaderStats /> -->
-        <div class="px-4 md:px-10 mx-auto w-full md:pt-56 relative">
+      <div class="w-full bg-white px-4 md:px-10 mx-auto md:pt-56 relative">
           <router-view />
           <footer-admin />
-        </div>
       </div>
       <!-- Donation Sidebar -->
       <div class="w-full md:w-1/4">
