@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="md:right-0 md:block md:relative md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl h-full flex flex-wrap items-center justify-between relative md:w-60 py-4 px-6 border-2 bg-amber-100">
+    class="md:right-0 md:block md:relative md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl h-full flex flex-wrap items-center justify-between relative md:w-60 py-4 px-6 bg-amber-100">
     <div
       class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
       <!-- Toggler -->

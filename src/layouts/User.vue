@@ -4,20 +4,20 @@
     <user-navbar />
     <div class="flex flex-col md:flex-row">
       <!-- User Sidebar -->
-      <div class="w-full md:w-60 border-2 fixed md:fixed left-0 top-0 md:h-full">
+      <div class="w-full md:w-60 fixed md:fixed left-0 top-0 md:h-full">
         <user-sidebar />
       </div>
 
       <!-- Main Content and Donation Sidebar Container -->
       <div class="flex flex-col md:flex-row flex-grow ml-0 md:ml-60 md:pt-48">
         <!-- Main Content -->
-        <div class="w-full md:flex-grow bg-white px-4 md:px-10 mx-auto md:pt-4 relative border-2">
+        <div class="w-full md:flex-grow bg-white px-4 md:px-10 mx-auto md:pt-4 relative">
           <router-view />
           <footer-admin />
         </div>
 
         <!-- Donation Sidebar -->
-        <div class="w-full md:w-60 border-2">
+        <div class="w-full md:w-60">
           <donation-sidebar />
         </div>
       </div>
