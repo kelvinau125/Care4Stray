@@ -1,54 +1,41 @@
 <template>
   <div>
-    <a
-      class="text-blueGray-500 block"
-      href="#pablo"
-      ref="btnDropdownRef"
-      v-on:click="toggleDropdown($event)"
-    >
-      <div class="items-center flex">
-        <span
-          class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
-        >
-          <img
-            alt="..."
-            class="w-full rounded-full align-middle border-none shadow-lg"
-            :src="image"
-          />
-        </span>
-      </div>
+    <a class="text-blueGray-500 block" href="#pablo" ref="btnDropdownRef" v-on:click="toggleDropdown($event)">
+      <div class="items-center flex justify-between">
+        <div class="flex flex-row items-center justify-center gap-3">
+          <span class="w-10 h-10 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full">
+            <img alt="..." class="w-full rounded-full align-middle border-none shadow-lg" :src="image" />
+          </span>
+
+          <div class="flex flex-col gap-1">
+            <span class="text-emerald-700 text-sm font-bold">@Username1</span>
+            <span class="text-emerald-200 text-xs">uid: 60166683519</span>
+          </div>
+        </div>
+
+        <i class="fas fa-ellipsis-v text-emerald-500 text-xl"></i>        
+      </div>   
     </a>
-    <div
-      ref="popoverDropdownRef"
-      class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
-      v-bind:class="{
+    <div ref="popoverDropdownRef"
+      class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48" v-bind:class="{
         hidden: !dropdownPopoverShow,
         block: dropdownPopoverShow,
-      }"
-    >
-      <a
-        href="javascript:void(0);"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-      >
-        Action
+      }">
+      <a href="javascript:void(0);"
+        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
+        is this user
       </a>
-      <a
-        href="javascript:void(0);"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-      >
+      <a href="javascript:void(0);"
+        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
         Another action
       </a>
-      <a
-        href="javascript:void(0);"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-      >
+      <a href="javascript:void(0);"
+        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
         Something else here
       </a>
       <div class="h-0 my-2 border border-solid border-blueGray-100" />
-      <a
-        href="javascript:void(0);"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-      >
+      <a href="javascript:void(0);"
+        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
         Seprated link
       </a>
     </div>

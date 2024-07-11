@@ -26,7 +26,7 @@
           <notification-dropdown />
         </li>
         <li class="inline-block relative">
-          <user-dropdown />
+          <admin-dropdown />
         </li>
       </ul>
       <!-- Collapse -->
@@ -348,7 +348,7 @@
 
 <script>
 import NotificationDropdown from "@/components/Dropdowns/NotificationDropdown.vue";
-import UserDropdown from "@/components/Dropdowns/UserDropdown.vue";
+import AdminDropdown from "@/components/Dropdowns/AdminDropdown.vue";
 
 export default {
   data() {
@@ -363,7 +363,7 @@ export default {
   },
   components: {
     NotificationDropdown,
-    UserDropdown,
+    AdminDropdown,
   },
 };
 </script>

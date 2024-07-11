@@ -9,12 +9,6 @@
         type="button" v-on:click="toggleCollapseShow('bg-white m-2 py-3 px-6')">
         <i class="fas fa-bars"></i>
       </button>
-      <!-- Brand -->
-      <!-- <router-link
-        class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-        to="/">
-        Care4Stray
-      </router-link> -->
       <!-- User -->
       <ul class="md:hidden items-center flex flex-wrap list-none">
         <li class="inline-block relative">
@@ -57,8 +51,8 @@
 
         <!-- Divider -->
         <!-- <hr class="my-4 md:min-w-full" /> -->
-        <!-- Navigation -->
 
+        <!-- Navigation -->
         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
           <li class="items-center">
             <router-link to="/user/news" v-slot="{ href, navigate, isActive }">
@@ -100,8 +94,8 @@
           </li>
         </ul>
 
-        <div>
-          
+        <div class="md:mt-auto">
+          <user-dropdown />
         </div>
       </div>
     </div>
@@ -129,6 +123,3 @@ export default {
   },
 };
 </script>
-
-
-
