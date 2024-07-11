@@ -1,7 +1,7 @@
 <template>
     <div class="donor-list overflow-hidden h-56 relative">
       <transition-group name="cycle" tag="div" class="donor-container flex flex-col">
-        <div v-for="donor in visibleDonors" :key="donor.id" class="donor-item py-2 text-center text-lg">
+        <div v-for="donor in visibleDonors" :key="donor.id" class="donor-item py-2 text-center text-base text-emerald-400">
           {{ donor.name }}
         </div>
       </transition-group>
@@ -41,7 +41,7 @@
     methods: {
       initializeVisibleDonors() {
         // Initialize the visible donors with the first few donors
-        this.visibleDonors = this.donors.slice(0, 8); // Adjust the number of visible donors as needed
+        this.visibleDonors = this.donors.slice(0, 12); // Adjust the number of visible donors as needed
       },
       startCycling() {
         this.intervalId = setInterval(() => {
@@ -54,7 +54,7 @@
         this.donors.push(firstDonor);
   
         // Update visible donors
-        this.visibleDonors = [...this.donors.slice(0, 8)]; // Adjust the number of visible donors as needed
+        this.visibleDonors = [...this.donors.slice(0, 12)]; // Adjust the number of visible donors as needed
       },
     },
     beforeDestroy() {
