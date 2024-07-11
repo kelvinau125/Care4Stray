@@ -29,7 +29,7 @@
           </li>
 
           <li class="items-center">
-            <router-link to="/user/notification" v-slot="{ href, navigate, isActive }">
+            <router-link to="/user/tables" v-slot="{ href, navigate, isActive }">
               <a :href="href" @click="navigate" class="text-sm uppercase pt-3 font-bold block" :class="[
                 isActive
                   ? 'text-emerald-500 hover:text-emerald-600'

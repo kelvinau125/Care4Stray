@@ -49,50 +49,14 @@
           </div>
         </form>
 
-        <!-- Divider -->
-        <!-- <hr class="my-4 md:min-w-full" /> -->
-        <!-- Navigation -->
-
-        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-          <li class="items-center">
-            <router-link to="/user/news" v-slot="{ href, navigate, isActive }">
-              <a :href="href" @click="navigate" class="text-xs uppercase py-3 font-bold block" :class="[
-                isActive
-                  ? 'text-emerald-500 hover:text-emerald-600'
-                  : 'text-blueGray-700 hover:text-blueGray-500',
-              ]">
-                <i class="fas fa-home mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"></i>
-                Home
-              </a>
-            </router-link>
-          </li>
-
-          <li class="items-center">
-            <router-link to="/user/notification" v-slot="{ href, navigate, isActive }">
-              <a :href="href" @click="navigate" class="text-xs uppercase py-3 font-bold block" :class="[
-                isActive
-                  ? 'text-emerald-500 hover:text-emerald-600'
-                  : 'text-blueGray-700 hover:text-blueGray-500',
-              ]">
-                <i class="fas fa-bell mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"></i>
-                Notification
-              </a>
-            </router-link>
-          </li>
-
-          <li class="items-center">
-            <router-link to="/user/application" v-slot="{ href, navigate, isActive }">
-              <a :href="href" @click="navigate" class="text-xs uppercase py-3 font-bold block" :class="[
-                isActive
-                  ? 'text-emerald-500 hover:text-emerald-600'
-                  : 'text-blueGray-700 hover:text-blueGray-500',
-              ]">
-                <i class="fas fa-file mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"></i>
-                Application
-              </a>
-            </router-link>
-          </li>
-        </ul>
+        <!-- Donor List -->
+        <div class="w-full">
+          <div class="flex flex-row text-base font-bold gap-2 items-center justify-center mb-4">
+            <img :src="donationboard" alt="donation board icon" class="w-6 h-auto" />
+            <h2>Donation Board</h2>
+          </div>
+          <donor-list />
+        </div>
       </div>
     </div>
   </nav>
@@ -101,11 +65,15 @@
 <script>
 import NotificationDropdown from "@/components/Dropdowns/NotificationDropdown.vue";
 import UserDropdown from "@/components/Dropdowns/UserDropdown.vue";
+import DonorList from "@/components/List/DonorList.vue";
+
+import donationboard from "@/assets/img/donationboard.png";
 
 export default {
   data() {
     return {
       collapseShow: "hidden",
+      donationboard,
     };
   },
   methods: {
@@ -116,6 +84,7 @@ export default {
   components: {
     NotificationDropdown,
     UserDropdown,
+    DonorList,
   },
 };
 </script>
