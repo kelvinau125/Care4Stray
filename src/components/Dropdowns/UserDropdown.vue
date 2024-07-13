@@ -8,12 +8,12 @@
           </span>
 
           <div class="flex flex-col gap-1">
-            <span class="text-emerald-700 text-sm font-bold">@ {{ username }}</span>
-            <span class="text-emerald-200 text-xs">uid: {{ user_id }}</span>
+            <span class="text-mainText text-sm font-bold">@ {{ username }}</span>
+            <span class="text-thirdText text-xs">uid: {{ user_id }}</span>
           </div>
         </div>
 
-        <i class="fas fa-ellipsis-v text-emerald-500 text-xl"></i>        
+        <i class="fas fa-ellipsis-v text-mainText text-xl"></i>        
       </div>   
     </a>
     <div ref="popoverDropdownRef"

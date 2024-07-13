@@ -7,6 +7,149 @@ Document
 ========
 */
 
+/* 
+Customize Colour 
+*/
+
+/* Secondary Main */
+.bg-secondaryMain {
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 248, 229, var(--tw-bg-opacity));
+}
+
+.text-secondaryMain {
+  --tw-text-opacity: 1;
+  color: rgba(255, 248, 229, var(--tw-text-opacity));
+}
+
+.border-secondaryMain {
+  --tw-border-opacity: 1;
+  border-color: rgba(255, 248, 229, var(--tw-border-opacity));
+}
+
+/* Main Theme */
+.bg-mainTheme {
+  --tw-bg-opacity: 1;
+  background-color: rgba(184, 198, 162, var(--tw-bg-opacity));
+}
+
+.text-mainTheme {
+  --tw-text-opacity: 1;
+  color: rgba(184, 198, 162, var(--tw-text-opacity));
+}
+
+.border-mainTheme {
+  --tw-border-opacity: 1;
+  border-color: rgba(184, 198, 162, var(--tw-border-opacity));
+}
+
+/* Main Text */
+.bg-mainText {
+  --tw-bg-opacity: 1;
+  background-color: rgba(42, 82, 44, var(--tw-bg-opacity));
+}
+
+.text-mainText {
+  --tw-text-opacity: 1;
+  color: rgba(42, 82, 44, var(--tw-text-opacity));
+}
+
+.border-mainText {
+  --tw-border-opacity: 1;
+  border-color: rgba(42, 82, 44, var(--tw-border-opacity));
+}
+
+.hover\:text-mainText:hover {
+  --tw-text-opacity: 1;
+  color: rgba(41, 52, 26, var(--tw-text-opacity));
+}
+
+/* Main Button */
+.bg-mainButton {
+  --tw-bg-opacity: 1;
+  background-color: rgba(30, 77, 32, var(--tw-bg-opacity));
+}
+
+.text-mainButton {
+  --tw-text-opacity: 1;
+  color: rgba(30, 77, 32, var(--tw-text-opacity));
+}
+
+.border-mainButton {
+  --tw-border-opacity: 1;
+  border-color: rgba(30, 77, 32, var(--tw-border-opacity));
+}
+
+/* Third Text */
+.bg-thirdText {
+  --tw-bg-opacity: 0.5;
+  background-color: rgba(30, 77, 32, var(--tw-bg-opacity));
+}
+
+.text-thirdText {
+  --tw-text-opacity: 0.5;
+  color: rgba(30, 77, 32, var(--tw-text-opacity));
+}
+
+.border-thirdText {
+  --tw-border-opacity: 0.5;
+  border-color: rgba(30, 77, 32, var(--tw-border-opacity));
+}
+
+.hover\:text-thirdText:hover {
+  --tw-text-opacity: 0.5;
+  color: rgba(30, 77, 32, var(--tw-text-opacity));
+}
+
+/* Second */
+.bg-second {
+  --tw-bg-opacity: 1;
+  background-color: rgba(184, 198, 162, var(--tw-bg-opacity));
+}
+
+.text-second {
+  --tw-text-opacity: 1;
+  color: rgba(184, 198, 162, var(--tw-text-opacity));
+}
+
+.border-second {
+  --tw-border-opacity: 1;
+  border-color: rgba(184, 198, 162, var(--tw-border-opacity));
+}
+
+/* Third */
+.bg-third {
+  --tw-bg-opacity: 0.2;
+  background-color: rgba(184, 198, 162, var(--tw-bg-opacity));
+}
+
+.text-third {
+  --tw-text-opacity: 0.2;
+  color: rgba(184, 198, 162, var(--tw-text-opacity));
+}
+
+.border-third {
+  --tw-border-opacity: 0.2;
+  border-color: rgba(184, 198, 162, var(--tw-border-opacity));
+}
+
+/* Warning */
+.bg-warning {
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 37, 37, var(--tw-bg-opacity));
+}
+
+.text-warning {
+  --tw-text-opacity: 1;
+  color: rgba(255, 37, 37, var(--tw-text-opacity));
+}
+
+.border-warning {
+  --tw-border-opacity: 1;
+  border-color: rgba(255, 37, 37, var(--tw-border-opacity));
+}
+
+
 /**
 Use a better box model (opinionated).
 */
@@ -2167,6 +2310,11 @@ select {
   font-weight: 700;
 }
 
+.font-black {
+  font-weight: 900;
+}
+
+
 .h-0 {
   height: 0px;
 }
@@ -4003,9 +4151,9 @@ select {
 }
 
 @media (min-width: 768px) {
-  .md\:bg-teal-100 {
-    --tw-bg-opacity: 1;
-    background-color: rgba(204, 251, 241, var(--tw-bg-opacity));
+  .md\:bg-third {
+    --tw-bg-opacity: 0.2;
+    background-color: rgba(184, 198, 162, var(--tw-bg-opacity));
   }
 
   .md\:block {

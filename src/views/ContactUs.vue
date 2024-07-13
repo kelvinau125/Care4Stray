@@ -7,10 +7,10 @@
           <div class="flex content-center items-center justify-center h-full">
             <img :src="contactus" alt="contact picture" class="w-full lg:w-6/12 px-4 pr-4"/>
             <div class="w-full lg:w-6/12 px-4">
-              <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-amber-100 border-emerald-700 border-2">
+              <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-secondaryMain border-mainText border-2">
                 <div class="rounded-t mb-0 px-6 py-6">
                   <div class="text-center mb-3">
-                    <h6 class="text-emerald-700 text-3xl font-bold">
+                    <h6 class="text-mainText text-3xl font-bold">
                       Contact Us
                     </h6>
                   </div>
@@ -19,7 +19,7 @@
                 <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
                   <form>
                     <div class="relative w-full mb-3">
-                      <label class="block uppercase text-emerald-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                      <label class="block uppercase text-mainText text-xs font-bold mb-2" htmlFor="grid-password">
                         Name
                       </label>
                       <input type="name"
@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="relative w-full mb-3">
-                      <label class="block uppercase text-emerald-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                      <label class="block uppercase text-mainText text-xs font-bold mb-2" htmlFor="grid-password">
                         Phone Number
                       </label>
                       <input type="phonenumber"
@@ -37,7 +37,7 @@
                     </div>
 
                     <div class="relative w-full mb-3">
-                      <label class="block uppercase text-emerald-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                      <label class="block uppercase text-mainText text-xs font-bold mb-2" htmlFor="grid-password">
                         Email
                       </label>
                       <input type="email"
@@ -46,7 +46,7 @@
                     </div>
 
                     <div class="relative w-full mb-3">
-                      <label class="block uppercase text-emerald-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                      <label class="block uppercase text-mainText text-xs font-bold mb-2" htmlFor="grid-password">
                         Message
                       </label>
                       <input type="message"
@@ -56,7 +56,7 @@
 
                     <div class="text-center mt-6">
                       <button
-                        class="bg-emerald-700 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                        class="bg-mainText text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                         type="button">
                         Submit
                       </button>

@@ -22,30 +22,30 @@
           <div class="items-center flex flex-wrap">
             <div class="w-full px-4 ml-auto mr-auto text-left">
               <div class="">
-                <h1 class="text-amber-100 font-bold text-5xl" style="text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);">
+                <h1 class="text-secondaryMain font-bold text-5xl" style="text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);">
                   Stay For Strays
                 </h1>
-                <p class="mt-4 lg:w-6/12 text-2xl text-amber-100" style="text-shadow: 4px 4px 5.7px rgba(0, 0, 0, 0.5);">
+                <p class="mt-4 lg:w-6/12 text-2xl text-secondaryMain" style="text-shadow: 4px 4px 5.7px rgba(0, 0, 0, 0.5);">
                   Join us in making a difference, one paw at a time
                 </p>
                 <div class="sm:block flex flex-col mt-16">
                   <a
                     href="https://www.creative-tim.com/learning-lab/tailwind/vue/overview/notus?ref=vn-index"
                     target="_blank"
-                    class="get-started text-emerald-700 font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-amber-100 active:bg-amber-100 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+                    class="get-started text-mainText font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-secondaryMain active:bg-secondaryMain uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
                   >
                     Volunteer
                   </a>
 
                   <router-link
                     to="/contactus"
-                    class="text-amber-100 sm:ml-1 background-transparent font-bold uppercase px-8 py-3 outline-none focus:outline-none mr-1 mb-1 text-sm ease-linear transition-all duration-150"
+                    class="text-secondaryMain sm:ml-1 background-transparent font-bold uppercase px-8 py-3 outline-none focus:outline-none mr-1 mb-1 text-sm ease-linear transition-all duration-150"
                   >
                     Contact Us
                   </router-link>
                 </div>
 
-                <p class="mt-6 sm:mt-10 font-bold text-2xl text-amber-100 text-right" style="text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);">
+                <p class="mt-6 sm:mt-10 font-bold text-2xl text-secondaryMain text-right" style="text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);">
                   - Where Every Paw Finds a Home!
                 </p>
 
@@ -100,7 +100,7 @@
             <!-- Left Side Column -->
             <div class="w-full md:w-6/12 flex flex-col space-y-4">
               <!-- First Div -->
-              <div class="px-4 bg-amber-100 border-emerald-300 border-2 rounded-2xl mb-5">
+              <div class="px-4 bg-secondaryMain border-mainTheme border-2 rounded-2xl mb-5">
                 <div class="flex-auto px-4 lg:px-10 py-10 pt-10">
                   <form>
                     <div class="relative w-full mb-3">
@@ -134,7 +134,7 @@
                     <div class="text-center mt-6">
                       <button
                         @click="signIn"
-                        class="bg-emerald-400 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                        class="bg-mainButton text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                         type="button"
                       >
                         Sign In
@@ -157,9 +157,9 @@
               </div>
 
               <!-- Second Div -->
-              <div class="px-4 border-2 border-emerald-300 rounded-2xl mt-4 pb-4 flex-auto flex flex-col justify-between">
+              <div class="px-4 border-2 border-mainTheme rounded-2xl mt-4 pb-4 flex-auto flex flex-col justify-between">
                 <div>
-                  <div class="text-center text-2xl font-bold text-emerald-700 mt-4 mb-6">
+                  <div class="text-center text-2xl font-bold text-mainText mt-4 mb-6">
                     <div class="flex ml-2">
                       <img :src="takeMeHome" alt="take me home" class="w-8 h-8 mr-2">
                       Take Me Home
@@ -167,7 +167,7 @@
                   </div>
 
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div v-for="(pet, index) in pets" :key="index" class="border p-4 rounded-lg shadow-lg flex flex-col bg-amber-100">
+                    <div v-for="(pet, index) in pets" :key="index" class="border p-4 rounded-lg shadow-lg flex flex-col bg-secondaryMain">
                       <img :src="pet.image" alt="Pet Image" class="w-full h-auto mb-4 rounded-lg">
                       <div class="flex flex-row items-end">
                         <h2 class="text-xl font-bold mb-2 mr-2">{{ pet.name }}</h2>
@@ -183,7 +183,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="text-right mt-4 mr-3 text-emerald-700">
+                <div class="text-right mt-4 mr-3 text-mainText">
                   <span>                  
                     <a
                       href="https://github.com/creativetimofficial/vue-notus?ref=vn-index"
@@ -198,14 +198,14 @@
             </div>
 
             <!-- Right Side -->
-            <div class="w-full md:w-8/12 px-4 border-2 border-emerald-300 rounded-2xl pb-5 ml-10 flex-grow">
-              <div class="text-emerald-700 font-bold text-3xl mt-4 mb-4 flex items-center ml-1">
+            <div class="w-full md:w-8/12 px-4 border-2 border-mainTheme rounded-2xl pb-5 ml-10 flex-grow">
+              <div class="text-mainText font-bold text-3xl mt-4 mb-4 flex items-center ml-1">
                 <img :src="animalNews" alt="animal news" class="w-10 h-10 mr-2">
                 <p>Animal News</p>
               </div>
               <div>
                 <div v-for="(item, index) in paginatedItems" :key="index" class="mb-4">
-                  <div class="border-2 border-emerald-300 p-4 rounded-lg shadow-lg flex">
+                  <div class="border-2 border-mainTheme p-4 rounded-lg shadow-lg flex">
                     <div class="w-full mr-5 flex items-center justify-center">
                       <img :src="item.image" alt="picture" class="w-4/5 h-auto rounded-md">  
                     </div>
@@ -228,9 +228,9 @@
                     :key="page"
                     @click="currentPage = page"
                     :class="{
-                      'px-3 py-1 border-2 border-emerald-300 rounded-full': true,
-                      'bg-emerald-300 text-white': currentPage === page,
-                      'bg-white text-emerald-300': currentPage !== page
+                      'px-3 py-1 border-2 border-mainTheme rounded-full': true,
+                      'bg-mainTheme text-white': currentPage === page,
+                      'bg-white text-mainTheme': currentPage !== page
                     }"
                   >
                     {{ page }}
@@ -242,7 +242,7 @@
         </div>
       </section>
 
-      <section class="pb-4 relative block bg-emerald-300">
+      <section class="pb-4 relative block bg-mainTheme">
         <div
           class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
           style="transform: translateZ(0);"
@@ -257,7 +257,7 @@
             y="0"
           >
             <polygon
-              class="text-emerald-300 fill-current"
+              class="text-mainTheme fill-current"
               points="2560 0 2560 100 0 100"
             ></polygon>
           </svg>
@@ -269,13 +269,13 @@
               <div class="flex mb-5">
                 <img :src="logo" alt="logo" class="w-28 h-auto mr-10">
                 <div>
-                  <h2 class="text-4xl font-semibold text-amber-100">
+                  <h2 class="text-4xl font-semibold text-secondaryMain">
                     Spare a Paw, Share Some Love:
                   </h2>
-                  <span class="inline-block text-4xl font-semibold text-amber-100 mt-2">Donate to Care4Strays!</span>
+                  <span class="inline-block text-4xl font-semibold text-secondaryMain mt-2">Donate to Care4Strays!</span>
                 </div>
               </div>
-              <p class="text-3xl leading-relaxed mt-10 mb-4 text-amber-100 lg:w-9/12">
+              <p class="text-3xl leading-relaxed mt-10 mb-4 text-secondaryMain lg:w-9/12">
                 Together, we're making a meaningful difference in their lives. Thank you for believing in Care4Strays 
               </p>
             </div>
@@ -285,7 +285,7 @@
             <a
               href="https://www.creative-tim.com/learning-lab/tailwind/vue/overview/notus?ref=vn-index"
               target="_blank"
-              class="get-started text-emerald-700 font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-amber-100 active:bg-amber-100 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+              class="get-started text-mainText font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-secondaryMain active:bg-secondaryMain uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
             >
               Donate for Strays 
             </a>

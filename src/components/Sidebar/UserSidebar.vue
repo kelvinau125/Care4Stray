@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="md:left-0 md:block md:fixed md:top-48 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl flex flex-wrap items-center justify-between relative md:w-60 py-4 px-6 bg-teal-100">
+    class="md:left-0 md:block md:fixed md:top-48 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl flex flex-wrap items-center justify-between relative md:w-60 py-4 px-6 bg-third">
     <div
       class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
       <!-- Toggler -->
@@ -58,7 +58,7 @@
             <router-link to="/user/news" v-slot="{ href, navigate, isActive }">
               <a :href="href" @click="navigate" class="text-xs uppercase py-3 font-bold block" :class="[
                 isActive
-                  ? 'text-emerald-700 hover:text-emerald-600'
+                  ? 'text-mainText hover:text-mainText'
                   : 'text-blueGray-700 hover:text-blueGray-500',
               ]">
                 <i class="fas fa-home mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"></i>
@@ -71,7 +71,7 @@
             <router-link to="/user/notification" v-slot="{ href, navigate, isActive }">
               <a :href="href" @click="navigate" class="text-xs uppercase py-3 font-bold block" :class="[
                 isActive
-                  ? 'text-emerald-700 hover:text-emerald-600'
+                  ? 'text-mainText hover:text-mainText'
                   : 'text-blueGray-700 hover:text-blueGray-500',
               ]">
                 <i class="fas fa-bell mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"></i>
@@ -84,7 +84,7 @@
             <router-link to="/user/application" v-slot="{ href, navigate, isActive }">
               <a :href="href" @click="navigate" class="text-xs uppercase py-3 font-bold block" :class="[
                 isActive
-                  ? 'text-emerald-700 hover:text-emerald-600'
+                  ? 'text-mainText hover:text-mainText'
                   : 'text-blueGray-700 hover:text-blueGray-500',
               ]">
                 <i class="fas fa-file mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"></i>

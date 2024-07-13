@@ -3,13 +3,13 @@
     <div class="modal-content">
         <div class="container mx-auto px-4 h-full">
             <div class="flex content-center items-center justify-center h-full">
-                <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-amber-100 border-0">
+                <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-secondaryMain border-0">
                     <div class="rounded-t mb-0 px-6 py-6 flex flex-row">
                         <div class="text-left mb-3">
-                            <h6 class="text-emerald-700 text-3xl font-bold">
+                            <h6 class="text-mainText text-3xl font-bold">
                                 Sign up
                             </h6>
-                            <h3 class="text-emerald-700 text-base font-normal mt-3">Please note that 
+                            <h3 class="text-mainText text-base font-normal mt-3">Please note that 
                                 <span class="underline font-semibold">Volunteer Registration</span> 
                                 is separated.</h3>
                         </div>
@@ -23,7 +23,7 @@
                     <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
                         <form>
                             <div class="relative w-full mb-3 text-left">
-                                <label class="block uppercase text-emerald-700 text-xs font-bold mb-2" for="name">
+                                <label class="block uppercase text-mainText text-xs font-bold mb-2" for="name">
                                     Name
                                 </label>
                                 <input type="text" id="name"
@@ -32,7 +32,7 @@
                             </div>
 
                             <div class="relative w-full mb-3 text-left">
-                                <label class="block uppercase text-emerald-700 text-xs font-bold mb-2" for="email">
+                                <label class="block uppercase text-mainText text-xs font-bold mb-2" for="email">
                                     Email
                                 </label>
                                 <input type="email" id="email"
@@ -41,7 +41,7 @@
                             </div>
 
                             <div class="relative w-full mb-3 text-left">
-                                <label class="block uppercase text-emerald-700 text-xs font-bold mb-2" for="gender">
+                                <label class="block uppercase text-mainText text-xs font-bold mb-2" for="gender">
                                     Gender
                                 </label>
                                 <select id="gender"
@@ -54,7 +54,7 @@
                             </div>
     
                             <div class="relative w-full mb-3 text-left">
-                                <label class="block uppercase text-emerald-700 text-xs font-bold mb-2" for="password">
+                                <label class="block uppercase text-mainText text-xs font-bold mb-2" for="password">
                                     Password
                                 </label>
                                 <input type="password" id="password"
@@ -63,7 +63,7 @@
                             </div>
 
                             <div class="relative w-full mb-3 text-left">
-                                <label class="block uppercase text-emerald-700 text-xs font-bold mb-2" for="confirm-password">
+                                <label class="block uppercase text-mainText text-xs font-bold mb-2" for="confirm-password">
                                     Confirm Password
                                 </label>
                                 <input type="password" id="confirm-password"
@@ -73,7 +73,7 @@
 
                             <div class="text-center mt-6">
                                 <button
-                                    class="bg-emerald-700 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                                    class="bg-mainText text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                                     type="button"
                                     @click=closeRegModal>
                                     Create Account

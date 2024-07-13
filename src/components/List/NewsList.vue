@@ -2,7 +2,7 @@
     <div class="relative w-full flex-grow mb-4">
       <div>
         <div v-for="(item, index) in paginatedItems" :key="index" class="mb-4">
-          <div class="border-2 bg-emerald-300 p-4 rounded-lg shadow-lg flex">
+          <div class="border-2 bg-mainTheme p-4 rounded-lg shadow-lg flex">
             <div class="w-full mr-5 flex items-center justify-center">
               <img :src="item.image" alt="picture" class="w-4/5 h-auto rounded-md">
             </div>
@@ -21,9 +21,9 @@
   
         <div class="flex justify-center space-x-2 mt-6">
           <button v-for="page in totalPages" :key="page" @click="goToPage(page)" :class="{
-            'px-3 py-1 border-2 border-emerald-300 rounded-full': true,
-            'bg-emerald-300 text-white': currentPage === page,
-            'bg-white text-emerald-300': currentPage !== page
+            'px-3 py-1 border-2 border-mainTheme rounded-full': true,
+            'bg-mainTheme text-white': currentPage === page,
+            'bg-white text-mainTheme': currentPage !== page
           }">
             {{ page }}
           </button>
