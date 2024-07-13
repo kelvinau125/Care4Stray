@@ -41,7 +41,7 @@
           </li>
 
           <li class="items-center">
-            <router-link to="/user/application" v-slot="{ href, navigate, isActive }">
+            <router-link to="/user/adoption" v-slot="{ href, navigate, isActive }">
               <a :href="href" @click="navigate" class="text-sm uppercase pt-3 font-semibold block" :class="[
                 isActive
                   ? 'text-mainText hover:text-mainText font-black'

@@ -34,15 +34,23 @@
         </div>
       </div>
     </div>
-    <div class="flex items-center">
+    <div class="flex items-center justify-between">
       <button @click="likePost">
         <i :class="['text-2xl', post.isliked ? 'fas fa-heart text-red-500' : 'far fa-heart text-mainText']"></i>
       </button>
+
+      <div class="flex space-x-2" v-if="isAdoptionRoute">
+        <span class="material-icons"><img :src="vaccine" alt="vaccine" class="w-8 h-8 p-1"></span>
+        <span class="material-icons"><img :src="worm" alt="warm" class="w-8 h-8 p-1"></span>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import vaccine from "@/assets/img/tabler_vaccine.png";
+import worm from "@/assets/img/contrast_worm.png";
+
 export default {
   name: "PostComponent",
   props: {
@@ -53,6 +61,9 @@ export default {
   },
   data() {
     return {
+      vaccine,
+      worm,
+
       containerWidth: 0,
       imageWidth: 128, // 32 (width) + 16 (margin-right)
     };
@@ -65,6 +76,10 @@ export default {
     remainingImages() {
       const imagesPerRow = Math.floor(this.containerWidth / this.imageWidth);
       return this.post.images.length - imagesPerRow;
+    },
+
+    isAdoptionRoute() {
+      return this.$route.path.includes('/user/adoption');
     },
   },
   mounted() {

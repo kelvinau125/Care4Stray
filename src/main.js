@@ -32,7 +32,7 @@ import RegisterModal from "@/views/auth/RegisterModal.vue";
 
 import News from "@/views/user/News.vue";
 import NearMe from "@/views/user/NearMe.vue";
-import AdoptionStatus from "@/views/user/AdoptionStatus.vue";
+import Adoption from "@/views/user/Adoption.vue";
 
 // views without layouts
 
@@ -100,8 +100,8 @@ const routes = [
         component: NearMe,
       },
       {
-        path: "/user/adoptionstatus",
-        component: AdoptionStatus,
+        path: "/user/adoption",
+        component: Adoption,
       },
       {
         path: "/user/maps",
