@@ -4,7 +4,7 @@
         <div v-for="(item, index) in paginatedItems" :key="index" class="mb-4">
           <div class="border-2 bg-mainTheme p-4 rounded-lg shadow-lg flex">
             <div class="w-full mr-5 flex items-center justify-center">
-              <img :src="item.image" alt="picture" class="w-4/5 h-auto rounded-md">
+              <img :src="item.image" alt="picture" class="md:w-4/5 xl:w-5/12 md:h-auto rounded-md">
             </div>
             <div class="flex flex-col justify-between">
               <div>

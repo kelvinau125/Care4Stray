@@ -7,6 +7,149 @@ Document
 ========
 */
 
+/* 
+Customize Colour 
+*/
+
+/* Secondary Main */
+.bg-secondaryMain {
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 248, 229, var(--tw-bg-opacity));
+}
+
+.text-secondaryMain {
+  --tw-text-opacity: 1;
+  color: rgba(255, 248, 229, var(--tw-text-opacity));
+}
+
+.border-secondaryMain {
+  --tw-border-opacity: 1;
+  border-color: rgba(255, 248, 229, var(--tw-border-opacity));
+}
+
+/* Main Theme */
+.bg-mainTheme {
+  --tw-bg-opacity: 1;
+  background-color: rgba(184, 198, 162, var(--tw-bg-opacity));
+}
+
+.text-mainTheme {
+  --tw-text-opacity: 1;
+  color: rgba(184, 198, 162, var(--tw-text-opacity));
+}
+
+.border-mainTheme {
+  --tw-border-opacity: 1;
+  border-color: rgba(184, 198, 162, var(--tw-border-opacity));
+}
+
+/* Main Text */
+.bg-mainText {
+  --tw-bg-opacity: 1;
+  background-color: rgba(42, 82, 44, var(--tw-bg-opacity));
+}
+
+.text-mainText {
+  --tw-text-opacity: 1;
+  color: rgba(42, 82, 44, var(--tw-text-opacity));
+}
+
+.border-mainText {
+  --tw-border-opacity: 1;
+  border-color: rgba(42, 82, 44, var(--tw-border-opacity));
+}
+
+.hover\:text-mainText:hover {
+  --tw-text-opacity: 1;
+  color: rgba(41, 52, 26, var(--tw-text-opacity));
+}
+
+/* Main Button */
+.bg-mainButton {
+  --tw-bg-opacity: 1;
+  background-color: rgba(30, 77, 32, var(--tw-bg-opacity));
+}
+
+.text-mainButton {
+  --tw-text-opacity: 1;
+  color: rgba(30, 77, 32, var(--tw-text-opacity));
+}
+
+.border-mainButton {
+  --tw-border-opacity: 1;
+  border-color: rgba(30, 77, 32, var(--tw-border-opacity));
+}
+
+/* Third Text */
+.bg-thirdText {
+  --tw-bg-opacity: 0.5;
+  background-color: rgba(30, 77, 32, var(--tw-bg-opacity));
+}
+
+.text-thirdText {
+  --tw-text-opacity: 0.5;
+  color: rgba(30, 77, 32, var(--tw-text-opacity));
+}
+
+.border-thirdText {
+  --tw-border-opacity: 0.5;
+  border-color: rgba(30, 77, 32, var(--tw-border-opacity));
+}
+
+.hover\:text-thirdText:hover {
+  --tw-text-opacity: 0.5;
+  color: rgba(30, 77, 32, var(--tw-text-opacity));
+}
+
+/* Second */
+.bg-secondTheme {
+  --tw-bg-opacity: 1;
+  background-color: rgba(220, 226, 208, var(--tw-bg-opacity));
+}
+
+.text-secondTheme {
+  --tw-text-opacity: 1;
+  color: rgba(220, 226, 208, var(--tw-text-opacity));
+}
+
+.border-secondTheme {
+  --tw-border-opacity: 1;
+  border-color: rgba(220, 226, 208,  var(--tw-border-opacity));
+}
+
+/* Third */
+.bg-third {
+  --tw-bg-opacity: 0.2;
+  background-color: rgba(184, 198, 162, var(--tw-bg-opacity));
+}
+
+.text-third {
+  --tw-text-opacity: 0.2;
+  color: rgba(184, 198, 162, var(--tw-text-opacity));
+}
+
+.border-third {
+  --tw-border-opacity: 0.2;
+  border-color: rgba(184, 198, 162, var(--tw-border-opacity));
+}
+
+/* Warning */
+.bg-warning {
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 37, 37, var(--tw-bg-opacity));
+}
+
+.text-warning {
+  --tw-text-opacity: 1;
+  color: rgba(255, 37, 37, var(--tw-text-opacity));
+}
+
+.border-warning {
+  --tw-border-opacity: 1;
+  border-color: rgba(255, 37, 37, var(--tw-border-opacity));
+}
+
+
 /**
 Use a better box model (opinionated).
 */
@@ -1485,6 +1628,10 @@ select {
   background-image: none;
 }
 
+.bg-opacity-75 {
+  --tw-bg-opacity: 0.75;
+}
+
 .bg-center {
   background-position: center;
 }
@@ -2199,10 +2346,6 @@ select {
 
 .h-24 {
   height: 6rem;
-}
-
-.h-32 {
-  height: 8rem;
 }
 
 .h-72 {
@@ -3091,6 +3234,13 @@ select {
   position: sticky;
 }
 
+.inset-0 {
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
 .top-0 {
   top: 0px;
 }
@@ -3369,11 +3519,6 @@ select {
   color: rgba(79, 70, 229, var(--tw-text-opacity));
 }
 
-.text-blue-500 {
-  --tw-text-opacity: 1;
-  color: rgba(59, 130, 246, var(--tw-text-opacity));
-}
-
 .text-lightBlue-400 {
   --tw-text-opacity: 1;
   color: rgba(56, 189, 248, var(--tw-text-opacity));
@@ -3472,11 +3617,6 @@ select {
 .text-blueGray-700 {
   --tw-text-opacity: 1;
   color: rgba(51, 65, 85, var(--tw-text-opacity));
-}
-
-.hover\:text-blue-700:hover {
-  --tw-text-opacity: 1;
-  color: rgba(29, 78, 216, var(--tw-text-opacity));
 }
 
 .hover\:text-emerald-600:hover {
@@ -4062,6 +4202,10 @@ select {
             flex-grow: 1;
   }
 
+  .md\:h-auto {
+    height: auto;
+  }
+
   .md\:h-full {
     height: 100%;
   }
@@ -4208,6 +4352,10 @@ select {
 
   .md\:w-64 {
     width: 16rem;
+  }
+
+  .md\:w-4\/5 {
+    width: 80%;
   }
 
   .md\:w-4\/12 {
@@ -4405,6 +4553,10 @@ select {
 
   .xl\:w-4\/12 {
     width: 33.333333%;
+  }
+
+  .xl\:w-5\/12 {
+    width: 41.666667%;
   }
 
   .xl\:w-6\/12 {
