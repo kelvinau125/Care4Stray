@@ -30,8 +30,9 @@ import RegisterModal from "@/views/auth/RegisterModal.vue";
 
 // views for User layout
 
-import AdoptionStatus from "@/views/user/AdoptionStatus.vue";
 import News from "@/views/user/News.vue";
+import NearMe from "@/views/user/NearMe.vue";
+import AdoptionStatus from "@/views/user/AdoptionStatus.vue";
 
 // views without layouts
 
@@ -91,16 +92,16 @@ const routes = [
     component: User,
     children: [
       {
-        path: "/user/adoptionstatus",
-        component: AdoptionStatus,
-      },
-      {
         path: "/user/news",
         component: News,
       },
       {
-        path: "/user/tables",
-        component: Tables,
+        path: "/user/nearme",
+        component: NearMe,
+      },
+      {
+        path: "/user/adoptionstatus",
+        component: AdoptionStatus,
       },
       {
         path: "/user/maps",
