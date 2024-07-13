@@ -55,13 +55,14 @@
         <!-- Navigation -->
         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
           <li class="items-center">
-            <router-link to="/user/news" v-slot="{ href, navigate, isActive }">
-              <a :href="href" @click="navigate" class="text-xs uppercase py-3 font-bold block" :class="[
-                isActive
-                  ? 'text-mainText hover:text-mainText'
-                  : 'text-blueGray-700 hover:text-blueGray-500',
-              ]">
-                <i class="fas fa-home mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"></i>
+            <router-link
+              to="/user/news"
+              v-slot="{ href, navigate }"
+              :class="['text-xs uppercase py-3 font-bold block', isLinkActive ? 'text-mainText hover:text-mainText' : 'text-blueGray-700 hover:text-blueGray-500']"
+              @click.native="navigate"
+            >
+              <a :href="href">
+                <i class="fas fa-home mr-2 text-sm" :class="[isLinkActive ? 'opacity-75' : 'text-blueGray-300']"></i>
                 Home
               </a>
             </router-link>
@@ -120,6 +121,15 @@ export default {
   components: {
     NotificationDropdown,
     UserDropdown,
+  },
+  computed: {
+    isLinkActive() {
+      return (
+        this.$route.path === '/user/news' ||
+        this.$route.path === '/user/nearme' ||
+        this.$route.path === '/user/adoption'
+      );
+    },
   },
 };
 </script>
