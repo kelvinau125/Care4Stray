@@ -2348,6 +2348,10 @@ select {
   height: 6rem;
 }
 
+.h-32 {
+  height: 8rem;
+}
+
 .h-72 {
   height: 18rem;
 }
@@ -3064,12 +3068,20 @@ select {
   padding-top: 0.5rem;
 }
 
+.pb-2 {
+  padding-bottom: 0.5rem;
+}
+
 .pt-3 {
   padding-top: 0.75rem;
 }
 
 .pl-3 {
   padding-left: 0.75rem;
+}
+
+.pt-4 {
+  padding-top: 1rem;
 }
 
 .pr-4 {
@@ -3154,6 +3166,31 @@ select {
 
 .pb-64 {
   padding-bottom: 16rem;
+}
+
+.placeholder-black::-webkit-input-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgba(0, 0, 0, var(--tw-placeholder-opacity));
+}
+
+.placeholder-black::-moz-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgba(0, 0, 0, var(--tw-placeholder-opacity));
+}
+
+.placeholder-black:-ms-input-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgba(0, 0, 0, var(--tw-placeholder-opacity));
+}
+
+.placeholder-black::-ms-input-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgba(0, 0, 0, var(--tw-placeholder-opacity));
+}
+
+.placeholder-black::placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgba(0, 0, 0, var(--tw-placeholder-opacity));
 }
 
 .placeholder-blueGray-300::-webkit-input-placeholder {
@@ -4145,6 +4182,11 @@ select {
 }
 
 @media (min-width: 768px) {
+  .md\:bg-third {
+    --tw-bg-opacity: 0.2;
+    background-color: rgba(184, 198, 162, var(--tw-bg-opacity));
+  }
+    
   .md\:block {
     display: block;
   }
