@@ -1,5 +1,5 @@
 <template>
-    <div class="donor-list overflow-hidden h-72 relative">
+    <div class="donor-list overflow-hidden h-96 relative border-2">
       <transition-group name="cycle" tag="div" class="donor-container flex flex-col">
         <div v-for="donor in visibleDonors" :key="donor.id" class="donor-item py-2 text-center text-base text-mainButton">
           {{ donor.name }}

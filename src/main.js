@@ -33,6 +33,7 @@ import RegisterModal from "@/views/auth/RegisterModal.vue";
 import News from "@/views/user/News.vue";
 import NearMe from "@/views/user/NearMe.vue";
 import Adoption from "@/views/user/Adoption.vue";
+import notification from "@/views/user/Notification.vue";
 
 // views without layouts
 
@@ -104,8 +105,8 @@ const routes = [
         component: Adoption,
       },
       {
-        path: "/user/maps",
-        component: Maps,
+        path: "/user/notification",
+        component: notification,
       },
     ],
   },
