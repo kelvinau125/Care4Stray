@@ -8,8 +8,8 @@
           </span>
 
           <div class="flex flex-col gap-1">
-            <span class="text-emerald-700 text-sm font-bold">@Username1</span>
-            <span class="text-emerald-200 text-xs">uid: 60166683519</span>
+            <span class="text-emerald-700 text-sm font-bold">@ {{ username }}</span>
+            <span class="text-emerald-200 text-xs">uid: {{ user_id }}</span>
           </div>
         </div>
 
@@ -52,6 +52,8 @@ export default {
     return {
       dropdownPopoverShow: false,
       image: image,
+      username: "Username1",
+      user_id: "abc@gmail.com",
     };
   },
   methods: {
@@ -62,7 +64,7 @@ export default {
       } else {
         this.dropdownPopoverShow = true;
         createPopper(this.$refs.btnDropdownRef, this.$refs.popoverDropdownRef, {
-          placement: "bottom-start",
+          placement: "top-start",
         });
       }
     },

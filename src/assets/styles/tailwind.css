@@ -2207,8 +2207,8 @@ select {
   height: 6rem;
 }
 
-.h-56 {
-  height: 14rem;
+.h-72 {
+  height: 18rem;
 }
 
 .h-auto {
@@ -4003,6 +4003,11 @@ select {
 }
 
 @media (min-width: 768px) {
+  .md\:bg-teal-100 {
+    --tw-bg-opacity: 1;
+    background-color: rgba(204, 251, 241, var(--tw-bg-opacity));
+  }
+
   .md\:block {
     display: block;
   }

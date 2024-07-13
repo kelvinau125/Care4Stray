@@ -1,7 +1,7 @@
 <template>
   <!-- Navbar -->
   <nav
-    class="z-50 top-0 left-0 fixed md:top-16 w-full bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4 bg-emerald-300">
+    class="z-10 top-0 left-0 fixed md:top-16 w-full bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4 bg-emerald-300">
     <div class="w-full mx-auto items-center flex flex-col justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
       <!-- Form -->
       <form class="w-8/12 flex flex-row flex-wrap items-center mr-3 md:mb-0">
