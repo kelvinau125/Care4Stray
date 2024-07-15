@@ -2,7 +2,7 @@
     <div>
         <EditApplicationModal :showModal="isModalVisible" :closeModal="closeModal" />
         <CancelApplicationModal :showModal="isCancelModalVisible" :closeModal="closeCancelModal" />
-        
+
         <div class="border border-gray-300 mb-4 rounded-lg">
             <div class="flex items-start p-4 space-x-4">
                 <img :src="application.image" alt="Application Image"
@@ -38,13 +38,11 @@
 
                         <div ref="popoverRef" v-bind:class="{ 'hidden': !popoverShow, 'block': popoverShow }"
                             class="bg-mainTheme border-0 mr-3 block z-50 font-normal leading-normal text-sm max-w-xs text-left no-underline break-words rounded-lg">
-                            <button href="javascript:void(0);"
-                                @click="this.showCancelModal"
+                            <button href="javascript:void(0);" @click="showCancelModal"
                                 class="text-sm py-2 px-4 font-normal w-full whitespace-nowrap bg-transparent text-blueGray-700 flex items-center">
                                 <i class="fas fa-times text-mainText text-lg mr-2"></i> Cancel Application
                             </button>
-                            <button href="javascript:void(0);"
-                                @click="this.showModal"
+                            <button href="javascript:void(0);" @click="showModal"
                                 class="text-sm py-2 px-4 font-normal w-full whitespace-nowrap bg-transparent text-blueGray-700 flex items-center">
                                 <i class="fas fa-edit text-mainText text-base mr-1"></i> Edit Application
                             </button>
@@ -56,12 +54,12 @@
 
             <div class="flex p-4 space-x-4">
                 <div
-                    class="w-32 flex justify-center items-center bg-secondaryMain border-4 text-mainText font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                    class="w-32 flex justify-center items-center bg-secondaryMain border-2 text-mainText font-bold uppercase text-xs px-4 py-1 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
                     <img :src="vaccine" alt="vaccine" class="w-8 h-8 p-1" />Vaccinated
                 </div>
 
                 <div
-                    class="w-32 flex justify-center items-center border-mainTheme border-4 bg-secondaryMain text-mainText font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                    class="w-32 flex justify-center items-center border-mainTheme border-2 bg-secondaryMain text-mainText font-bold uppercase text-xs px-4 py-1 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
                     <img :src="worm" alt="worm" class="w-8 h-8 p-1" />Deworm
                 </div>
             </div>
@@ -89,6 +87,7 @@
                                     </label>
                                     <input type="text" id="first-name"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        :class="{ 'disabled-bg': isEdit }" :readonly="isEdit"
                                         v-model="adopter.firstName" />
                                 </div>
                             </div>
@@ -100,6 +99,7 @@
                                     </label>
                                     <input type="text" id="last-name"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        :class="{ 'disabled-bg': isEdit }" :readonly="isEdit"
                                         v-model="adopter.lastName" />
                                 </div>
                             </div>
@@ -111,6 +111,7 @@
                                     </label>
                                     <input type="date" id="date-of-birth"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        :class="{ 'disabled-bg': isEdit }" :disabled="isEdit"
                                         v-model="adopter.dateOfBirth" />
                                 </div>
                             </div>
@@ -122,7 +123,7 @@
                                     </label>
                                     <select id="gender"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        v-model="adopter.gender">
+                                        :class="{ 'disabled-bg': isEdit }" :disabled="isEdit" v-model="adopter.gender">
                                         <option value="">Select Gender</option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
@@ -138,6 +139,7 @@
                                     </label>
                                     <input type="text" id="phone-number"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        :class="{ 'disabled-bg': isEdit }" :readonly="isEdit"
                                         v-model="adopter.phoneNumber" />
                                 </div>
                             </div>
@@ -157,6 +159,7 @@
                                     </label>
                                     <input type="text" id="address"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        :class="{ 'disabled-bg': isEdit }" :readonly="isEdit"
                                         v-model="adopter.address" />
                                 </div>
                             </div>
@@ -167,7 +170,7 @@
                                     </label>
                                     <input type="text" id="city"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        v-model="adopter.city" />
+                                        :class="{ 'disabled-bg': isEdit }" :readonly="isEdit" v-model="adopter.city" />
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -177,7 +180,7 @@
                                     </label>
                                     <select id="state"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        v-model="adopter.state">
+                                        :class="{ 'disabled-bg': isEdit }" :disabled="isEdit" v-model="adopter.state">
                                         <option value="">Select State / Province</option>
                                         <option value="johor">Johor</option>
                                         <option value="kedah">Kedah</option>
@@ -206,6 +209,7 @@
                                     </label>
                                     <input type="text" id="postal-code"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        :class="{ 'disabled-bg': isEdit }" :readonly="isEdit"
                                         v-model="adopter.postalCode" />
                                 </div>
                             </div>
@@ -225,6 +229,7 @@
                                     </label>
                                     <select id="occupation"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        :class="{ 'disabled-bg': isEdit }" :disabled="isEdit"
                                         v-model="adopter.occupation">
                                         <option value="">Select Occupation Category</option>
                                         <option value="administrativeSupport">Administrative Support</option>
@@ -299,6 +304,8 @@ export default {
             isModalVisible: ref(false),
             isCancelModalVisible: ref(false),
 
+            isEdit: false,
+
             application: {
                 id: 1,
                 image: require('@/assets/img/team-1-800x800.jpg').default,
@@ -371,7 +378,7 @@ export default {
             const button = this.$refs.btnRef;
             if (popover && !popover.contains(event.target) && button && !button.contains(event.target)) {
                 this.hidePopover();
-            }  else if (popover && popover.contains(event.target)) {
+            } else if (popover && popover.contains(event.target)) {
                 this.hidePopover();
             }
         },
@@ -392,3 +399,10 @@ export default {
 
 };
 </script>
+
+<style scoped>
+.disabled-bg {
+    background-color: rgba(220, 226, 208, 1);
+    opacity: 0.5;
+}
+</style>

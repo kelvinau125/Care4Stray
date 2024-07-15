@@ -149,6 +149,7 @@ Customize Colour
   border-color: rgba(255, 37, 37, var(--tw-border-opacity));
 }
 
+
 /**
 Use a better box model (opinionated).
 */
@@ -1839,6 +1840,10 @@ select {
   border-width: 2px;
 }
 
+.border-4 {
+  border-width: 4px;
+}
+
 .border {
   border-width: 1px;
 }
@@ -3085,12 +3090,12 @@ select {
   padding-bottom: 0.5rem;
 }
 
-.pb-3 {
-  padding-bottom: 0.75rem;
-}
-
 .pt-3 {
   padding-top: 0.75rem;
+}
+
+.pb-3 {
+  padding-bottom: 0.75rem;
 }
 
 .pl-3 {
@@ -3934,10 +3939,6 @@ select {
   width: 8rem;
 }
 
-.w-40 {
-  width: 10rem;
-}
-
 .w-auto {
   width: auto;
 }
@@ -4217,11 +4218,6 @@ select {
 }
 
 @media (min-width: 768px) {
-  .md\:bg-third {
-    --tw-bg-opacity: 0.2;
-    background-color: rgba(184, 198, 162, var(--tw-bg-opacity));
-  }
-
   .md\:block {
     display: block;
   }
