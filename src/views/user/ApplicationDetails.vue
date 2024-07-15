@@ -1,10 +1,10 @@
 <template>
     <div class="border border-gray-300 mb-4 rounded-lg">
-        <div class="flex items-center p-4 space-x-4">
+        <div class="flex items-start p-4 space-x-4">
             <img :src="application.image" alt="Application Image" class="md:w-4/12 xl:w-3/12 md:h-auto rounded-lg" />
             <div class="flex-1">
                 <div class="flex justify-between">
-                    <div class="items-center">
+                    <div class="items-center space-y-1">
                         <p><strong>Name:</strong> {{ application.name }}</p>
                         <p><strong>Gender:</strong> {{ application.gender }}</p>
                         <p><strong>Age:</strong> {{ application.age }} months</p>
