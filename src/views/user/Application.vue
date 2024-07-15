@@ -13,7 +13,7 @@
               <p><strong>Gender:</strong> {{ application.gender }}</p>
               <p><strong>Age:</strong> {{ application.age }} months</p>
               <p><strong>Behavior:</strong></p>
-              <ul class="list-disc pl-10">
+              <ul class="list-disc pl-20">
                 <li v-for="behavior in application.behaviors" :key="behavior">{{ behavior }}</li>
               </ul>
               <p><strong>Application Date:</strong> {{ application.date }}</p>

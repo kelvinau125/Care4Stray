@@ -3,7 +3,8 @@
     <a class="text-blueGray-500 block" href="#pablo" ref="btnDropdownRef" v-on:click="toggleDropdown($event)">
       <div class="items-center flex justify-between">
         <div class="flex flex-row items-center justify-center gap-3">
-          <span class="w-10 h-10 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full">
+          <span
+            class="w-10 h-10 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full">
             <img alt="..." class="w-full rounded-full align-middle border-none shadow-lg" :src="image" />
           </span>
 
@@ -13,9 +14,10 @@
           </div>
         </div>
 
-        <i class="fas fa-ellipsis-v text-mainText text-xl"></i>        
-      </div>   
+        <i class="fas fa-ellipsis-v text-mainText text-xl"></i>
+      </div>
     </a>
+
     <div ref="popoverDropdownRef"
       class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48" v-bind:class="{
         hidden: !dropdownPopoverShow,
@@ -60,14 +62,29 @@ export default {
     toggleDropdown: function (event) {
       event.preventDefault();
       if (this.dropdownPopoverShow) {
-        this.dropdownPopoverShow = false;
+        this.hideDropdown();
       } else {
-        this.dropdownPopoverShow = true;
-        createPopper(this.$refs.btnDropdownRef, this.$refs.popoverDropdownRef, {
-          placement: "top-start",
-        });
+        this.showDropdown();
       }
     },
-  },
+    showDropdown: function () {
+      this.dropdownPopoverShow = true;
+      createPopper(this.$refs.btnDropdownRef, this.$refs.popoverDropdownRef, {
+        placement: "top-start",
+      });
+      document.addEventListener('click', this.handleClickOutsideDropdown);
+    },
+    hideDropdown: function () {
+      this.dropdownPopoverShow = false;
+      document.removeEventListener('click', this.handleClickOutsideDropdown);
+    },
+    handleClickOutsideDropdown: function (event) {
+      const dropdown = this.$refs.popoverDropdownRef;
+      const button = this.$refs.btnDropdownRef;
+      if (dropdown && !dropdown.contains(event.target) && button && !button.contains(event.target)) {
+        this.hideDropdown();
+      }
+    }
+  }
 };
 </script>
