@@ -1,19 +1,23 @@
 <template>
   <div>
     <auth-navbar />
-    <user-navbar />
+    <user-navbar v-if="!isApplicationDetailsRoute"/>
+    
     <div class="flex flex-col md:flex-row">
       <!-- User Sidebar -->
       <div class="w-full md:w-60 fixed md:fixed left-0 top-0 md:h-full">
-        <user-sidebar />
+        <user-sidebar :class="[isApplicationDetailsRoute ? 'md:top-16' : 'md:top-48']" />
       </div>
 
       <!-- Main Content and Donation Sidebar Container -->
-      <div class="flex flex-col md:flex-row flex-grow ml-0 md:ml-60 md:pt-48">
+      <div class="flex flex-col md:flex-row flex-grow ml-0 md:ml-60" :class="[isApplicationDetailsRoute ? 'md:pt-16' : 'md:pt-48']">
         <!-- Main Content -->
-        <div class="w-full md:flex-grow bg-white px-4 md:px-10 mx-auto md:pt-4 relative">
-          <router-view />
-          <footer-admin />
+        <div>
+          <user-header v-if="isApplicationDetailsRoute" />
+          <div class="w-full md:flex-grow bg-white px-4 md:px-10 mx-auto md:pt-4 relative">
+            <router-view />
+            <footer-admin />
+          </div>
         </div>
 
         <!-- Donation Sidebar -->
@@ -31,6 +35,7 @@ import AuthNavbar from "@/components/Navbars/AuthNavbar.vue";
 import UserSidebar from "@/components/Sidebar/UserSidebar.vue";
 import DonationSidebar from "@/components/Sidebar/DonationSidebar.vue";
 import FooterAdmin from "@/components/Footers/FooterAdmin.vue";
+import UserHeader from "@/components/Headers/UserHeader.vue";
 
 export default {
   name: "UserLayout",
@@ -40,6 +45,12 @@ export default {
     UserSidebar,
     DonationSidebar,
     FooterAdmin,
+    UserHeader,
+  },
+  computed: {
+    isApplicationDetailsRoute() {
+      return this.$route.path.includes('/applicationdetails')
+    },
   },
 };
 </script>

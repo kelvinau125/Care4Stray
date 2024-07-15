@@ -1,5 +1,5 @@
 <template>
-<div class="modal" v-show="showRegModal" @keyup.esc="closeRegModal">
+<div class="modal overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex" v-show="showRegModal" @keyup.esc="closeRegModal">
     <div class="modal-content">
         <div class="container mx-auto px-4 h-full">
             <div class="flex content-center items-center justify-center h-full">
@@ -130,17 +130,7 @@ export default {
 
 <style scoped>
 .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    z-index: 1000;
 }
 
 /* .modal-content {

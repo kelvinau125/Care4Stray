@@ -1758,6 +1758,10 @@ select {
   border-radius: 0.5rem;
 }
 
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
 .rounded-2xl {
   border-radius: 1rem;
 }
@@ -3081,6 +3085,10 @@ select {
   padding-bottom: 0.5rem;
 }
 
+.pb-3 {
+  padding-bottom: 0.75rem;
+}
+
 .pt-3 {
   padding-top: 0.75rem;
 }
@@ -4209,6 +4217,11 @@ select {
 }
 
 @media (min-width: 768px) {
+  .md\:bg-third {
+    --tw-bg-opacity: 0.2;
+    background-color: rgba(184, 198, 162, var(--tw-bg-opacity));
+  }
+
   .md\:block {
     display: block;
   }
@@ -4358,6 +4371,10 @@ select {
 
   .md\:pr-12 {
     padding-right: 3rem;
+  }
+
+  .md\:pt-16 {
+    padding-top: 4rem;
   }
 
   .md\:pt-32 {

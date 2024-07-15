@@ -67,6 +67,7 @@ export default {
         this.showDropdown();
       }
     },
+
     showDropdown: function () {
       this.dropdownPopoverShow = true;
       createPopper(this.$refs.btnDropdownRef, this.$refs.popoverDropdownRef, {
@@ -74,14 +75,19 @@ export default {
       });
       document.addEventListener('click', this.handleClickOutsideDropdown);
     },
+
     hideDropdown: function () {
       this.dropdownPopoverShow = false;
       document.removeEventListener('click', this.handleClickOutsideDropdown);
     },
+
     handleClickOutsideDropdown: function (event) {
       const dropdown = this.$refs.popoverDropdownRef;
       const button = this.$refs.btnDropdownRef;
       if (dropdown && !dropdown.contains(event.target) && button && !button.contains(event.target)) {
+        this.hideDropdown();
+      }
+      else if (dropdown && dropdown.contains(event.target)) {
         this.hideDropdown();
       }
     }
