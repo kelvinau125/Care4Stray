@@ -35,6 +35,7 @@ import NearMe from "@/views/user/NearMe.vue";
 import Adoption from "@/views/user/Adoption.vue";
 import notification from "@/views/user/Notification.vue";
 import application from "@/views/user/Application.vue";
+import applicationdetails from "@/views/user/ApplicationDetails.vue";
 
 // views without layouts
 
@@ -112,6 +113,10 @@ const routes = [
       {
         path: "/user/application",
         component: application,
+      },
+      {
+        path: "/user/applicationdetails",
+        component: applicationdetails,
       },
     ],
   },
