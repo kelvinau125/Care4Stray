@@ -53,7 +53,8 @@ export default {
   computed: {
     isApplicationDetailsRoute() {
       return this.$route.path.includes('/applicationdetails') ||
-      this.$route.path.includes('/editapplicationdetails') 
+      this.$route.path.includes('/editapplicationdetails')  ||
+      this.$route.path.includes('/createapplication')
     },
     isPostApplicationDetailsRoute() {
       return this.$route.path.includes('/postdetails')

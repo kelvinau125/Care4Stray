@@ -3,56 +3,43 @@
         <EditApplicationModal :showModal="isModalVisible" :closeModal="closeModal" />
         <CancelApplicationModal :showModal="isCancelModalVisible" :closeModal="closeCancelModal" />
 
-        <div class="border border-gray-300 mb-4 rounded-lg">
-            <div class="flex items-start p-4 space-x-4">
-                <img :src="application.image" alt="Application Image"
-                    class="md:w-4/12 xl:w-3/12 md:h-auto rounded-lg" />
-                <div class="flex-1">
-                    <div class="flex justify-between">
-                        <div class="items-center space-y-1">
-                            <p><strong>Name:</strong> {{ application.name }}</p>
-                            <p><strong>Gender:</strong> {{ application.gender }}</p>
-                            <p><strong>Age:</strong> {{ application.age }} months</p>
-                            <p><strong>Behavior:</strong></p>
-                            <ul class="list-disc pl-20">
-                                <li v-for="behavior in application.behaviors" :key="behavior">{{ behavior }}</li>
-                            </ul>
-                            <p><strong>Application Date:</strong> {{ application.date }}</p>
-                            <p>
-                                <strong>Application Status: </strong>
-                                <span :class="{
-                                    'text-yellow-500': application.status === 'Pending',
-                                    'text-red-500': application.status === 'Failed',
-                                    'text-green-500': application.status === 'Approved',
-                                }">
-                                    {{ application.status }}
-                                </span>
-                            </p>
+        <div class="mb-4">
+            <div class="flex flex-col items-start p-4 space-x-4 border border-gray-300 rounded-lg">
+                <div>
+                    <p class="text-blueGray-700 text-xl font-bold px-4">Animal’s Information</p>
+                </div>
+
+                <div class="flex flex-row py-4 space-x-4">
+                    <img :src="application.image" alt="Application Image"
+                        class="md:w-5/12 xl:w-3/12 md:h-auto rounded-lg" />
+                    <div class="flex-1">
+                        <div class="flex justify-between">
+                            <div class="items-center space-y-1">
+                                <p><strong>Name:</strong> {{ application.name }}</p>
+                                <p><strong>Gender:</strong> {{ application.gender }}</p>
+                                <p><strong>Age:</strong> {{ application.age }} months</p>
+                                <p><strong>Behavior:</strong></p>
+                                <ul class="list-disc pl-20">
+                                    <li v-for="behavior in application.behaviors" :key="behavior">{{ behavior }}</li>
+                                </ul>
+                            </div>
+
+                            <div ref="popoverRef" v-bind:class="{ 'hidden': !popoverShow, 'block': popoverShow }"
+                                class="bg-mainTheme border-0 mr-3 block z-50 font-normal leading-normal text-sm max-w-xs text-left no-underline break-words rounded-lg">
+                                <button href="javascript:void(0);" @click="showCancelModal"
+                                    class="text-sm py-2 px-4 font-normal w-full whitespace-nowrap bg-transparent text-blueGray-700 flex items-center">
+                                    <i class="fas fa-times text-mainText text-lg mr-2"></i> Cancel Application
+                                </button>
+                                <button href="javascript:void(0);" @click="showModal"
+                                    class="text-sm py-2 px-4 font-normal w-full whitespace-nowrap bg-transparent text-blueGray-700 flex items-center">
+                                    <i class="fas fa-edit text-mainText text-base mr-1"></i> Edit Application
+                                </button>
+                            </div>
+
                         </div>
-
-                        <button v-if="isEdit" ref="btnRef" v-on:click="togglePopover()"
-                            class="flex items-start hover:text-mainText outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 h-8"
-                            type="button">
-                            <i class="fas fa-ellipsis-v text-mainText text-xl"></i>
-                        </button>
-
-                        <div ref="popoverRef" v-bind:class="{ 'hidden': !popoverShow, 'block': popoverShow }"
-                            class="bg-mainTheme border-0 mr-3 block z-50 font-normal leading-normal text-sm max-w-xs text-left no-underline break-words rounded-lg">
-                            <button href="javascript:void(0);" @click="showCancelModal"
-                                class="text-sm py-2 px-4 font-normal w-full whitespace-nowrap bg-transparent text-blueGray-700 flex items-center">
-                                <i class="fas fa-times text-mainText text-lg mr-2"></i> Cancel Application
-                            </button>
-                            <button href="javascript:void(0);" @click="showModal"
-                                class="text-sm py-2 px-4 font-normal w-full whitespace-nowrap bg-transparent text-blueGray-700 flex items-center">
-                                <i class="fas fa-edit text-mainText text-base mr-1"></i> Edit Application
-                            </button>
-                        </div>
-
                     </div>
                 </div>
-            </div>
-
-            <div class="flex p-4 space-x-4">
+                <div class="flex pt-2 space-x-4">
                 <div
                     class="w-32 flex justify-center items-center bg-secondaryMain border-mainTheme border-2 text-mainText font-bold uppercase text-xs px-4 py-1 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
                     <img :src="vaccine" alt="vaccine" class="w-8 h-8 p-1" />Vaccinated
@@ -63,6 +50,9 @@
                     <img :src="worm" alt="worm" class="w-8 h-8 p-1" />Deworm
                 </div>
             </div>
+            </div>
+
+
 
             <div class="p-4 flex flex-col min-w-0 break-words w-full mb-4">
                 <div class="rounded-t bg-white mb-0 py-6">
@@ -87,7 +77,6 @@
                                     </label>
                                     <input type="text" id="first-name"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': !isEdit }" :readonly="!isEdit"
                                         v-model="adopter.firstName" />
                                 </div>
                             </div>
@@ -99,7 +88,6 @@
                                     </label>
                                     <input type="text" id="last-name"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': !isEdit }" :readonly="!isEdit"
                                         v-model="adopter.lastName" />
                                 </div>
                             </div>
@@ -111,7 +99,6 @@
                                     </label>
                                     <input type="date" id="date-of-birth"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': !isEdit }" :disabled="!isEdit"
                                         v-model="adopter.dateOfBirth" />
                                 </div>
                             </div>
@@ -123,7 +110,7 @@
                                     </label>
                                     <select id="gender"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': !isEdit }" :disabled="!isEdit" v-model="adopter.gender">
+                                        v-model="adopter.gender">
                                         <option value="">Select Gender</option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
@@ -139,7 +126,6 @@
                                     </label>
                                     <input type="text" id="phone-number"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': !isEdit }" :readonly="!isEdit"
                                         v-model="adopter.phoneNumber" />
                                 </div>
                             </div>
@@ -159,7 +145,6 @@
                                     </label>
                                     <input type="text" id="address"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': !isEdit }" :readonly="!isEdit"
                                         v-model="adopter.address" />
                                 </div>
                             </div>
@@ -170,7 +155,7 @@
                                     </label>
                                     <input type="text" id="city"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': !isEdit }" :readonly="!isEdit" v-model="adopter.city" />
+                                        v-model="adopter.city" />
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -180,7 +165,7 @@
                                     </label>
                                     <select id="state"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': !isEdit }" :disabled="!isEdit" v-model="adopter.state">
+                                        v-model="adopter.state">
                                         <option value="">Select State / Province</option>
                                         <option value="johor">Johor</option>
                                         <option value="kedah">Kedah</option>
@@ -209,7 +194,6 @@
                                     </label>
                                     <input type="text" id="postal-code"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': !isEdit }" :readonly="!isEdit"
                                         v-model="adopter.postalCode" />
                                 </div>
                             </div>
@@ -229,7 +213,6 @@
                                     </label>
                                     <select id="occupation"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': !isEdit }" :disabled="!isEdit"
                                         v-model="adopter.occupation">
                                         <option value="">Select Occupation Category</option>
                                         <option value="administrativeSupport">Administrative Support</option>
@@ -278,7 +261,7 @@
 
                     </form>
                 </div>
-                <div class="justify-end flex px-3" v-if="isEdit">
+                <div class="justify-end flex px-3">
                     <button
                         class="w-40 bg-secondTheme text-mainText active:bg-secondTheme font-bold uppercase text-xs px-4 py-2 rounded-xl shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button">
@@ -295,26 +278,9 @@
 import vaccine from "@/assets/img/tabler_vaccine.png";
 import worm from "@/assets/img/contrast_worm.png";
 
-import EditApplicationModal from "@/components/Application/EditApplicationModal.vue";
-import CancelApplicationModal from "@/components/Application/CancelApplicationModal.vue";
-
-import { createPopper } from "@popperjs/core";
-import { ref } from "vue";
-
 export default {
-    components: {
-        EditApplicationModal,
-        CancelApplicationModal,
-    },
-
     data() {
         return {
-            popoverShow: false,
-            isModalVisible: ref(false),
-            isCancelModalVisible: ref(false),
-
-            // isEdit: false,
-
             application: {
                 id: 1,
                 image: require('@/assets/img/team-1-800x800.jpg').default,
@@ -327,97 +293,28 @@ export default {
                     'Good for Beginner Adopter',
                     'Good with other pets',
                 ],
-                date: '1/7/2024',
-                status: 'Pending',
             },
 
             vaccine,
             worm,
 
             adopter: {
-                firstName: 'Lucky',
-                lastName: 'Jesse',
-                dateOfBirth: '2024-01-07',
-                gender: 'male',
-                phoneNumber: '0123456789',
-                address: 'Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09',
-                city: 'New York',
-                state: 'kualaLumpur',
-                postalCode: '51200',
-                occupation: 'other',
+                firstName: '',
+                lastName: '',
+                dateOfBirth: '',
+                gender: '',
+                phoneNumber: '',
+                address: '',
+                city: '',
+                state: '',
+                postalCode: '',
+                occupation: '',
             }
         };
     },
 
     methods: {
-        togglePopover: function () {
-            if (this.popoverShow) {
-                this.hidePopover();
-            } else {
-                this.showPopover();
-            }
-        },
-        showPopover: function () {
-            this.popoverShow = true;
-            createPopper(this.$refs.btnRef, this.$refs.popoverRef, {
-                placement: "bottom",
-                modifiers: [
-                    {
-                        name: 'offset',
-                        options: {
-                            offset: [-70, 0] // Adjust the offset values as needed
-                        },
-                    },
-                    {
-                        name: 'preventOverflow',
-                        options: {
-                            boundary: 'viewport'
-                        }
-                    }
-                ]
-            });
-            document.addEventListener('click', this.handleClickOutside);
-        },
-        hidePopover: function () {
-            this.popoverShow = false;
-            document.removeEventListener('click', this.handleClickOutside);
-        },
-        handleClickOutside: function (event) {
-            const popover = this.$refs.popoverRef;
-            const button = this.$refs.btnRef;
-            if (popover && !popover.contains(event.target) && button && !button.contains(event.target)) {
-                this.hidePopover();
-            } else if (popover && popover.contains(event.target)) {
-                this.hidePopover();
-            }
-        },
-        showModal() {
-            this.isModalVisible = true;
-        },
-        closeModal() {
-            this.isModalVisible = false;
-        },
-
-        showCancelModal() {
-            this.isCancelModalVisible = true;
-        },
-        closeCancelModal() {
-            this.isCancelModalVisible = false;
-        },
-    },
-
-    computed: {
-        isEdit() {
-            return this.$route.path === '/user/editapplicationdetails';
-        }
     },
 
 };
 </script>
-
-<style scoped>
-.disabled-bg {
-    background-color: rgba(220, 226, 208, 1);
-    opacity: 0.5;
-}
-</style>

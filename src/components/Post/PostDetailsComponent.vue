@@ -27,8 +27,10 @@
             <div class="flex space-x-2 flex-col mr-5">
                 <div class="flex items-center">
                     <p class="text-gray-700 whitespace-pre-line text-sm mr-2">{{ post.duration }}</p>
-                    <span class="material-icons" v-if="isAdoptionRoute"><img :src="vaccine" alt="vaccine" class="w-8 h-8 p-1"></span>
-                    <span class="material-icons" v-if="isAdoptionRoute"><img :src="worm" alt="warm" class="w-8 h-8 p-1"></span>
+                    <span class="material-icons" v-if="isAdoptionRoute"><img :src="vaccine" alt="vaccine"
+                            class="w-8 h-8 p-1"></span>
+                    <span class="material-icons" v-if="isAdoptionRoute"><img :src="worm" alt="warm"
+                            class="w-8 h-8 p-1"></span>
                 </div>
             </div>
         </div>
@@ -36,6 +38,7 @@
         <div class="pt-2 justify-end items-end flex" v-if="isAdoptionRoute">
             <button
                 class="w-40 bg-secondaryMain text-mainText active:bg-secondTheme font-bold uppercase text-xs px-4 py-3 rounded-xl shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                @click="toCreateApplication"
                 type="button">
                 Adopt Now
             </button>
@@ -76,13 +79,14 @@ export default {
                 ],
                 isliked: true,
                 duration: "21 months",
+                isAdoption: true,
             },
         };
     },
     computed: {
 
         isAdoptionRoute() {
-            return false;
+            return this.post.isAdoption;
         },
     },
 
@@ -90,6 +94,11 @@ export default {
         likePost() {
             this.$emit("like-post", this.post.id);
         },
+        toCreateApplication() {
+            this.$router.push('/user/createapplication').then(() => {
+                window.scrollTo(0, 0);
+            });
+        }
     },
 };
 </script>
