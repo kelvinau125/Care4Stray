@@ -4,11 +4,8 @@
         <CancelApplicationModal :showModal="isCancelModalVisible" :closeModal="closeCancelModal" />
 
         <div class="mb-4">
+            <p class="text-blueGray-700 text-xl font-bold pb-2">Animal’s Information</p>
             <div class="flex flex-col items-start p-4 space-x-4 border border-gray-300 rounded-lg">
-                <div>
-                    <p class="text-blueGray-700 text-xl font-bold px-4">Animal’s Information</p>
-                </div>
-
                 <div class="flex flex-row py-4 space-x-4">
                     <img :src="application.image" alt="Application Image"
                         class="md:w-5/12 xl:w-3/12 md:h-auto rounded-lg" />
@@ -40,19 +37,17 @@
                     </div>
                 </div>
                 <div class="flex pt-2 space-x-4">
-                <div
-                    class="w-32 flex justify-center items-center bg-secondaryMain border-mainTheme border-2 text-mainText font-bold uppercase text-xs px-4 py-1 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
-                    <img :src="vaccine" alt="vaccine" class="w-8 h-8 p-1" />Vaccinated
-                </div>
+                    <div
+                        class="w-32 flex justify-center items-center bg-secondaryMain border-mainTheme border-2 text-mainText font-bold uppercase text-xs px-4 py-1 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                        <img :src="vaccine" alt="vaccine" class="w-8 h-8 p-1" />Vaccinated
+                    </div>
 
-                <div
-                    class="w-32 flex justify-center items-center border-mainTheme border-2 bg-secondaryMain text-mainText font-bold uppercase text-xs px-4 py-1 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
-                    <img :src="worm" alt="worm" class="w-8 h-8 p-1" />Deworm
+                    <div
+                        class="w-32 flex justify-center items-center border-mainTheme border-2 bg-secondaryMain text-mainText font-bold uppercase text-xs px-4 py-1 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                        <img :src="worm" alt="worm" class="w-8 h-8 p-1" />Deworm
+                    </div>
                 </div>
             </div>
-            </div>
-
-
 
             <div class="p-4 flex flex-col min-w-0 break-words w-full mb-4">
                 <div class="rounded-t bg-white mb-0 py-6">
