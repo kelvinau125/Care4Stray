@@ -13,8 +13,8 @@
       <div class="flex flex-col md:flex-row flex-grow ml-0 md:ml-60" :class="[isApplicationDetailsRoute ? 'md:pt-16' : 'md:pt-48']">
         <!-- Main Content -->
         <div class="w-full">
-          <user-header v-if="isApplicationDetailsRoute" />
-          <PostDetailsComponent />
+          <user-header v-if="isApplicationDetailsRoute || isPostApplicationDetailsRoute" />
+          <PostDetailsComponent v-if="isPostApplicationDetailsRoute"/>
           <div class="w-full md:flex-grow bg-white px-4 md:px-10 mx-auto md:pt-4 relative">
             <router-view />
             <footer-admin />
@@ -54,6 +54,9 @@ export default {
     isApplicationDetailsRoute() {
       return this.$route.path.includes('/applicationdetails') ||
       this.$route.path.includes('/editapplicationdetails') 
+    },
+    isPostApplicationDetailsRoute() {
+      return this.$route.path.includes('/postdetails')
     },
   },
 };

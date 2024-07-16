@@ -36,9 +36,14 @@
       </div>
     </div>
     <div class="flex items-center justify-between">
-      <button @click="likePost">
-        <i :class="['text-2xl', post.isliked ? 'fas fa-heart text-red-500' : 'far fa-heart text-mainText']"></i>
-      </button>
+      <div class="flex space-x-4">
+        <button @click="likePost">
+          <i :class="['text-2xl', post.isliked ? 'fas fa-heart text-red-500' : 'far fa-heart text-mainText']"></i>
+        </button>
+        <button @click="toPostDetails(post.id)">
+          <i class="far fa-comment text-2xl"></i>
+        </button>
+      </div>
 
       <div class="flex space-x-2" v-if="isAdoptionRoute">
         <span class="material-icons"><img :src="vaccine" alt="vaccine" class="w-8 h-8 p-1"></span>

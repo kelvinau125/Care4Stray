@@ -16,7 +16,15 @@
 export default {
   computed: {
     pageTitle() {
-      return this.$route.path === '/user/editapplicationdetails' ? 'Edit Application' : 'Adoption Application';
+      if (this.$route.path === '/user/editapplicationdetails') {
+        return 'Edit Application'
+      }
+      else if (this.$route.path === '/user/postdetails') {
+        return 'Post'
+      }
+      else {
+        return 'Adoption Application'
+      }
     }
   },
   methods: {
