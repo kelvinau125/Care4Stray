@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="w-full px-3">
+    <div class="w-full px-3 bg-secondaryMain">
       <NewsList />
     </div>
   </div>
@@ -9,7 +9,7 @@
 import NewsList from "@/components/News/NewsList.vue";
 
 export default {
-  name: "user-page",
+  name: "news-details",
   components: {
     NewsList,
   },

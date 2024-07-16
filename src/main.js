@@ -38,6 +38,7 @@ import application from "@/views/user/Application.vue";
 import applicationdetails from "@/views/user/ApplicationDetails.vue";
 import createapplication from "@/components/Application/CreateApplication.vue";
 import postdetails from "@/views/user/PostDetails.vue";
+import newsdetails from "@/views/user/NewsDetails.vue";
 
 // views without layouts
 
@@ -99,6 +100,10 @@ const routes = [
       {
         path: "/user/news",
         component: News,
+      },
+      {
+        path: "/user/newsdetails",
+        component: newsdetails,
       },
       {
         path: "/user/nearme",
