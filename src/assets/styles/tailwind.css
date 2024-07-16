@@ -3939,6 +3939,11 @@ select {
   width: 8rem;
 }
 
+
+.w-40 {
+  width: 10rem;
+}
+
 .w-auto {
   width: auto;
 }

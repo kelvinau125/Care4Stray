@@ -54,7 +54,7 @@
 
             <div class="flex p-4 space-x-4">
                 <div
-                    class="w-32 flex justify-center items-center bg-secondaryMain border-2 text-mainText font-bold uppercase text-xs px-4 py-1 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                    class="w-32 flex justify-center items-center bg-secondaryMain border-mainTheme border-2 text-mainText font-bold uppercase text-xs px-4 py-1 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
                     <img :src="vaccine" alt="vaccine" class="w-8 h-8 p-1" />Vaccinated
                 </div>
 
@@ -274,7 +274,16 @@
                                 </div>
                             </div>
                         </div>
+
+
                     </form>
+                </div>
+                <div class="justify-end flex px-3" v-if="isEdit">
+                    <button
+                        class="w-40 bg-secondTheme text-mainText active:bg-secondTheme font-bold uppercase text-xs px-4 py-2 rounded-xl shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button">
+                        Submit
+                    </button>
                 </div>
             </div>
         </div>
