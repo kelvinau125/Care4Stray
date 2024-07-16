@@ -14,6 +14,7 @@
         <!-- Main Content -->
         <div class="w-full">
           <user-header v-if="isApplicationDetailsRoute" />
+          <PostDetailsComponent />
           <div class="w-full md:flex-grow bg-white px-4 md:px-10 mx-auto md:pt-4 relative">
             <router-view />
             <footer-admin />
@@ -36,6 +37,7 @@ import UserSidebar from "@/components/Sidebar/UserSidebar.vue";
 import DonationSidebar from "@/components/Sidebar/DonationSidebar.vue";
 import FooterAdmin from "@/components/Footers/FooterAdmin.vue";
 import UserHeader from "@/components/Headers/UserHeader.vue";
+import PostDetailsComponent from "@/components/Post/PostDetailsComponent.vue";
 
 export default {
   name: "UserLayout",
@@ -46,10 +48,12 @@ export default {
     DonationSidebar,
     FooterAdmin,
     UserHeader,
+    PostDetailsComponent,
   },
   computed: {
     isApplicationDetailsRoute() {
-      return this.$route.path.includes('/applicationdetails')
+      return this.$route.path.includes('/applicationdetails') ||
+      this.$route.path.includes('/editapplicationdetails') 
     },
   },
 };

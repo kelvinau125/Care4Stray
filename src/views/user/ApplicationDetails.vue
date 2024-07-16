@@ -30,7 +30,7 @@
                             </p>
                         </div>
 
-                        <button ref="btnRef" v-on:click="togglePopover()"
+                        <button v-if="!isEdit" ref="btnRef" v-on:click="togglePopover()"
                             class="flex items-start hover:text-mainText outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 h-8"
                             type="button">
                             <i class="fas fa-ellipsis-v text-mainText text-xl"></i>
@@ -87,7 +87,7 @@
                                     </label>
                                     <input type="text" id="first-name"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': isEdit }" :readonly="isEdit"
+                                        :class="{ 'disabled-bg': !isEdit }" :readonly="!isEdit"
                                         v-model="adopter.firstName" />
                                 </div>
                             </div>
@@ -99,7 +99,7 @@
                                     </label>
                                     <input type="text" id="last-name"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': isEdit }" :readonly="isEdit"
+                                        :class="{ 'disabled-bg': !isEdit }" :readonly="!isEdit"
                                         v-model="adopter.lastName" />
                                 </div>
                             </div>
@@ -111,7 +111,7 @@
                                     </label>
                                     <input type="date" id="date-of-birth"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': isEdit }" :disabled="isEdit"
+                                        :class="{ 'disabled-bg': !isEdit }" :disabled="!isEdit"
                                         v-model="adopter.dateOfBirth" />
                                 </div>
                             </div>
@@ -123,7 +123,7 @@
                                     </label>
                                     <select id="gender"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': isEdit }" :disabled="isEdit" v-model="adopter.gender">
+                                        :class="{ 'disabled-bg': !isEdit }" :disabled="!isEdit" v-model="adopter.gender">
                                         <option value="">Select Gender</option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
@@ -139,7 +139,7 @@
                                     </label>
                                     <input type="text" id="phone-number"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': isEdit }" :readonly="isEdit"
+                                        :class="{ 'disabled-bg': !isEdit }" :readonly="!isEdit"
                                         v-model="adopter.phoneNumber" />
                                 </div>
                             </div>
@@ -159,7 +159,7 @@
                                     </label>
                                     <input type="text" id="address"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': isEdit }" :readonly="isEdit"
+                                        :class="{ 'disabled-bg': !isEdit }" :readonly="!isEdit"
                                         v-model="adopter.address" />
                                 </div>
                             </div>
@@ -170,7 +170,7 @@
                                     </label>
                                     <input type="text" id="city"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': isEdit }" :readonly="isEdit" v-model="adopter.city" />
+                                        :class="{ 'disabled-bg': !isEdit }" :readonly="!isEdit" v-model="adopter.city" />
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -180,7 +180,7 @@
                                     </label>
                                     <select id="state"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': isEdit }" :disabled="isEdit" v-model="adopter.state">
+                                        :class="{ 'disabled-bg': !isEdit }" :disabled="!isEdit" v-model="adopter.state">
                                         <option value="">Select State / Province</option>
                                         <option value="johor">Johor</option>
                                         <option value="kedah">Kedah</option>
@@ -209,7 +209,7 @@
                                     </label>
                                     <input type="text" id="postal-code"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': isEdit }" :readonly="isEdit"
+                                        :class="{ 'disabled-bg': !isEdit }" :readonly="!isEdit"
                                         v-model="adopter.postalCode" />
                                 </div>
                             </div>
@@ -229,7 +229,7 @@
                                     </label>
                                     <select id="occupation"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': isEdit }" :disabled="isEdit"
+                                        :class="{ 'disabled-bg': !isEdit }" :disabled="!isEdit"
                                         v-model="adopter.occupation">
                                         <option value="">Select Occupation Category</option>
                                         <option value="administrativeSupport">Administrative Support</option>
@@ -313,7 +313,7 @@ export default {
             isModalVisible: ref(false),
             isCancelModalVisible: ref(false),
 
-            isEdit: false,
+            // isEdit: false,
 
             application: {
                 id: 1,
@@ -404,7 +404,13 @@ export default {
         closeCancelModal() {
             this.isCancelModalVisible = false;
         },
-    }
+    },
+
+    computed: {
+        isEdit() {
+            return this.$route.path === '/user/editapplicationdetails';
+        }
+    },
 
 };
 </script>

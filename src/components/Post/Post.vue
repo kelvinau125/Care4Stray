@@ -1,5 +1,6 @@
 <template>
-  <div ref="postContainer" class="border border-gray-300 p-4 mb-4 rounded-lg">
+  <div ref="postContainer" class="border border-gray-300 p-4 mb-4 rounded-lg"
+  @click="toPostDetails(post.id)">
     <div class="flex items-center mb-4 justify-between">
       <div class="flex items-center">
         <img :src="post.userAvatar" alt="User Avatar" class="w-12 h-12 rounded-full mr-4" />
@@ -95,6 +96,14 @@ export default {
     },
     likePost() {
       this.$emit("like-post", this.post.id);
+    },
+    toPostDetails(id) {
+      this.$router.push({
+        path: '/user/postdetails',
+        query: {
+          postID: id,
+        },
+      });
     },
   },
 };

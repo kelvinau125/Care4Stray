@@ -36,6 +36,7 @@ import Adoption from "@/views/user/Adoption.vue";
 import notification from "@/views/user/Notification.vue";
 import application from "@/views/user/Application.vue";
 import applicationdetails from "@/views/user/ApplicationDetails.vue";
+import postdetails from "@/views/user/PostDetails.vue";
 
 // views without layouts
 
@@ -117,6 +118,14 @@ const routes = [
       {
         path: "/user/applicationdetails",
         component: applicationdetails,
+      },
+      {
+        path: "/user/editapplicationdetails",
+        component: applicationdetails,
+      },
+      {
+        path: "/user/postdetails",
+        component: postdetails,
       },
     ],
   },

@@ -1796,6 +1796,16 @@ select {
   border-top-right-radius: 0.5rem;
 }
 
+.rounded-r-lg {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.rounded-l-lg {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
 .rounded-tl {
   border-top-left-radius: 0.25rem;
 }
@@ -1838,10 +1848,6 @@ select {
 
 .border-2 {
   border-width: 2px;
-}
-
-.border-4 {
-  border-width: 4px;
 }
 
 .border {
@@ -2336,6 +2342,10 @@ select {
 
 .h-5 {
   height: 1.25rem;
+}
+
+.h-6 {
+  height: 1.5rem;
 }
 
 .h-8 {
@@ -3938,7 +3948,6 @@ select {
 .w-32 {
   width: 8rem;
 }
-
 
 .w-40 {
   width: 10rem;

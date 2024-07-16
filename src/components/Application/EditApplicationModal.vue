@@ -26,10 +26,14 @@
 
 
                         <div class="justify-end flex px-6 py-3">
-                            <button @click="closeModal" class="text-mainButton active:bg-secondTheme font-bold uppercase text-xs px-4 py-2 rounded-xl outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                            <button @click="closeModal"
+                                class="text-mainButton active:bg-secondTheme font-bold uppercase text-xs px-4 py-2 rounded-xl outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                type="button">
                                 Cancel
                             </button>
-                            <button class="w-32 bg-secondTheme text-mainText active:bg-secondTheme font-bold uppercase text-xs px-4 py-2 rounded-xl shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                            <button @click="editApplication"
+                                class="w-32 bg-secondTheme text-mainText active:bg-secondTheme font-bold uppercase text-xs px-4 py-2 rounded-xl shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                type="button">
                                 Edit
                             </button>
                         </div>
@@ -60,9 +64,19 @@ export default {
         closeModalOnEsc(event) {
             // Check if the pressed key is 'Esc' (key code 27)
             if (event.keyCode === 27) {
-                this.closeRegModal();
+                this.closeModal();
             }
         },
+
+        editApplication() {
+            this.closeModal();
+            this.$router.push({
+                path: '/user/editapplicationdetails',
+                query: {
+                    applicationID: this.$route.query.applicationID,
+                },
+            });
+        }
     },
 
     watch: {
