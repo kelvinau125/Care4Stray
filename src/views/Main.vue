@@ -29,13 +29,12 @@
                   Join us in making a difference, one paw at a time
                 </p>
                 <div class="sm:block flex flex-col mt-16">
-                  <a
-                    href="https://www.creative-tim.com/learning-lab/tailwind/vue/overview/notus?ref=vn-index"
-                    target="_blank"
+                  <button
+                    @click="showRegisterModal"
                     class="get-started text-mainText font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-secondaryMain active:bg-secondaryMain uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
                   >
-                    Volunteer
-                  </a>
+                    Register Now
+                  </button>
 
                   <router-link
                     to="/contactus"
@@ -282,13 +281,12 @@
           </div>
 
           <div class="mt-10">
-            <a
-              href="https://www.creative-tim.com/learning-lab/tailwind/vue/overview/notus?ref=vn-index"
-              target="_blank"
+            <router-link 
+              to="/donation"
               class="get-started text-mainText font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-secondaryMain active:bg-secondaryMain uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
             >
               Donate for Strays 
-            </a>
+            </router-link>
           </div>
 
       
@@ -435,9 +433,7 @@ export default {
       this.isRegisterModalVisible = false;
     },
     signIn() {
-      this.$router.push('/user').then(() => {
-        window.scrollTo(0, 0);
-      });
+      this.$router.push('/user')
     }
   }
 };

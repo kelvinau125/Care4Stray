@@ -17,41 +17,29 @@
       </div>
       <div class="lg:flex flex-grow items-center bg-white lg:bg-opacity-0 lg:shadow-none"
         :class="[navbarOpen ? 'block rounded shadow-lg' : 'hidden']" id="example-navbar-warning">
-        <ul class="flex flex-col lg:flex-row list-none mr-auto">
+        <ul class="flex flex-col lg:flex-row list-none lg:ml-auto pt-2">
           <li class="flex items-center">
-            <a class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-              href="https://www.creative-tim.com/learning-lab/tailwind/vue/overview/notus?ref=vn-auth-navbar">
-              <i class="lg:text-blueGray-200 text-blueGray-400 far fa-file-alt text-lg leading-lg mr-2" />
-              Docs
-            </a>
-          </li>
-        </ul>
-        <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
-          <li class="flex items-center">
-            <PagesDropdown />
-          </li>
-          <li class="flex items-center">
-            <a class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-              href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdemos.creative-tim.com%2Fvue-notus%2F%23%2F"
-              target="_blank">
+            <router-link 
+              class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+              to="/user/nearme">
               StraysCommunity
-            </a>
+            </router-link>
           </li>
 
           <li class="flex items-center">
-            <a class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-              href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdemos.creative-tim.com%2Fvue-notus%2F%23%2F"
-              target="_blank">
-              About Us
-            </a>
+            <router-link 
+              class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+              to="/user/news">
+              News
+            </router-link>
           </li>
 
           <li class="flex items-center">
-            <a class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-              href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdemos.creative-tim.com%2Fvue-notus%2F%23%2F&text=Start%20your%20development%20with%20a%20Free%20Tailwind%20CSS%20and%20VueJS%20UI%20Kit%20and%20Admin.%20Let%20Vue%20Notus%20amaze%20you%20with%20its%20cool%20features%20and%20build%20tools%20and%20get%20your%20project%20to%20a%20whole%20new%20level.%20"
-              target="_blank">
+            <router-link
+              class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+              to="/user/adoption">
               Take Me Home
-            </a>
+            </router-link>
           </li>
 
           <li class="flex items-center">
@@ -67,7 +55,6 @@
   </nav>
 </template>
 <script>
-import PagesDropdown from "@/components/Dropdowns/PagesDropdown.vue";
 import headerBackground from "@/assets/img/header-background.png";
 
 export default {
@@ -105,9 +92,6 @@ export default {
     setNavbarOpen: function () {
       this.navbarOpen = !this.navbarOpen;
     },
-  },
-  components: {
-    PagesDropdown,
   },
 };
 </script>

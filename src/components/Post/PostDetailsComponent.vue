@@ -95,9 +95,7 @@ export default {
             this.$emit("like-post", this.post.id);
         },
         toCreateApplication() {
-            this.$router.push('/user/createapplication').then(() => {
-                window.scrollTo(0, 0);
-            });
+            this.$router.push('/user/createapplication')
         }
     },
 };
