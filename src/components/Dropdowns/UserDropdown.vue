@@ -23,22 +23,20 @@
         hidden: !dropdownPopoverShow,
         block: dropdownPopoverShow,
       }">
-      <a href="javascript:void(0);"
+      <router-link
+        to="/user/profile"
         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-        is this user
-      </a>
-      <a href="javascript:void(0);"
+        User Profile
+      </router-link>
+      <router-link 
+        to="/user/donationhistory"
         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-        Another action
-      </a>
-      <a href="javascript:void(0);"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-        Something else here
-      </a>
+        Donation History
+      </router-link >
       <div class="h-0 my-2 border border-solid border-blueGray-100" />
       <a href="javascript:void(0);"
         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-        Seprated link
+        Sign Out
       </a>
     </div>
   </div>

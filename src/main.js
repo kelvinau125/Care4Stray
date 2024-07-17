@@ -40,6 +40,8 @@ import applicationdetails from "@/views/user/ApplicationDetails.vue";
 import createapplication from "@/components/Application/CreateApplication.vue";
 import postdetails from "@/views/user/PostDetails.vue";
 import newsdetails from "@/views/user/NewsDetails.vue";
+import profile from "@/components/User/Profile.vue";
+import donationhistory from "@/components/User/DonationHistory.vue";
 
 // views without layouts
 
@@ -51,6 +53,7 @@ import Index from "@/views/Index.vue";
 import Main from "@/views/Main.vue";
 
 import UserNavbar from "@/components/Navbars/UserNavbar.vue";
+import PaymentGateway from "@/views/PaymentGateway.vue";
 
 
 // routes
@@ -139,6 +142,14 @@ const routes = [
         path: "/user/postdetails",
         component: postdetails,
       },
+      {
+        path: "/user/profile",
+        component: profile,
+      },    
+      {
+        path: "/user/donationhistory",
+        component: donationhistory,
+      }, 
     ],
   },
   {
@@ -178,7 +189,10 @@ const routes = [
     path: "/guestnews",
     component: GuestNews
   },
-  
+  {
+    path: "/payment",
+    component: PaymentGateway
+  },
 ];
 
 const router = createRouter({
