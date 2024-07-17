@@ -14,6 +14,7 @@ import App from "@/App.vue";
 import Admin from "@/layouts/Admin.vue";
 import Auth from "@/layouts/Auth.vue";
 import User from "@/layouts/User.vue";
+import GuestNews from "@/layouts/Guest.vue";
 
 // views for Admin layout
 
@@ -50,8 +51,6 @@ import Index from "@/views/Index.vue";
 import Main from "@/views/Main.vue";
 
 import UserNavbar from "@/components/Navbars/UserNavbar.vue";
-
-import GuestNews from "@/views/user/NewsDetails.vue";
 
 
 // routes
