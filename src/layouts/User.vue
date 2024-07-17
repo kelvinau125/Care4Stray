@@ -17,6 +17,10 @@
           <PostDetailsComponent v-if="isPostApplicationDetailsRoute"/>
           <div class="w-full md:flex-grow bg-white px-4 md:px-10 mx-auto md:pt-4 relative">
             <router-view />
+            <footer-admin v-if="!isNewsDetailsRoute" />
+          </div>
+          <div class="w-full px-12 pb-2 bg-secondaryMain" v-if="isNewsDetailsRoute">
+            <NewsFooter/>
             <footer-admin />
           </div>
         </div>
@@ -38,6 +42,7 @@ import DonationSidebar from "@/components/Sidebar/DonationSidebar.vue";
 import FooterAdmin from "@/components/Footers/FooterAdmin.vue";
 import UserHeader from "@/components/Headers/UserHeader.vue";
 import PostDetailsComponent from "@/components/Post/PostDetailsComponent.vue";
+import NewsFooter from "@/components/News/NewsFooter.vue";
 
 export default {
   name: "UserLayout",
@@ -49,6 +54,7 @@ export default {
     FooterAdmin,
     UserHeader,
     PostDetailsComponent,
+    NewsFooter,
   },
   computed: {
     isApplicationDetailsRoute() {
@@ -58,6 +64,9 @@ export default {
     },
     isPostApplicationDetailsRoute() {
       return this.$route.path.includes('/postdetails')
+    },
+    isNewsDetailsRoute() {
+      return this.$route.path.includes('/newsdetails')
     },
   },
 };

@@ -1,17 +1,18 @@
 <template>
   <div>
-    <div class="w-full px-3 bg-secondaryMain">
-      <NewsList />
-    </div>
+    <NewsContent />
+    <NewsFooter />
   </div>
 </template>
+
 <script>
-import NewsList from "@/components/News/NewsList.vue";
+import NewsContent from "@/components/News/NewsContent.vue";
+import NewsFooter from "@/components/News/NewsFooter.vue";
 
 export default {
-  name: "news-details",
   components: {
-    NewsList,
+    NewsContent,
+    NewsFooter,
   },
 };
 </script>

@@ -51,6 +51,9 @@ import Main from "@/views/Main.vue";
 
 import UserNavbar from "@/components/Navbars/UserNavbar.vue";
 
+import GuestNews from "@/views/user/NewsDetails.vue";
+
+
 // routes
 
 const routes = [
@@ -171,6 +174,10 @@ const routes = [
   {
     path: "/UserNavbar",
     component: UserNavbar
+  },
+  {
+    path: "/guestnews",
+    component: GuestNews
   },
   
 ];

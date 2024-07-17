@@ -1,11 +1,12 @@
 <template>
     <div class="relative w-full flex-grow mb-4">
       <div>
+        <p class="text-lg font-bold py-4">More</p>
         <div v-for="(item, index) in paginatedItems" :key="index" class="mb-4">
           <div class="border p-4 rounded-lg shadow-lg flex" 
           @click="toNewsDetails(item.id)">
             <div class="md:w-full xl:w-2/5 mr-5 flex items-center justify-center">
-              <img :src="item.image" alt="picture" class="md:w-4/5 xl:w-4/5 md:h-auto rounded-md">
+                <img :src="item.image" alt="picture" class="md:w-4/5 xl:w-4/5 md:h-auto rounded-md">
             </div>
             <div class="flex flex-col justify-between">
               <div>
@@ -184,7 +185,7 @@
           },
         ],
         currentPage: 1,
-        itemsPerPage: 5,      
+        itemsPerPage: 3,  
       };
     },
   
