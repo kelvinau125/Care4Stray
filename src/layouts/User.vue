@@ -15,7 +15,7 @@
         <div class="w-full">
           <user-header v-if="isApplicationDetailsRoute || isPostApplicationDetailsRoute" />
           <PostDetailsComponent v-if="isPostApplicationDetailsRoute"/>
-          <div class="w-full md:flex-grow bg-white px-4 md:px-10 mx-auto md:pt-4 relative">
+          <div class="w-full md:flex-grow bg-white px-4 md:px-10 mx-auto md:pt-4 pt-44 relative">
             <router-view />
             <footer-admin v-if="!isNewsDetailsRoute" />
           </div>

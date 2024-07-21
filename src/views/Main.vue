@@ -94,7 +94,7 @@
           </svg>
         </div>
 
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-4 ">
           <div class="flex flex-wrap md:flex-nowrap items-start">
             <!-- Left Side Column -->
             <div class="w-full md:w-6/12 flex flex-col space-y-4">
@@ -167,7 +167,9 @@
 
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div v-for="(pet, index) in pets" :key="index" class="border p-4 rounded-lg shadow-lg flex flex-col bg-secondaryMain">
-                      <img :src="pet.image" alt="Pet Image" class="w-full h-auto mb-4 rounded-lg">
+                      <div class="items-center flex justify-center">
+                        <img :src="pet.image" alt="Pet Image" class="w-full takemehomeimg h-auto mb-4 rounded-lg">
+                      </div>
                       <div class="flex flex-row items-end">
                         <h2 class="text-xl font-bold mb-2 mr-2">{{ pet.name }}</h2>
                         <p class="text-gray-600 mb-2">{{ pet.age }}</p>
@@ -197,13 +199,13 @@
             </div>
 
             <!-- Right Side -->
-            <div class="w-full md:w-8/12 px-4 border-2 border-mainTheme rounded-2xl pb-5 ml-10 flex-grow">
+            <div class="w-full md:w-8/12 px-4 border-2 border-mainTheme rightside rounded-2xl pb-5 md:ml-10 mt-8 md:mt-0 flex-grow">
               <div class="text-mainText font-bold text-3xl mt-4 mb-4 flex items-center ml-1">
                 <img :src="animalNews" alt="animal news" class="w-10 h-10 mr-2">
                 <p>Animal News</p>
               </div>
               <div>
-                <div v-for="(item, index) in paginatedItems" :key="index" class="mb-4">
+                <div v-for="(item, index) in paginatedItems" :key="index" class="rightspace">
                   <div class="border-2 border-mainTheme p-4 rounded-lg shadow-lg flex">
                     <div class="w-full mr-5 flex items-center justify-center">
                       <img :src="item.image" alt="picture" class="w-4/5 h-auto rounded-md">  
@@ -262,19 +264,19 @@
           </svg>
         </div>
 
-        <div class="container mx-auto px-4 lg:pt-24 lg:pb-32">
+        <div class="container mx-auto px-4 py-12 lg:pt-24 lg:pb-32">
           <div class="flex">
             <div class="w-full">
               <div class="flex mb-5">
-                <img :src="logo" alt="logo" class="w-28 h-auto mr-10">
+                <img :src="logo" alt="logo" class="w-28 md:h-auto h-4/5 mr-10">
                 <div>
-                  <h2 class="text-4xl font-semibold text-secondaryMain">
+                  <h2 class="md:text-4xl text-xl font-semibold text-secondaryMain">
                     Spare a Paw, Share Some Love:
                   </h2>
-                  <span class="inline-block text-4xl font-semibold text-secondaryMain mt-2">Donate to Care4Strays!</span>
+                  <span class="inline-block md:text-4xl text-lg font-semibold text-secondaryMain mt-2">Donate to Care4Strays!</span>
                 </div>
               </div>
-              <p class="text-3xl leading-relaxed mt-10 mb-4 text-secondaryMain lg:w-9/12">
+              <p class="md:text-3xl text-base leading-relaxed mt-10 mb-4 text-secondaryMain lg:w-9/12">
                 Together, we're making a meaningful difference in their lives. Thank you for believing in Care4Strays 
               </p>
             </div>
@@ -438,3 +440,59 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+/* Extra Large screens (1280px and above) */
+.rightside {
+  height: 1417px;
+}
+.rightspace {
+  margin-bottom: 1.5rem;
+}
+
+/* Large screens (1024px - 1279px) */
+@media screen and (max-width: 1279px) {
+  .rightside {
+    height: 1407px;
+  }
+  .rightspace {
+    margin-bottom: 2.5rem;
+  }
+}
+
+/* Medium screens (768px - 1023px) */
+@media screen and (max-width: 1023px) {
+  .rightside {
+    height: 1556px;
+  }
+  .rightspace {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Small screens (smaller than 768px) */
+@media screen and (max-width: 767px) {
+  .rightside {
+    height: 1200px;
+  }
+  .rightspace {
+    margin-bottom: 1rem;
+  }
+  .takemehomeimg {
+    width: 50%;
+  }
+}
+
+/* Small screens (smaller than 768px) */
+@media screen and (max-width: 447px) {
+  .rightside {
+    height: 1580px;
+  }
+  .rightspace {
+    margin-bottom: 1rem;
+  }
+  .takemehomeimg {
+    width: 50%;
+  }
+}
+</style>

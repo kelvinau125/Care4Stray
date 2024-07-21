@@ -7,6 +7,150 @@ Document
 ========
 */
 
+/* 
+Customize Colour 
+*/
+
+/* Secondary Main */
+.bg-secondaryMain {
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 248, 229, var(--tw-bg-opacity));
+}
+
+.text-secondaryMain {
+  --tw-text-opacity: 1;
+  color: rgba(255, 248, 229, var(--tw-text-opacity));
+}
+
+.border-secondaryMain {
+  --tw-border-opacity: 1;
+  border-color: rgba(255, 248, 229, var(--tw-border-opacity));
+}
+
+/* Main Theme */
+.bg-mainTheme {
+  --tw-bg-opacity: 1;
+  background-color: rgba(184, 198, 162, var(--tw-bg-opacity));
+}
+
+.text-mainTheme {
+  --tw-text-opacity: 1;
+  color: rgba(184, 198, 162, var(--tw-text-opacity));
+}
+
+.border-mainTheme {
+  --tw-border-opacity: 1;
+  border-color: rgba(184, 198, 162, var(--tw-border-opacity));
+}
+
+/* Main Text */
+.bg-mainText {
+  --tw-bg-opacity: 1;
+  background-color: rgba(42, 82, 44, var(--tw-bg-opacity));
+}
+
+.text-mainText {
+  --tw-text-opacity: 1;
+  color: rgba(42, 82, 44, var(--tw-text-opacity));
+}
+
+.border-mainText {
+  --tw-border-opacity: 1;
+  border-color: rgba(42, 82, 44, var(--tw-border-opacity));
+}
+
+.hover\:text-mainText:hover {
+  --tw-text-opacity: 1;
+  color: rgba(41, 52, 26, var(--tw-text-opacity));
+}
+
+/* Main Button */
+.bg-mainButton {
+  --tw-bg-opacity: 1;
+  background-color: rgba(30, 77, 32, var(--tw-bg-opacity));
+}
+
+.text-mainButton {
+  --tw-text-opacity: 1;
+  color: rgba(30, 77, 32, var(--tw-text-opacity));
+}
+
+.border-mainButton {
+  --tw-border-opacity: 1;
+  border-color: rgba(30, 77, 32, var(--tw-border-opacity));
+}
+
+/* Third Text */
+.bg-thirdText {
+  --tw-bg-opacity: 0.5;
+  background-color: rgba(30, 77, 32, var(--tw-bg-opacity));
+}
+
+.text-thirdText {
+  --tw-text-opacity: 0.5;
+  color: rgba(30, 77, 32, var(--tw-text-opacity));
+}
+
+.border-thirdText {
+  --tw-border-opacity: 0.5;
+  border-color: rgba(30, 77, 32, var(--tw-border-opacity));
+}
+
+.hover\:text-thirdText:hover {
+  --tw-text-opacity: 0.5;
+  color: rgba(30, 77, 32, var(--tw-text-opacity));
+}
+
+/* Second */
+.bg-secondTheme {
+  --tw-bg-opacity: 1;
+  background-color: rgba(220, 226, 208, var(--tw-bg-opacity));
+}
+
+.text-secondTheme {
+  --tw-text-opacity: 1;
+  color: rgba(220, 226, 208, var(--tw-text-opacity));
+}
+
+.border-secondTheme {
+  --tw-border-opacity: 1;
+  border-color: rgba(220, 226, 208,  var(--tw-border-opacity));
+}
+
+/* Third */
+.bg-third {
+  --tw-bg-opacity: 0.2;
+  background-color: rgba(184, 198, 162, var(--tw-bg-opacity));
+}
+
+.text-third {
+  --tw-text-opacity: 0.2;
+  color: rgba(184, 198, 162, var(--tw-text-opacity));
+}
+
+.border-third {
+  --tw-border-opacity: 0.2;
+  border-color: rgba(184, 198, 162, var(--tw-border-opacity));
+}
+
+/* Warning */
+.bg-warning {
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 37, 37, var(--tw-bg-opacity));
+}
+
+.text-warning {
+  --tw-text-opacity: 1;
+  color: rgba(255, 37, 37, var(--tw-text-opacity));
+}
+
+.border-warning {
+  --tw-border-opacity: 1;
+  border-color: rgba(255, 37, 37, var(--tw-border-opacity));
+}
+
+
+
 /**
 Use a better box model (opinionated).
 */
@@ -274,150 +418,6 @@ Add the correct display in Chrome and Safari.
 summary {
   display: list-item;
 }
-
-/* 
-Customize Colour 
-*/
-
-/* Secondary Main */
-.bg-secondaryMain {
-  --tw-bg-opacity: 1;
-  background-color: rgba(255, 248, 229, var(--tw-bg-opacity));
-}
-
-.text-secondaryMain {
-  --tw-text-opacity: 1;
-  color: rgba(255, 248, 229, var(--tw-text-opacity));
-}
-
-.border-secondaryMain {
-  --tw-border-opacity: 1;
-  border-color: rgba(255, 248, 229, var(--tw-border-opacity));
-}
-
-/* Main Theme */
-.bg-mainTheme {
-  --tw-bg-opacity: 1;
-  background-color: rgba(184, 198, 162, var(--tw-bg-opacity));
-}
-
-.text-mainTheme {
-  --tw-text-opacity: 1;
-  color: rgba(184, 198, 162, var(--tw-text-opacity));
-}
-
-.border-mainTheme {
-  --tw-border-opacity: 1;
-  border-color: rgba(184, 198, 162, var(--tw-border-opacity));
-}
-
-/* Main Text */
-.bg-mainText {
-  --tw-bg-opacity: 1;
-  background-color: rgba(42, 82, 44, var(--tw-bg-opacity));
-}
-
-.text-mainText {
-  --tw-text-opacity: 1;
-  color: rgba(42, 82, 44, var(--tw-text-opacity));
-}
-
-.border-mainText {
-  --tw-border-opacity: 1;
-  border-color: rgba(42, 82, 44, var(--tw-border-opacity));
-}
-
-.hover\:text-mainText:hover {
-  --tw-text-opacity: 1;
-  color: rgba(41, 52, 26, var(--tw-text-opacity));
-}
-
-/* Main Button */
-.bg-mainButton {
-  --tw-bg-opacity: 1;
-  background-color: rgba(30, 77, 32, var(--tw-bg-opacity));
-}
-
-.text-mainButton {
-  --tw-text-opacity: 1;
-  color: rgba(30, 77, 32, var(--tw-text-opacity));
-}
-
-.border-mainButton {
-  --tw-border-opacity: 1;
-  border-color: rgba(30, 77, 32, var(--tw-border-opacity));
-}
-
-/* Third Text */
-.bg-thirdText {
-  --tw-bg-opacity: 0.5;
-  background-color: rgba(30, 77, 32, var(--tw-bg-opacity));
-}
-
-.text-thirdText {
-  --tw-text-opacity: 0.5;
-  color: rgba(30, 77, 32, var(--tw-text-opacity));
-}
-
-.border-thirdText {
-  --tw-border-opacity: 0.5;
-  border-color: rgba(30, 77, 32, var(--tw-border-opacity));
-}
-
-.hover\:text-thirdText:hover {
-  --tw-text-opacity: 0.5;
-  color: rgba(30, 77, 32, var(--tw-text-opacity));
-}
-
-/* Second */
-.bg-secondTheme {
-  --tw-bg-opacity: 1;
-  background-color: rgba(220, 226, 208, var(--tw-bg-opacity));
-}
-
-.text-secondTheme {
-  --tw-text-opacity: 1;
-  color: rgba(220, 226, 208, var(--tw-text-opacity));
-}
-
-.border-secondTheme {
-  --tw-border-opacity: 1;
-  border-color: rgba(220, 226, 208,  var(--tw-border-opacity));
-}
-
-/* Third */
-.bg-third {
-  --tw-bg-opacity: 0.2;
-  background-color: rgba(184, 198, 162, var(--tw-bg-opacity));
-}
-
-.text-third {
-  --tw-text-opacity: 0.2;
-  color: rgba(184, 198, 162, var(--tw-text-opacity));
-}
-
-.border-third {
-  --tw-border-opacity: 0.2;
-  border-color: rgba(184, 198, 162, var(--tw-border-opacity));
-}
-
-/* Warning */
-.bg-warning {
-  --tw-bg-opacity: 1;
-  background-color: rgba(255, 37, 37, var(--tw-bg-opacity));
-}
-
-.text-warning {
-  --tw-text-opacity: 1;
-  color: rgba(255, 37, 37, var(--tw-text-opacity));
-}
-
-.border-warning {
-  --tw-border-opacity: 1;
-  border-color: rgba(255, 37, 37, var(--tw-border-opacity));
-}
-
-
 
 /**
  * Manually forked from SUIT CSS Base: https://github.com/suitcss/base
@@ -2391,6 +2391,10 @@ select {
   height: auto;
 }
 
+.h-4\/5 {
+  height: 80%;
+}
+
 .h-5\/6 {
   height: 83.333333%;
 }
@@ -3229,6 +3233,10 @@ select {
   padding-bottom: 10rem;
 }
 
+.pt-44 {
+  padding-top: 11rem;
+}
+
 .pt-48 {
   padding-top: 12rem;
 }
@@ -3264,6 +3272,31 @@ select {
 .placeholder-black::placeholder {
   --tw-placeholder-opacity: 1;
   color: rgba(0, 0, 0, var(--tw-placeholder-opacity));
+}
+
+.placeholder-gray-700::-webkit-input-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgba(63, 63, 70, var(--tw-placeholder-opacity));
+}
+
+.placeholder-gray-700::-moz-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgba(63, 63, 70, var(--tw-placeholder-opacity));
+}
+
+.placeholder-gray-700:-ms-input-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgba(63, 63, 70, var(--tw-placeholder-opacity));
+}
+
+.placeholder-gray-700::-ms-input-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgba(63, 63, 70, var(--tw-placeholder-opacity));
+}
+
+.placeholder-gray-700::placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgba(63, 63, 70, var(--tw-placeholder-opacity));
 }
 
 .placeholder-blueGray-300::-webkit-input-placeholder {
@@ -4334,6 +4367,12 @@ select {
         flex-wrap: nowrap;
   }
 
+  .md\:items-center {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+
   .md\:items-stretch {
     -webkit-box-align: stretch;
         -ms-flex-align: stretch;
@@ -4366,6 +4405,16 @@ select {
     height: 100%;
   }
 
+  .md\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  .md\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
   .md\:mt-0 {
     margin-top: 0px;
   }
@@ -4374,12 +4423,20 @@ select {
     margin-bottom: 0px;
   }
 
+  .md\:ml-0 {
+    margin-left: 0px;
+  }
+
   .md\:mt-4 {
     margin-top: 1rem;
   }
 
   .md\:mb-4 {
     margin-bottom: 1rem;
+  }
+
+  .md\:ml-10 {
+    margin-left: 2.5rem;
   }
 
   .md\:mt-40 {
