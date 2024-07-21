@@ -13,7 +13,7 @@
 </template>
 <script>
 import AdminNavbar from "@/components/Navbars/AdminNavbar.vue";
-import Sidebar from "@/components/Sidebar/Sidebar.vue";
+import Sidebar from "@/components/Sidebar/AdminSidebar.vue";
 import HeaderStats from "@/components/Headers/HeaderStats.vue";
 import FooterAdmin from "@/components/Footers/FooterAdmin.vue";
 export default {
