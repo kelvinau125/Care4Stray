@@ -5,7 +5,7 @@
             <div class="flex flex-wrap items-center">
                 <div class="relative w-full px-4 max-w-full flex-grow flex-1">
                     <h3 class="font-semibold text-lg" :class="[color === 'light' ? 'text-blueGray-700' : 'text-white']">
-                        Adoption Application List
+                        Stray's List
                     </h3>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                                     ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
                                     : 'bg-emerald-800 text-emerald-300 border-emerald-700',
                             ]">
-                            Date
+                            Stray's Name
                         </th>
                         <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
                             :class="[
@@ -29,7 +29,31 @@
                                     ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
                                     : 'bg-emerald-800 text-emerald-300 border-emerald-700',
                             ]">
-                            Adoption User
+                            Gender
+                        </th>
+                        <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                            :class="[
+                                color === 'light'
+                                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                                    : 'bg-emerald-800 text-emerald-300 border-emerald-700',
+                            ]">
+                            Age
+                        </th>
+                        <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                            :class="[
+                                color === 'light'
+                                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                                    : 'bg-emerald-800 text-emerald-300 border-emerald-700',
+                            ]">
+                            Is Vaccinated
+                        </th>
+                        <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                            :class="[
+                                color === 'light'
+                                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                                    : 'bg-emerald-800 text-emerald-300 border-emerald-700',
+                            ]">
+                            Is Deworm
                         </th>
                         <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
                             :class="[
@@ -45,41 +69,12 @@
                                     ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
                                     : 'bg-emerald-800 text-emerald-300 border-emerald-700',
                             ]">
-                            Stray's Information
-                        </th>
-                        <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-                            :class="[
-                                color === 'light'
-                                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                    : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-                            ]">
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(project, index) in projects" :key="index">
-                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                            <div class="flex">
-                                {{ project.date }}
-                            </div>
-                        </th>
-
-                        <td
-                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                            <img :src="project.image" class="h-12 w-12 bg-white rounded-full border" alt="..." />
-                            <span class="ml-3 font-bold" :class="[
-                                color === 'light' ? 'text-blueGray-600' : 'text-white',
-                            ]">
-                                {{ project.name }}
-                            </span>
-                        </td>
-
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                            <i :class="['fas fa-circle', statusColor(project.status), 'mr-2']"></i>
-                            {{ project.status }}
-                        </td>
-
-                        <td
+                        <th
                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
                             <img :src="project.strayimage" class="h-12 w-12 bg-white rounded-full border" alt="..." />
                             <span class="ml-3 font-bold" :class="[
@@ -87,7 +82,33 @@
                             ]">
                                 {{ project.strayname }}
                             </span>
+                        </th>
+
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                            <div class="flex">
+                                {{ project.gender }}
+                            </div>
                         </td>
+
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                            <div class="flex">
+                                {{ project.age }}
+                            </div>
+                        </td>
+
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                            <i :class="project.isVaccinated === 'yes' ? 'fas fa-times' : 'fas fa-check'"></i>
+                        </td>
+
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                            <i :class="project.isDeworm === 'yes' ? 'fas fa-times' : 'fas fa-check'"></i>
+                        </td>
+
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                            <i :class="['fas fa-circle', statusColor(project.status), 'mr-2']"></i>
+                            {{ project.status }}
+                        </td>
+
 
                         <td
                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
@@ -113,11 +134,12 @@ export default {
         return {
             projects: [
                 {
-                    date: "2024/12/5",
-                    image: require('@/assets/img/team-1-800x800.jpg').default,
-                    name: "kelvin",
-                    strayimage: require('@/assets/img/team-2-800x800.jpg').default,
-                    strayname: "kelvin123",
+                    strayimage: require('@/assets/img/team-1-800x800.jpg').default,
+                    strayname: "Hello Kitty",
+                    gender: "M",
+                    age: "18",
+                    isVaccinated: "no",
+                    isDeworm: "yes",
                     status: "completed",
                 }
             ]
