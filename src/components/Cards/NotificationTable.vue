@@ -5,7 +5,7 @@
       <div class="flex flex-wrap items-center">
         <div class="relative w-full px-4 max-w-full flex-grow flex-1">
           <h3 class="font-semibold text-lg" :class="[color === 'light' ? 'text-blueGray-700' : 'text-white']">
-            Donation Transaction
+            Notification Box
           </h3>
         </div>
       </div>
@@ -37,26 +37,8 @@
 
             <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
               <div class="flex">
-                {{ project.name }}
+                {{ project.details }}
               </div>
-            </td>
-
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              MYR
-              <span>
-                {{ project.amount }}
-              </span>
-            </td>
-
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <div class="flex">
-                <i :class="project.isAnonymously === 'yes' ? 'fas fa-times' : 'fas fa-check'"></i>
-              </div>
-            </td>
-
-            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <i :class="['fas fa-circle', statusColor(project.status), 'mr-2']"></i>
-              {{ project.status }}
             </td>
           </tr>
         </tbody>
@@ -72,18 +54,12 @@ export default {
     return {
       tableHeaders: [
         { text: "Date" },
-        { text: 'Name' },
-        { text: 'Donation Amount' },
-        { text: 'Is Anonymously' },
-        { text: 'Status' },
+        { text: 'Details' },
       ],
       projects: [
         {
           date: "2024/15/2",
-          name: "Kelvin",
-          amount: "150",
-          isAnonymously: "Yes",
-          status: "completed",
+          details: "Kelvin",
         }
       ]
     }

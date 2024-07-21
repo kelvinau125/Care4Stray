@@ -15,63 +15,18 @@
             <table class="items-center w-full bg-transparent border-collapse">
                 <thead>
                     <tr>
-                        <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                        <th v-for="(header, index) in tableHeaders" :key="index"
+                            class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
                             :class="[
                                 color === 'light'
                                     ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
                                     : 'bg-emerald-800 text-emerald-300 border-emerald-700',
                             ]">
-                            Stray's Name
-                        </th>
-                        <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-                            :class="[
-                                color === 'light'
-                                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                    : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-                            ]">
-                            Gender
-                        </th>
-                        <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-                            :class="[
-                                color === 'light'
-                                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                    : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-                            ]">
-                            Age
-                        </th>
-                        <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-                            :class="[
-                                color === 'light'
-                                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                    : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-                            ]">
-                            Is Vaccinated
-                        </th>
-                        <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-                            :class="[
-                                color === 'light'
-                                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                    : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-                            ]">
-                            Is Deworm
-                        </th>
-                        <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-                            :class="[
-                                color === 'light'
-                                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                    : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-                            ]">
-                            Status
-                        </th>
-                        <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-                            :class="[
-                                color === 'light'
-                                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                    : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-                            ]">
+                            {{ header.text }}
                         </th>
                     </tr>
                 </thead>
+
                 <tbody>
                     <tr v-for="(project, index) in projects" :key="index">
                         <th
@@ -132,6 +87,15 @@ export default {
 
     data() {
         return {
+            tableHeaders: [
+                { text: "Stray's Name" },
+                { text: 'Gender' },
+                { text: 'Age' },
+                { text: 'Is Vaccinated' },
+                { text: 'Is Deworm' },
+                { text: 'Status' },
+                { text: '' }
+            ],
             projects: [
                 {
                     strayimage: require('@/assets/img/team-1-800x800.jpg').default,

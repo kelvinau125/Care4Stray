@@ -15,47 +15,18 @@
             <table class="items-center w-full bg-transparent border-collapse">
                 <thead>
                     <tr>
-                        <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                        <th v-for="(header, index) in tableHeaders" :key="index"
+                            class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
                             :class="[
                                 color === 'light'
                                     ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
                                     : 'bg-emerald-800 text-emerald-300 border-emerald-700',
                             ]">
-                            Date
-                        </th>
-                        <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-                            :class="[
-                                color === 'light'
-                                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                    : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-                            ]">
-                            Adoption User
-                        </th>
-                        <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-                            :class="[
-                                color === 'light'
-                                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                    : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-                            ]">
-                            Status
-                        </th>
-                        <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-                            :class="[
-                                color === 'light'
-                                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                    : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-                            ]">
-                            Stray's Information
-                        </th>
-                        <th class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-                            :class="[
-                                color === 'light'
-                                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                    : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-                            ]">
+                            {{ header.text }}
                         </th>
                     </tr>
                 </thead>
+
                 <tbody>
                     <tr v-for="(project, index) in projects" :key="index">
                         <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -111,6 +82,13 @@ export default {
 
     data() {
         return {
+            tableHeaders: [
+                { text: "Date" },
+                { text: 'Adoption User' },
+                { text: 'Status' },
+                { text: 'Stray`s Informtion' },
+                { text: '' } // Empty header cell if needed
+            ],
             projects: [
                 {
                     date: "2024/12/5",

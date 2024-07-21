@@ -25,6 +25,7 @@ import Maps from "@/views/admin/Maps.vue";
 import AdminDonation from "@/views/admin/Donation.vue";
 import AdminAdoption from "@/views/admin/Adoption.vue";
 import AdminStray from "@/views/admin/StrayAdoption.vue";
+import AdminNotification from "@/views/admin/Notification.vue";
 
 // views for Auth layout
 
@@ -94,6 +95,10 @@ const routes = [
       {
         path: "/admin/stray",
         component: AdminStray,
+      },
+      {
+        path: "/admin/notification",
+        component: AdminNotification,
       },
     ],
   },
