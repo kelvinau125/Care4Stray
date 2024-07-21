@@ -1,12 +1,12 @@
 <template>
-   <nav 
+  <nav 
     class="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg"
     :style="navbarStyle">
     <div class="container px-4 mx-auto flex flex-wrap items-center justify-between">
       <div class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
         <button
           class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
-          type="button" v-on:click="setNavbarOpen">
+          type="button" v-on:click="toggleNavbar">
           <i class="text-white fas fa-bars"></i>
         </button>
 
@@ -25,7 +25,7 @@
         :class="[navbarOpen ? 'block rounded shadow-lg' : 'hidden']" id="example-navbar-warning">
 
         <div class="flex w-full flex-wrap items-stretch px-4 pt-4"
-        :class="[navbarOpen ? 'block' : 'hidden']" >
+        :class="[navbarOpen ? 'block' : 'hidden']">
           <span
             class="z-10 h-full leading-snug font-normal text-center text-blueGray-600 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3">
             <i class="fas fa-search"></i>
@@ -41,7 +41,7 @@
           <li class="flex items-center">
             <router-link 
               class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-              to="/user/nearme">
+              to="/user/nearme" @click.native="closeNavbar">
               StraysCommunity
             </router-link>
           </li>
@@ -49,7 +49,7 @@
           <li class="flex items-center">
             <router-link 
               class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-              to="/guestnews">
+              to="/guestnews" @click.native="closeNavbar">
               News
             </router-link>
           </li>
@@ -57,7 +57,7 @@
           <li class="flex items-center">
             <router-link
               class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-              to="/user/adoption">
+              to="/user/adoption" @click.native="closeNavbar">
               Take Me Home
             </router-link>
           </li>
@@ -65,7 +65,7 @@
           <li class="flex items-center">
             <router-link
               class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-              to="/donation">
+              to="/donation" @click.native="closeNavbar">
               Donation
             </router-link>
           </li>
@@ -76,7 +76,7 @@
           <li class="flex items-center">
             <router-link
               class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-              to="/user/notification">
+              to="/user/notification" @click.native="closeNavbar">
               Notification
             </router-link>
           </li>
@@ -84,7 +84,7 @@
           <li class="flex items-center">
             <router-link
               class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-              to="/user/application">
+              to="/user/application" @click.native="closeNavbar">
               Application
             </router-link>
           </li>
@@ -93,6 +93,7 @@
     </div>
   </nav>
 </template>
+
 <script>
 import headerBackground from "@/assets/img/header-background.png";
 import UserDropdown from "@/components/Dropdowns/UserDropdown.vue";
@@ -133,9 +134,26 @@ export default {
   },
 
   methods: {
-    setNavbarOpen: function () {
+    toggleNavbar(event) {
+      event.stopPropagation();
       this.navbarOpen = !this.navbarOpen;
     },
+    closeNavbar() {
+      this.navbarOpen = false;
+    },
+    handleClickOutside(event) {
+      if (!this.$el.contains(event.target)) {
+        this.closeNavbar();
+      }
+    },
+  },
+
+  mounted() {
+    document.addEventListener('click', this.handleClickOutside);
+  },
+
+  beforeDestroy() {
+    document.removeEventListener('click', this.handleClickOutside);
   },
 };
 </script>
