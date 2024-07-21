@@ -23,6 +23,8 @@ import Settings from "@/views/admin/Settings.vue";
 import Tables from "@/views/admin/Tables.vue";
 import Maps from "@/views/admin/Maps.vue";
 import AdminDonation from "@/views/admin/Donation.vue";
+import AdminAdoption from "@/views/admin/Adoption.vue";
+import AdminStray from "@/views/admin/StrayAdoption.vue";
 
 // views for Auth layout
 
@@ -84,6 +86,14 @@ const routes = [
       {
         path: "/admin/donation",
         component: AdminDonation,
+      },
+      {
+        path: "/admin/adoption",
+        component: AdminAdoption,
+      },
+      {
+        path: "/admin/stray",
+        component: AdminStray,
       },
     ],
   },
