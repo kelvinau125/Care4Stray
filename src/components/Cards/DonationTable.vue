@@ -50,7 +50,7 @@
 
             <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
               <div class="flex">
-                <i :class="project.isAnonymously === 'yes' ? 'fas fa-times' : 'fas fa-check'"></i>
+                <i :class="project.isAnonymously === 'yes' ? 'fas fa-check' : 'fas fa-times'"></i>
               </div>
             </td>
 
@@ -82,7 +82,7 @@ export default {
           date: "2024/15/2",
           name: "Kelvin",
           amount: "150",
-          isAnonymously: "Yes",
+          isAnonymously: "yes",
           status: "completed",
         }
       ]

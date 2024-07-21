@@ -5,7 +5,7 @@
             <div class="flex flex-wrap items-center">
                 <div class="relative w-full px-4 max-w-full flex-grow flex-1">
                     <h3 class="font-semibold text-lg" :class="[color === 'light' ? 'text-blueGray-700' : 'text-white']">
-                        Stray's List
+                        User's List
                     </h3>
                 </div>
             </div>
@@ -29,41 +29,33 @@
 
                 <tbody>
                     <tr v-for="(project, index) in projects" :key="index">
+
                         <th
                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                            <img :src="project.strayimage" class="h-12 w-12 bg-white rounded-full border" alt="..." />
+                            <img :src="project.image" class="h-12 w-12 bg-white rounded-full border" alt="..." />
                             <span class="ml-3 font-bold" :class="[
                                 color === 'light' ? 'text-blueGray-600' : 'text-white',
                             ]">
-                                {{ project.strayname }}
+                                {{ project.name }}
                             </span>
                         </th>
-
+                     
                         <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                            <div class="flex">
-                                {{ project.gender }}
-                            </div>
+                        <div class="flex">
+                            <i :class="project.isAdopted === 'yes' ? 'fas fa-check' : 'fas fa-times'"></i>
+                        </div>
                         </td>
 
                         <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                             <div class="flex">
-                                {{ project.age }}
+                                {{ project.numberAdopted }}
                             </div>
-                        </td>
-
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                            <i :class="project.isVaccinated === 'yes' ? 'fas fa-check' : 'fas fa-times'"></i>
-                        </td>
-
-                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                            <i :class="project.isDeworm === 'yes' ? 'fas fa-check' : 'fas fa-times'"></i>
                         </td>
 
                         <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                             <i :class="['fas fa-circle', statusColor(project.status), 'mr-2']"></i>
                             {{ project.status }}
                         </td>
-
 
                         <td
                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
@@ -88,23 +80,19 @@ export default {
     data() {
         return {
             tableHeaders: [
-                { text: "Stray's Name" },
-                { text: 'Gender' },
-                { text: 'Age' },
-                { text: 'Is Vaccinated' },
-                { text: 'Is Deworm' },
+                { text: 'User`s Name' },
+                { text: 'Is Adopted Stray' },
+                { text: 'Total Adopted Stray' },
                 { text: 'Status' },
-                { text: '' }
+                { text: '' } // Empty header cell if needed
             ],
             projects: [
                 {
-                    strayimage: require('@/assets/img/team-1-800x800.jpg').default,
-                    strayname: "Hello Kitty",
-                    gender: "M",
-                    age: "18",
-                    isVaccinated: "no",
-                    isDeworm: "yes",
-                    status: "completed",
+                    image: require('@/assets/img/team-1-800x800.jpg').default,
+                    name: "kelvin",
+                    isAdopted: "yes",
+                    numberAdopted: "1",
+                    status: "active",
                 }
             ]
         }
@@ -118,14 +106,10 @@ export default {
     methods: {
         statusColor(status) {
             switch (status) {
-                case 'pending':
-                    return 'text-orange-500';
-                case 'completed':
+                case 'active':
                     return 'text-emerald-500';
-                case 'delayed':
+                case 'deactivate':
                     return 'text-red-500';
-                case 'on schedule':
-                    return 'text-teal-500';
                 default:
                     return 'text-gray-500';
             }
