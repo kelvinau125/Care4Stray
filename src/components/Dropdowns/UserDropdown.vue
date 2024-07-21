@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="block md:hidden">
+    <!-- Avatar and Dropdown Toggle -->
     <a class="text-blueGray-500 block" href="#pablo" ref="btnDropdownRef" v-on:click="toggleDropdown($event)">
       <div class="items-center flex justify-between">
         <div class="flex flex-row items-center justify-center gap-3">
@@ -8,16 +9,19 @@
             <img alt="..." class="w-full rounded-full align-middle border-none shadow-lg" :src="image" />
           </span>
 
-          <div class="flex flex-col gap-1">
+          <!-- Username and UID, hidden on mobile view -->
+          <div class="hidden md:flex flex-col gap-1">
             <span class="text-mainText text-sm font-bold">@ {{ username }}</span>
             <span class="text-thirdText text-xs">uid: {{ user_id }}</span>
           </div>
         </div>
 
-        <i class="fas fa-ellipsis-v text-mainText text-xl"></i>
+        <!-- Ellipsis icon, hidden on mobile view -->
+        <i class="fas fa-ellipsis-v text-mainText text-xl hidden md:block"></i>
       </div>
     </a>
 
+    <!-- Dropdown content -->
     <div ref="popoverDropdownRef"
       class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48" v-bind:class="{
         hidden: !dropdownPopoverShow,
@@ -44,7 +48,6 @@
 
 <script>
 import { createPopper } from "@popperjs/core";
-
 import image from "@/assets/img/team-1-800x800.jpg";
 
 export default {
@@ -84,11 +87,14 @@ export default {
       const button = this.$refs.btnDropdownRef;
       if (dropdown && !dropdown.contains(event.target) && button && !button.contains(event.target)) {
         this.hideDropdown();
-      }
-      else if (dropdown && dropdown.contains(event.target)) {
+      } else if (dropdown && dropdown.contains(event.target)) {
         this.hideDropdown();
       }
     }
   }
 };
 </script>
+
+<style scoped>
+/* Adjust styles as needed */
+</style>
