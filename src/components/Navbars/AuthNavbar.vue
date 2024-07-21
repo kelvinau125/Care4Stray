@@ -73,7 +73,7 @@
           <!-- Divider -->
           <hr class="mx-4 my-2" />
 
-          <li class="flex items-center">
+          <li class="flex items-center" :class="[navbarOpen ? 'block' : 'hidden']">
             <router-link
               class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
               to="/user/notification" @click.native="closeNavbar">
@@ -81,7 +81,7 @@
             </router-link>
           </li>
 
-          <li class="flex items-center">
+          <li class="flex items-center" :class="[navbarOpen ? 'block' : 'hidden']">
             <router-link
               class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
               to="/user/application" @click.native="closeNavbar">
