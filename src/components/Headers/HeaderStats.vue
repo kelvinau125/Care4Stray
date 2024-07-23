@@ -1,13 +1,13 @@
 <template>
   <!-- Header -->
-  <div class="relative bg-emerald-600 md:pt-32 pb-32 pt-12">
+  <div class="relative bg-mainTheme md:pt-32 pb-32 pt-12">
     <div class="px-4 md:px-10 mx-auto w-full">
       <div>
         <!-- Card stats -->
         <div class="flex flex-wrap">
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
-              statSubtitle="TRAFFIC"
+              statSubtitle="Post"
               statTitle="350,897"
               statArrow="up"
               statPercent="3.48"
@@ -31,7 +31,7 @@
           </div>
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
-              statSubtitle="SALES"
+              statSubtitle="Donation Amount"
               statTitle="924"
               statArrow="down"
               statPercent="1.10"
@@ -43,7 +43,7 @@
           </div>
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
-              statSubtitle="PERFORMANCE"
+              statSubtitle="Notification"
               statTitle="49,65%"
               statArrow="up"
               statPercent="12"
