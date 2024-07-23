@@ -8,6 +8,13 @@
                         User's List
                     </h3>
                 </div>
+
+                <!-- <button
+                    class="bg-emerald-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                >
+                    Create
+                </button> -->
             </div>
         </div>
         <div class="block w-full overflow-x-auto">
@@ -28,7 +35,7 @@
                 </thead>
 
                 <tbody>
-                    <tr v-for="(project, index) in projects" :key="index">
+                    <tr v-for="(project, index) in projects" :key="index" @click="toUserProfile(project.id)">
 
                         <th
                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
@@ -88,6 +95,7 @@ export default {
             ],
             projects: [
                 {
+                    id: "1",
                     image: require('@/assets/img/team-1-800x800.jpg').default,
                     name: "kelvin",
                     isAdopted: "yes",
@@ -113,6 +121,16 @@ export default {
                 default:
                     return 'text-gray-500';
             }
+        },
+
+        toUserProfile(id) {
+            // Push
+            this.$router.push({
+                path: '/admin/viewprofile',
+                query: {
+                userID: id,
+                },
+            });
         },
     }
 }

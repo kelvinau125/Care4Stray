@@ -29,6 +29,8 @@ import AdminNotification from "@/views/admin/Notification.vue";
 import AdminUsers from "@/views/admin/Users.vue";
 import AdminNews from "@/views/admin/News.vue";
 
+import UserProfile from "@/components/User/AdminProfile.vue";
+
 // views for Auth layout
 
 import Login from "@/views/auth/Login.vue";
@@ -109,6 +111,10 @@ const routes = [
       {
         path: "/admin/news",
         component: AdminNews,
+      },
+      {
+        path: "/admin/viewprofile",
+        component: UserProfile,
       },
     ],
   },

@@ -71,7 +71,7 @@
                   ? 'text-emerald-500 hover:text-emerald-600'
                   : 'text-blueGray-700 hover:text-blueGray-500',
               ]">
-                <i class="fas fa-tools mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"></i>
+                <i class="fas fa-list mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"></i>
                 Adoption
               </a>
             </router-link>
@@ -85,7 +85,7 @@
                   ? 'text-emerald-500 hover:text-emerald-600'
                   : 'text-blueGray-700 hover:text-blueGray-500',
               ]">
-                <i class="fas fa-tools mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"></i>
+                <i class="fas fa-list mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"></i>
                 Stray Adoption
               </a>
             </router-link>
@@ -110,7 +110,7 @@
                   ? 'text-emerald-500 hover:text-emerald-600'
                   : 'text-blueGray-700 hover:text-blueGray-500',
               ]">
-                <i class="fas fa-tools mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"></i>
+                <i class="fas fa-newspaper mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"></i>
                 News
               </a>
             </router-link>
@@ -134,7 +134,7 @@
                   ? 'text-emerald-500 hover:text-emerald-600'
                   : 'text-blueGray-700 hover:text-blueGray-500',
               ]">
-                <i class="fas fa-tools mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"></i>
+                <i class="fas fa-user mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"></i>
                 Users
               </a>
             </router-link>
@@ -159,7 +159,7 @@
                   ? 'text-emerald-500 hover:text-emerald-600'
                   : 'text-blueGray-700 hover:text-blueGray-500',
               ]">
-                <i class="fas fa-tools mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"></i>
+                <i class="fas fa-dollar-sign ml-1 mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"></i>
                 Donation
               </a>
             </router-link>
@@ -172,7 +172,7 @@
                   ? 'text-emerald-500 hover:text-emerald-600'
                   : 'text-blueGray-700 hover:text-blueGray-500',
               ]">
-                <i class="fas fa-tools mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"></i>
+                <i class="fas fa-bell mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"></i>
                 Notification
               </a>
             </router-link>
