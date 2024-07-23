@@ -10,36 +10,34 @@ import {
     cloudinaryUrl,
  } from '@/utils/apiConfig.js';
 
-const cloudinary = require('cloudinary').v2;
-
 // Update Image
-export async function updateProfilePic(file) {
-    const cloudNameUrl = cloudName
-    const resourceTypeUrl = "image"
+export async function uploadImage(file) {
 
     const url = cloudinaryUrl
-        .replace("{cloud name}", cloudNameUrl)
-        .replace("{resource_type}", resourceTypeUrl);
+        .replace("{cloud name}", cloudName)
+        .replace("{resource_type}", "image");
   
     try {
       const response = await postFileRequest(file, url);
-      const code = response.code;
-      const data = response.data;
+      const status = response.status;
+      // const data = response.data;
       console.log(response);
+      console.log(response.data.url);
 
       // const isFinished = await pushImageToServer(userToken, data);
       // can remove it
       const isFinished = true;
 
       if (isFinished) {
-        if (code === 200) {
+        if (status === 200) {
+          console.log("good");
           return isFinished;
         } else {
-          console.log(`Unsuccessfully upload to Cloudinary: ${code}`);
+          console.log(`Unsuccessfully upload to Cloudinary: ${response.status}`);
           return false;
         }
       } else {
-        console.log(`Unsuccessfully upload to Cloudinary: ${code}`);
+        console.log(`Unsuccessfully upload to Cloudinary: ${response.status}`);
         return false;
       }
     } catch (e) {

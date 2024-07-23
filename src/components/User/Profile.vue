@@ -160,6 +160,8 @@
   </template>
   
   <script>
+  import { uploadImage } from "@/service/apiProviderImage.js";
+
   export default {
     data() {
       return {
@@ -182,18 +184,20 @@
       triggerFileInput() {
         this.$refs.fileInput.click();
       },
-      handleFileChange(event) {
+      async handleFileChange(event) {
         const file = event.target.files[0];
         if (file) {
           if (file.size > 20 * 1024 * 1024) {
             alert("File size exceeds 20MB. Please choose a smaller file.");
             return;
           }
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            this.adopter.image = e.target.result;
-          };
-          reader.readAsDataURL(file);
+          const result = await uploadImage(file);
+
+          if (result) {
+            console.log(result)
+          } else if (result === false) {
+              console.log(result)
+          } 
         }
       },
     },

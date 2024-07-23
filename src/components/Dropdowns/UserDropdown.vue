@@ -1,5 +1,5 @@
 <template>
-  <div class="block md:hidden">
+  <div>
     <!-- Avatar and Dropdown Toggle -->
     <a class="text-blueGray-500 block" href="#pablo" ref="btnDropdownRef" v-on:click="toggleDropdown($event)">
       <div class="items-center flex justify-between">

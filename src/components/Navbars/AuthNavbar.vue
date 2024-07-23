@@ -16,7 +16,7 @@
           Care4Stray
         </router-link>
         
-        <div class="md:mt-auto">
+        <div class="md:mt-auto block md:hidden">
           <user-dropdown />
         </div>
       </div>
