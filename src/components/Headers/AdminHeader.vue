@@ -19,8 +19,14 @@ export default {
       if (this.$route.path === '/admin/viewprofile') {
         return 'User Profile'
       }
-      else if (this.$route.path === '/user/postdetails') {
-        return 'Post'
+      else if (this.$route.path === '/admin/createstrayprofile') {
+        return 'Create Stray`s Application'
+      }
+      else if (this.$route.path === '/admin/viewstrayprofile') {
+        return 'Stray`s Application'
+      }
+      else if (this.$route.path === '/admin/editstrayprofile') {
+        return 'Edit Stray`s Application'
       }
       else {
         return 'Adoption Application'

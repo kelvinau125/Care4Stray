@@ -8,12 +8,6 @@
                         User's List
                     </h3>
                 </div>
-                <!-- <button
-                    class="bg-emerald-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                >
-                    Create
-                </button> -->
             </div>
         </div>
         <div class="block w-full overflow-x-auto">
@@ -63,23 +57,29 @@
                         </td>
 
                         <td
-                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right" @click.native.stop="toggleDropdown(index)">
-                            <div>
-                                <a class="text-blueGray-500 py-1 px-3" href="#pablo" ref="btnDropdownRef"
-                                    v-on:click="toggleDropdown(index, $event)">
-                                    <i class="fas fa-ellipsis-v"></i>
+                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                            <a
+                                class="text-blueGray-500 py-1 px-3"
+                                href="#pablo"
+                                :ref="'btnDropdownRef' + index"
+                                @click.native.stop="toggleDropdown(index, $event)"
+                            >
+                                <i class="fas fa-ellipsis-v"></i>
+                            </a>
+                            <div
+                                :ref="'popoverDropdownRef' + index"
+                                class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
+                                :class="{
+                                    hidden: dropdownIndex !== index,
+                                    block: dropdownIndex === index,
+                                }"
+                            >
+                                <a
+                                    href="javascript:void(0);"
+                                    class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                >
+                                    {{ project.status == "active" ? "Inactive" : "Active" }}
                                 </a>
-                                <div ref="popoverDropdownRef"
-                                    class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
-                                    :class="{
-                                        hidden: dropdownIndex !== index,
-                                        block: dropdownIndex === index,
-                                    }" >
-                                    <a href="javascript:void(0);"
-                                        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-                                        {{ project.status == "active"  ? "Inactive" : "Active" }}
-                                    </a>
-                                </div>
                             </div>
                         </td>
                     </tr>
@@ -93,12 +93,10 @@
 import { createPopper } from "@popperjs/core";
 
 export default {
-    components: {
-    },
-
     data() {
         return {
             dropdownIndex: null,
+
             tableHeaders: [
                 { text: 'User`s Name' },
                 { text: 'Is Adopted Stray' },
@@ -172,25 +170,36 @@ export default {
 
         toggleDropdown(index, event) {
             event.preventDefault();
-            this.dropdownIndex = this.dropdownIndex === index ? null : index;
+            if (this.dropdownIndex === index) {
+                this.hideDropdown();
+            } else {
+                this.showDropdown(index);
+            }
+        },
+
+        showDropdown(index) {
+            this.dropdownIndex = index;
             this.$nextTick(() => {
-                if (this.dropdownIndex !== null) {
-                    createPopper(this.$refs[`btnDropdownRef_${index}`][0], this.$refs[`popoverDropdownRef_${index}`][0], {
-                        placement: "bottom-start",
-                    });
-                    document.addEventListener('click', this.handleClickOutsideDropdown);
-                } else {
-                    document.removeEventListener('click', this.handleClickOutsideDropdown);
-                }
+                createPopper(
+                    this.$refs['btnDropdownRef' + index],
+                    this.$refs['popoverDropdownRef' + index],
+                    {
+                        placement: 'bottom-start',
+                    }
+                );
             });
+            document.addEventListener('click', this.handleClickOutsideDropdown);
+        },
+
+        hideDropdown() {
+            this.dropdownIndex = null;
+            document.removeEventListener('click', this.handleClickOutsideDropdown);
         },
 
         handleClickOutsideDropdown(event) {
-            const dropdown = this.$refs[`popoverDropdownRef_${this.dropdownIndex}`][0];
-            const button = this.$refs[`btnDropdownRef_${this.dropdownIndex}`][0];
-            if (dropdown && !dropdown.contains(event.target) && button && !button.contains(event.target)) {
-                this.dropdownIndex = null;
-                document.removeEventListener('click', this.handleClickOutsideDropdown);
+            if (!this.$refs['popoverDropdownRef' + this.dropdownIndex].contains(event.target) &&
+                !this.$refs['btnDropdownRef' + this.dropdownIndex].contains(event.target)) {
+                this.hideDropdown();
             }
         }
     }

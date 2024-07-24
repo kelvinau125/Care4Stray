@@ -30,6 +30,9 @@ import AdminUsers from "@/views/admin/Users.vue";
 import AdminNews from "@/views/admin/News.vue";
 
 import UserProfile from "@/components/User/AdminProfile.vue";
+import CreateStrayProfile from "@/components/Application/CreateStrayProfile.vue";
+import ViewStrayProfile from "@/components/Application/ViewStrayProfile.vue";
+import EditStrayProfile from "@/components/Application/EditStrayProfile.vue";
 
 // views for Auth layout
 
@@ -116,6 +119,19 @@ const routes = [
         path: "/admin/viewprofile",
         component: UserProfile,
       },
+      {
+        path: "/admin/createstrayprofile",
+        component: CreateStrayProfile,
+      }, 
+      {
+        path: "/admin/viewstrayprofile",
+        component: ViewStrayProfile,
+      }, 
+      {
+        path: "/admin/editstrayprofile",
+        component: EditStrayProfile,
+      }, 
+      
     ],
   },
   {
@@ -186,6 +202,7 @@ const routes = [
         path: "/user/donationhistory",
         component: donationhistory,
       }, 
+
     ],
   },
   {
