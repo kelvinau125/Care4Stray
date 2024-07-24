@@ -104,6 +104,14 @@ export default {
                     strayimage: require('@/assets/img/team-2-800x800.jpg').default,
                     strayname: "kelvin123",
                     status: "completed",
+                },
+                {
+                    date: "2024/12/5",
+                    image: require('@/assets/img/team-1-800x800.jpg').default,
+                    name: "kelvin",
+                    strayimage: require('@/assets/img/team-2-800x800.jpg').default,
+                    strayname: "kelvin123",
+                    status: "completed",
                 }
             ]
         }
