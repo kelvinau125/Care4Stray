@@ -8,7 +8,6 @@
                         User's List
                     </h3>
                 </div>
-
                 <!-- <button
                     class="bg-emerald-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
@@ -64,18 +63,18 @@
                         </td>
 
                         <td
-                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                            <div @click.native.stop="handleDropdownClick">
+                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right" @click.native.stop="toggleDropdown(index)">
+                            <div>
                                 <a class="text-blueGray-500 py-1 px-3" href="#pablo" ref="btnDropdownRef"
-                                    v-on:click="toggleDropdown($event)">
+                                    v-on:click="toggleDropdown(index, $event)">
                                     <i class="fas fa-ellipsis-v"></i>
                                 </a>
                                 <div ref="popoverDropdownRef"
                                     class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
-                                    v-bind:class="{
-                                        hidden: !dropdownPopoverShow,
-                                        block: dropdownPopoverShow,
-                                    }">
+                                    :class="{
+                                        hidden: dropdownIndex !== index,
+                                        block: dropdownIndex === index,
+                                    }" >
                                     <a href="javascript:void(0);"
                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
                                         {{ project.status == "active"  ? "Inactive" : "Active" }}
@@ -99,8 +98,7 @@ export default {
 
     data() {
         return {
-            dropdownPopoverShow: false,
-            
+            dropdownIndex: null,
             tableHeaders: [
                 { text: 'User`s Name' },
                 { text: 'Is Adopted Stray' },
@@ -172,40 +170,27 @@ export default {
             });
         },
 
-        handleDropdownClick(event) {
-            // Stop event propagation
-            event.stopPropagation();
-        },
-
-        toggleDropdown: function (event) {
+        toggleDropdown(index, event) {
             event.preventDefault();
-            if (this.dropdownPopoverShow) {
-                this.hideDropdown();
-            } else {
-                this.showDropdown();
-            }
-        },
-
-        showDropdown: function () {
-            this.dropdownPopoverShow = true;
-            createPopper(this.$refs.btnDropdownRef, this.$refs.popoverDropdownRef, {
-                placement: "bottom-start",
+            this.dropdownIndex = this.dropdownIndex === index ? null : index;
+            this.$nextTick(() => {
+                if (this.dropdownIndex !== null) {
+                    createPopper(this.$refs[`btnDropdownRef_${index}`][0], this.$refs[`popoverDropdownRef_${index}`][0], {
+                        placement: "bottom-start",
+                    });
+                    document.addEventListener('click', this.handleClickOutsideDropdown);
+                } else {
+                    document.removeEventListener('click', this.handleClickOutsideDropdown);
+                }
             });
-            document.addEventListener('click', this.handleClickOutsideDropdown);
         },
 
-        hideDropdown: function () {
-            this.dropdownPopoverShow = false;
-            document.removeEventListener('click', this.handleClickOutsideDropdown);
-        },
-
-        handleClickOutsideDropdown: function (event) {
-            const dropdown = this.$refs.popoverDropdownRef;
-            const button = this.$refs.btnDropdownRef;
+        handleClickOutsideDropdown(event) {
+            const dropdown = this.$refs[`popoverDropdownRef_${this.dropdownIndex}`][0];
+            const button = this.$refs[`btnDropdownRef_${this.dropdownIndex}`][0];
             if (dropdown && !dropdown.contains(event.target) && button && !button.contains(event.target)) {
-                this.hideDropdown();
-            } else if (dropdown && dropdown.contains(event.target)) {
-                this.hideDropdown();
+                this.dropdownIndex = null;
+                document.removeEventListener('click', this.handleClickOutsideDropdown);
             }
         }
     }
