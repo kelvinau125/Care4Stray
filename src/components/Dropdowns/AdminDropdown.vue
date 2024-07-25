@@ -30,27 +30,9 @@
         href="javascript:void(0);"
         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
       >
-        Action
+        Logout
       </a>
-      <a
-        href="javascript:void(0);"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-      >
-        Another action
-      </a>
-      <a
-        href="javascript:void(0);"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-      >
-        Something else here
-      </a>
-      <div class="h-0 my-2 border border-solid border-blueGray-100" />
-      <a
-        href="javascript:void(0);"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-      >
-        Seprated link
-      </a>
+      <!-- <div class="h-0 my-2 border border-solid border-blueGray-100" /> -->
     </div>
   </div>
 </template>
@@ -71,14 +53,34 @@ export default {
     toggleDropdown: function (event) {
       event.preventDefault();
       if (this.dropdownPopoverShow) {
-        this.dropdownPopoverShow = false;
+        this.hideDropdown();
       } else {
-        this.dropdownPopoverShow = true;
-        createPopper(this.$refs.btnDropdownRef, this.$refs.popoverDropdownRef, {
-          placement: "bottom-start",
-        });
+        this.showDropdown();
       }
     },
+
+    showDropdown: function () {
+      this.dropdownPopoverShow = true;
+      createPopper(this.$refs.btnDropdownRef, this.$refs.popoverDropdownRef, {
+        placement: "bottom-start",
+      });
+      document.addEventListener('click', this.handleClickOutsideDropdown);
+    },
+
+    hideDropdown: function () {
+      this.dropdownPopoverShow = false;
+      document.removeEventListener('click', this.handleClickOutsideDropdown);
+    },
+
+    handleClickOutsideDropdown: function (event) {
+      const dropdown = this.$refs.popoverDropdownRef;
+      const button = this.$refs.btnDropdownRef;
+      if (dropdown && !dropdown.contains(event.target) && button && !button.contains(event.target)) {
+        this.hideDropdown();
+      } else if (dropdown && dropdown.contains(event.target)) {
+        this.hideDropdown();
+      }
+    }
   },
 };
 </script>
