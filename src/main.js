@@ -34,6 +34,8 @@ import CreateStrayProfile from "@/components/Application/CreateStrayProfile.vue"
 import ViewStrayProfile from "@/components/Application/ViewStrayProfile.vue";
 import EditStrayProfile from "@/components/Application/EditStrayProfile.vue";
 import AdoptionApplication from "@/components/AdminAdoption/AdoptionApplicationDetails.vue";
+import CreateNews from "@/components/News/AdminCreateNews.vue";
+import EditNews from "@/components/News/AdminEditNews.vue";
 
 // views for Auth layout
 
@@ -135,6 +137,14 @@ const routes = [
       {
         path: "/admin/adminadoption",
         component: AdoptionApplication,
+      }, 
+      {
+        path: "/admin/createnews",
+        component: CreateNews,
+      }, 
+      {
+        path: "/admin/editnews",
+        component: EditNews,
       }, 
     ],
   },
