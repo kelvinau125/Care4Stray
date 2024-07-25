@@ -1,12 +1,22 @@
 <template>
   <div class="w-full mx-auto p-4 bg-white rounded-lg shadow-lg">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Edit News Article</h2>
+    <div class="flex justify-between">
+      <div>
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6 pt-2">Edit News Article</h2>
+      </div>
+
+      <div class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap pt-4">
+        <i :class="['fas fa-circle', statusColor(news.status), 'mr-2']"></i>
+        {{ news.status }}
+      </div>
+    </div>
 
     <!-- Date -->
     <div class="mb-4">
       <label for="date" class="block text-gray-700 font-bold mb-2">Date</label>
       <input type="text" id="date" v-model="news.date"
-        class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" disabled/>
+        class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        disabled />
     </div>
 
     <!-- Title -->
@@ -66,6 +76,7 @@ export default {
         author: 'Hallo Kitty',
         media: null,
         details: 'Hallo Kitty Hallo Kitty Hallo Kitty Hallo Kitty Hallo Kitty Hallo Kitty Hallo Kitty Hallo Kitty',
+        status: "inactive",
       },
 
       previewUrl: null,
@@ -74,6 +85,17 @@ export default {
     };
   },
   methods: {
+    statusColor(status) {
+      switch (status) {
+        case 'active':
+          return 'text-emerald-500';
+        case 'inactive':
+          return 'text-red-500';
+        default:
+          return 'text-gray-500';
+      }
+    },
+
     handleFileUpload(event) {
       const file = event.target.files[0];
       if (file) {

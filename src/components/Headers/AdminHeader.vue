@@ -28,6 +28,12 @@ export default {
       else if (this.$route.path === '/admin/editstrayprofile') {
         return 'Edit Stray`s Application'
       }
+      else if (this.$route.path === '/admin/createnews') {
+        return 'Create News'
+      }
+      else if (this.$route.path === '/admin/editnews') {
+        return 'Edit News'
+      }
       else {
         return 'Adoption Application'
       }
