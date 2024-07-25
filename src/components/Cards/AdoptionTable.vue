@@ -35,7 +35,7 @@
                 </thead>
 
                 <tbody>
-                    <tr v-for="(project, index) in projects" :key="index">
+                    <tr v-for="(project, index) in projects" :key="index" @click="toApplicationDetails(project.id)">
                         <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                             <div class="flex">
                                 {{ project.date }}
@@ -68,8 +68,27 @@
                         </td>
 
                         <td
-                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                            <table-dropdown />
+                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
+                            v-if="(project.status == 'pending')">
+                            <a class="text-blueGray-500 py-1 px-3" href="#pablo" :ref="'btnDropdownRef' + index"
+                                @click.native.stop="toggleDropdown(index, $event)">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </a>
+                            <div :ref="'popoverDropdownRef' + index"
+                                class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
+                                :class="{
+                                    hidden: dropdownIndex !== index,
+                                    block: dropdownIndex === index,
+                                }">
+                                <a href="javascript:void(0);"
+                                    class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
+                                   Approve
+                                </a>
+                                <a href="javascript:void(0);"
+                                    class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
+                                   Reject
+                                </a>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -79,16 +98,16 @@
 </template>
 
 <script>
-import TableDropdown from "@/components/Dropdowns/TableDropdown.vue";
-
+import { createPopper } from "@popperjs/core";
 
 export default {
     components: {
-        TableDropdown,
     },
 
     data() {
         return {
+            dropdownIndex: null,
+
             tableHeaders: [
                 { text: "Date" },
                 { text: 'Adoption User' },
@@ -98,20 +117,31 @@ export default {
             ],
             projects: [
                 {
+                    id: "1",
                     date: "2024/12/5",
                     image: require('@/assets/img/team-1-800x800.jpg').default,
                     name: "kelvin",
                     strayimage: require('@/assets/img/team-2-800x800.jpg').default,
                     strayname: "kelvin123",
-                    status: "completed",
+                    status: "pending",
                 },
                 {
+                    id: "2",
                     date: "2024/12/5",
                     image: require('@/assets/img/team-1-800x800.jpg').default,
                     name: "kelvin",
                     strayimage: require('@/assets/img/team-2-800x800.jpg').default,
                     strayname: "kelvin123",
-                    status: "completed",
+                    status: "rejected",
+                },
+                {
+                    id: "3",
+                    date: "2024/12/5",
+                    image: require('@/assets/img/team-1-800x800.jpg').default,
+                    name: "kelvin",
+                    strayimage: require('@/assets/img/team-2-800x800.jpg').default,
+                    strayname: "kelvin123",
+                    status: "approve",
                 }
             ]
         }
@@ -123,20 +153,63 @@ export default {
         },
     },
     methods: {
+        toApplicationDetails(id) {
+            // Push
+            this.$router.push({
+                path: '/admin/adminadoption',
+                query: {
+                    applicationID: id,
+                },
+            });
+        },
+
         statusColor(status) {
             switch (status) {
                 case 'pending':
                     return 'text-orange-500';
-                case 'completed':
+                case 'approve':
                     return 'text-emerald-500';
-                case 'delayed':
+                case 'rejected':
                     return 'text-red-500';
-                case 'on schedule':
-                    return 'text-teal-500';
                 default:
                     return 'text-gray-500';
             }
         },
+
+        toggleDropdown(index, event) {
+            event.preventDefault();
+            if (this.dropdownIndex === index) {
+                this.hideDropdown();
+            } else {
+                this.showDropdown(index);
+            }
+        },
+
+        showDropdown(index) {
+            this.dropdownIndex = index;
+            this.$nextTick(() => {
+                createPopper(
+                    this.$refs['btnDropdownRef' + index],
+                    this.$refs['popoverDropdownRef' + index],
+                    {
+                        placement: 'bottom-start',
+                    }
+                );
+            });
+            document.addEventListener('click', this.handleClickOutsideDropdown);
+        },
+
+        hideDropdown() {
+            this.dropdownIndex = null;
+            document.removeEventListener('click', this.handleClickOutsideDropdown);
+        },
+
+        handleClickOutsideDropdown(event) {
+            if (!this.$refs['popoverDropdownRef' + this.dropdownIndex].contains(event.target) &&
+                !this.$refs['btnDropdownRef' + this.dropdownIndex].contains(event.target)) {
+                this.hideDropdown();
+            }
+        }
     }
 }
 </script>
