@@ -88,6 +88,10 @@
                                     @click.native.stop="toEditApplication(project.id)">
                                    Edit
                                 </a>
+                                <a href="javascript:void(0);"
+                                    class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
+                                   Delete
+                                </a>
                             </div>
                         </td>
                     </tr>
@@ -126,7 +130,7 @@ export default {
                     age: "18",
                     isVaccinated: "no",
                     isDeworm: "yes",
-                    status: "completed",
+                    status: "available",
                 },
                 {
                     id: 1,
@@ -136,7 +140,7 @@ export default {
                     age: "18",
                     isVaccinated: "no",
                     isDeworm: "yes",
-                    status: "completed",
+                    status: "pending",
                 },
                 {
                     id: 1,
@@ -146,7 +150,7 @@ export default {
                     age: "18",
                     isVaccinated: "no",
                     isDeworm: "yes",
-                    status: "completed",
+                    status: "adopted",
                 }
             ]
         }
@@ -162,12 +166,10 @@ export default {
             switch (status) {
                 case 'pending':
                     return 'text-orange-500';
-                case 'completed':
+                case 'available':
                     return 'text-emerald-500';
-                case 'delayed':
+                case 'adopted':
                     return 'text-red-500';
-                case 'on schedule':
-                    return 'text-teal-500';
                 default:
                     return 'text-gray-500';
             }

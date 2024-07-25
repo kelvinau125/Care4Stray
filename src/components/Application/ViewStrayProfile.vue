@@ -3,6 +3,14 @@
         <div class="border border-gray-300 mb-4 rounded-lg bg-white">
             <div class="p-4 flex flex-col min-w-0 break-words w-full mb-4">
                 <div class="flex pb-2 pt-4">
+
+                    <div class="ml-3">
+                        <div class="text-sm whitespace-nowrap">
+                            <i :class="['fas fa-circle', statusColor(stray.status), 'mr-2']"></i>
+                            {{ stray.status }}
+                        </div>
+                    </div>
+
                     <div class="flex items-center justify-center">
                         <img :src="stray.image" alt="Application Image"
                             class="md:w-4/12 xl:w-3/12 md:h-auto rounded-full cursor-pointer "
@@ -143,6 +151,7 @@ export default {
         return {
             userId: this.$route.query.applicationID,
 
+
             stray: {
                 image: require('@/assets/img/team-1-800x800.jpg').default,
                 name: 'Lucky',
@@ -151,6 +160,7 @@ export default {
                 behaviors: ['hallo', "hallo", "hallo"],
                 vaccined: "yes",
                 dewormed: "no",
+                status: "available",
             }
         };
     },
@@ -185,7 +195,18 @@ export default {
             });
         },
 
-
+        statusColor(status) {
+            switch (status) {
+                case 'pending':
+                    return 'text-orange-500';
+                case 'available':
+                    return 'text-emerald-500';
+                case 'adopted':
+                    return 'text-red-500';
+                default:
+                    return 'text-gray-500';
+            }
+        },
 
         goBack() {
             this.$router.go(-1);
