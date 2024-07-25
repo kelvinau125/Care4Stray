@@ -35,6 +35,7 @@ export default {
   computed: {
     isDashboardRoute() {
       const dashboardPaths = [
+        '/dashboard',
         '/adoption',
         '/stray',
         '/news',

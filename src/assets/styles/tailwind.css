@@ -4334,6 +4334,11 @@ select {
 }
 
 @media (min-width: 768px) {
+  .md\:bg-third {
+    --tw-bg-opacity: 0.2;
+    background-color: rgba(184, 198, 162, var(--tw-bg-opacity));
+  }
+
   .md\:block {
     display: block;
   }

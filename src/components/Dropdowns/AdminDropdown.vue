@@ -29,6 +29,7 @@
       <a
         href="javascript:void(0);"
         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+        @click="goHomePage()"
       >
         Logout
       </a>
@@ -50,6 +51,10 @@ export default {
     };
   },
   methods: {
+    goHomePage() {
+      this.$router.push('/')
+    },
+
     toggleDropdown: function (event) {
       event.preventDefault();
       if (this.dropdownPopoverShow) {
