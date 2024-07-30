@@ -1,13 +1,28 @@
 <template>
     <div>
-        <div class="modal overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center flex"
-            v-show="showRegModal" @keyup.esc="closeRegModal">
+        <div class="flex justify-center">
             <div v-if="alertOpen" :class="alertClass">
                 <span class="text-xl inline-block mr-5 align-middle">
                     <i class="fas fa-bell"></i>
                 </span>
                 <span class="inline-block align-middle mr-8">
-                    <b class="capitalize">{{ alertType }}</b> {{ alertMessage }}
+                    <b class="capitalize">{{ alertType }} ! </b> {{ alertMessage }}
+                </span>
+                <button
+                    class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none"
+                    @click="closeAlert">
+                    <span>×</span>
+                </button>
+            </div>
+        </div>
+        <div class="modal overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center flex"
+            v-show="showRegModal" @keyup.esc="closeModal">
+            <div v-if="alertOpen" :class="alertClass">
+                <span class="text-xl inline-block mr-5 align-middle">
+                    <i class="fas fa-bell"></i>
+                </span>
+                <span class="inline-block align-middle mr-8">
+                    <b class="capitalize">{{ alertType }} ! </b> {{ alertMessage }}
                 </span>
                 <button
                     class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none"
@@ -31,13 +46,13 @@
                                     </h3>
                                 </div>
                                 <div>
-                                    <button class="w-8" @click="closeRegModal">
+                                    <button class="w-8" @click="closeModal">
                                         <img :src=closebtn alt="Close" />
                                     </button>
                                 </div>
                             </div>
                             <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-                                <form>
+                                <form @submit.prevent="register">
                                     <div class="relative w-full mb-3 text-left">
                                         <label class="block uppercase text-mainText text-xs font-bold mb-2"
                                             for="firstname">
@@ -46,6 +61,8 @@
                                         <input type="text" id="firstname"
                                             class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                             placeholder="First Name" v-model="firstname" required />
+                                        <span v-if="validationErrors.firstname" class="text-red-500 text-xs">{{
+                                            validationErrors.firstname }}</span>
                                     </div>
 
                                     <div class="relative w-full mb-3 text-left">
@@ -56,6 +73,8 @@
                                         <input type="text" id="lastname"
                                             class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                             placeholder="Last Name" v-model="lastname" required />
+                                        <span v-if="validationErrors.lastname" class="text-red-500 text-xs">{{
+                                            validationErrors.lastname }}</span>
                                     </div>
 
                                     <div class="relative w-full mb-3 text-left">
@@ -65,6 +84,8 @@
                                         <input type="email" id="email"
                                             class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                             placeholder="Email" v-model="email" required />
+                                        <span v-if="validationErrors.email" class="text-red-500 text-xs">{{
+                                            validationErrors.email }}</span>
                                     </div>
 
                                     <div class="relative w-full mb-3 text-left">
@@ -80,6 +101,8 @@
                                             <option value="FEMALE">Female</option>
                                             <option value="OTHER">Other</option>
                                         </select>
+                                        <span v-if="validationErrors.gender" class="text-red-500 text-xs">{{
+                                            validationErrors.gender }}</span>
                                     </div>
 
                                     <div class="relative w-full mb-3 text-left">
@@ -94,6 +117,8 @@
                                             <i :class="passwordIcon" class="password-toggle"
                                                 @click="togglePasswordVisibility('password')"></i>
                                         </div>
+                                        <span v-if="validationErrors.password" class="text-red-500 text-xs">{{
+                                            validationErrors.password }}</span>
                                     </div>
 
                                     <div class="relative w-full mb-3 text-left">
@@ -108,12 +133,14 @@
                                             <i :class="confirmPasswordIcon" class="password-toggle"
                                                 @click="togglePasswordVisibility('confirm-password')"></i>
                                         </div>
+                                        <span v-if="validationErrors.confirmpassword" class="text-red-500 text-xs">{{
+                                            validationErrors.confirmpassword }}</span>
                                     </div>
 
                                     <div class="text-center mt-6">
                                         <button
                                             class="bg-mainText text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                                            type="button" @click="register()">
+                                            type="submit">
                                             Create Account
                                         </button>
                                     </div>
@@ -152,12 +179,13 @@ export default {
             alertOpen: false,
             alertType: "success",
             alertMessage: "",
+            validationErrors: {}
         };
     },
     computed: {
         alertClass() {
             return {
-                "text-white px-6 py-4 border-0 rounded-full absolute mb-4 z-50 w-2/12 mt-16": true,
+                "text-white px-6 py-4 border-0 rounded-full absolute mb-4 z-50 w-6/12 mt-8": true,
                 "bg-emerald-500": this.alertType === "success",
                 "bg-red-500": this.alertType === "error",
             };
@@ -166,9 +194,16 @@ export default {
     methods: {
         closeModalOnEsc(event) {
             if (event.keyCode === 27) {
+                this.resetForm();
                 this.closeRegModal();
             }
         },
+
+        closeModal() {
+            this.resetForm();
+            this.closeRegModal();
+        },
+
         togglePasswordVisibility(field) {
             if (field === "password") {
                 this.passwordType = this.passwordType === "password" ? "text" : "password";
@@ -178,60 +213,82 @@ export default {
                 this.confirmPasswordIcon = this.confirmPasswordType === "password" ? "fas fa-eye-slash" : "fas fa-eye";
             }
         },
-        async register() {
-            this.clearErrors(); // Clear previous errors
 
-            // Validate inputs
-            if (!this.firstname || !this.lastname || !this.email || !this.gender || !this.password || !this.confirmpassword) {
-                this.alertType = "error";
-                this.alertMessage = "All fields are required.";
-                this.alertOpen = true;
-                setTimeout(() => { this.alertOpen = false; }, 3000);
-                return;
+        resetForm() {
+            this.firstname = "";
+            this.lastname = "";
+            this.email = "";
+            this.gender = "";
+            this.password = "";
+            this.confirmpassword = "";
+            this.validationErrors = {};
+        },
+
+        validateForm() {
+            this.validationErrors = {};
+
+            const nameRegex = /^[A-Za-z]+$/;
+
+            if (!this.firstname) {
+                this.validationErrors.firstname = "First Name is required.";
+            } else if (!nameRegex.test(this.firstname)) {
+                this.validationErrors.firstname = "First Name can only contain alphabet characters.";
             }
 
-            // Validate email format
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(this.email)) {
-                this.alertType = "error";
-                this.alertMessage = "Invalid email format.";
-                this.alertOpen = true;
-                setTimeout(() => { this.alertOpen = false; }, 3000);
-                return;
+            if (!this.lastname) {
+                this.validationErrors.lastname = "Last Name is required.";
+            } else if (!nameRegex.test(this.lastname)) {
+                this.validationErrors.lastname = "Last Name can only contain alphabet characters.";
             }
 
-            // Validate password match
+            if (!this.email) {
+                this.validationErrors.email = "Email is required.";
+            } else if (!/\S+@\S+\.\S+/.test(this.email)) {
+                this.validationErrors.email = "Email is not valid.";
+            }
+
+            if (!this.gender) {
+                this.validationErrors.gender = "Gender is required.";
+            }
+
+            if (!this.password) {
+                this.validationErrors.password = "Password is required.";
+            } else if (this.password.length < 6) {
+                this.validationErrors.password = "Password must be at least 6 characters.";
+            }
+
             if (this.password !== this.confirmpassword) {
-                this.alertType = "error";
-                this.alertMessage = "Passwords do not match.";
-                this.alertOpen = true;
-                setTimeout(() => { this.alertOpen = false; }, 3000);
+                this.validationErrors.confirmpassword = "Passwords do not match.";
+            }
+
+            return Object.keys(this.validationErrors).length === 0;
+        },
+
+        async register() {
+            if (!this.validateForm()) {
                 return;
             }
 
-            // Proceed with registration if all validations pass
             try {
                 const result = await createUser(this.firstname, this.lastname, this.email, this.gender, this.password);
-                if (result.status === 200) {
+                console.log(result)
+                if (result == true) {
                     this.alertType = "success";
                     this.alertMessage = "Account created successfully!";
+                    this.closeModal();
                 } else {
                     this.alertType = "error";
-                    this.alertMessage = result.data.message || "An error occurred.";
+                    this.alertMessage = result || "An error occurred.";
                 }
             } catch (error) {
                 this.alertType = "error";
-                this.alertMessage = error.response.data.message || "An error occurred.";
+                this.alertMessage = error.response.data || "An error occurred.";
             } finally {
                 this.alertOpen = true;
-                setTimeout(() => { this.alertOpen = false; }, 3000);
+                setTimeout(() => {
+                    this.alertOpen = false;
+                }, 3000); // Close alert after 3 seconds
             }
-        },
-
-        // Clear previous error messages
-        clearErrors() {
-            this.alertOpen = false;
-            this.alertMessage = "";
         },
         closeAlert() {
             this.alertOpen = false;
@@ -256,7 +313,7 @@ export default {
 
 .password-toggle {
     position: absolute;
-    right: 10px;
+    right: 1rem;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;

@@ -1,18 +1,11 @@
 <template>
   <div>
     <navbar />
-    <RegisterModal
-      :showRegModal="isRegisterModalVisible"
-      :closeRegModal="closeRegisterModal"
-    />
+    <RegisterModal :showRegModal="isRegisterModalVisible" :closeRegModal="closeRegisterModal" />
     <main>
-      <div
-        class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75"
-      >
-        <div
-          class="absolute top-0 w-full h-full bg-center bg-cover"
-          :style="{ backgroundImage: `url(${headerBackground})` }"
-        >
+      <div class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
+        <div class="absolute top-0 w-full h-full bg-center bg-cover"
+          :style="{ backgroundImage: `url(${headerBackground})` }">
           <!-- <span
             id="blackOverlay"
             class="w-full h-full absolute opacity-75 bg-black"
@@ -25,26 +18,24 @@
                 <h1 class="text-secondaryMain font-bold text-5xl" style="text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);">
                   Stay For Strays
                 </h1>
-                <p class="mt-4 lg:w-6/12 text-2xl text-secondaryMain" style="text-shadow: 4px 4px 5.7px rgba(0, 0, 0, 0.5);">
+                <p class="mt-4 lg:w-6/12 text-2xl text-secondaryMain"
+                  style="text-shadow: 4px 4px 5.7px rgba(0, 0, 0, 0.5);">
                   Join us in making a difference, one paw at a time
                 </p>
                 <div class="sm:block flex flex-col mt-16">
-                  <button
-                    @click="showRegisterModal"
-                    class="get-started text-mainText font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-secondaryMain active:bg-secondaryMain uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
-                  >
+                  <button @click="showRegisterModal"
+                    class="get-started text-mainText font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-secondaryMain active:bg-secondaryMain uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150">
                     Register Now
                   </button>
 
-                  <router-link
-                    to="/contactus"
-                    class="text-secondaryMain sm:ml-1 background-transparent font-bold uppercase px-8 py-3 outline-none focus:outline-none mr-1 mb-1 text-sm ease-linear transition-all duration-150"
-                  >
+                  <router-link to="/contactus"
+                    class="text-secondaryMain sm:ml-1 background-transparent font-bold uppercase px-8 py-3 outline-none focus:outline-none mr-1 mb-1 text-sm ease-linear transition-all duration-150">
                     Contact Us
                   </router-link>
                 </div>
 
-                <p class="mt-6 sm:mt-10 font-bold text-2xl text-secondaryMain text-right" style="text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);">
+                <p class="mt-6 sm:mt-10 font-bold text-2xl text-secondaryMain text-right"
+                  style="text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);">
                   - Where Every Paw Finds a Home!
                 </p>
 
@@ -52,45 +43,21 @@
             </div>
           </div>
         </div>
-        <div
-          class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
-          style="transform: translateZ(0);"
-        >
-          <svg
-            class="absolute bottom-0 overflow-hidden"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="none"
-            version="1.1"
-            viewBox="0 0 2560 100"
-            x="0"
-            y="0"
-          >
-            <polygon
-              class="text-blueGray-200 fill-current"
-              points="2560 0 2560 100 0 100"
-            ></polygon>
+        <div class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
+          style="transform: translateZ(0);">
+          <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+            version="1.1" viewBox="0 0 2560 100" x="0" y="0">
+            <polygon class="text-blueGray-200 fill-current" points="2560 0 2560 100 0 100"></polygon>
           </svg>
         </div>
       </div>
 
       <section class="relative py-20">
-        <div
-          class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
-          style="transform: translateZ(0);"
-        >
-          <svg
-            class="absolute bottom-0 overflow-hidden"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="none"
-            version="1.1"
-            viewBox="0 0 2560 100"
-            x="0"
-            y="0"
-          >
-            <polygon
-              class="text-white fill-current"
-              points="2560 0 2560 100 0 100"
-            ></polygon>
+        <div class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
+          style="transform: translateZ(0);">
+          <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+            version="1.1" viewBox="0 0 2560 100" x="0" y="0">
+            <polygon class="text-white fill-current" points="2560 0 2560 100 0 100"></polygon>
           </svg>
         </div>
 
@@ -101,52 +68,42 @@
               <!-- First Div -->
               <div class="px-4 bg-secondaryMain border-mainTheme border-2 rounded-2xl mb-5">
                 <div class="flex-auto px-4 lg:px-10 py-10 pt-10">
-                  <form>
+                  <form @submit.prevent="signIn">
                     <div class="relative w-full mb-3">
-                      <label
-                        class="block uppercase text-blueGray-600 text-sm font-bold mb-2"
-                        htmlFor="grid-password"
-                      >
+                      <label class="block uppercase text-blueGray-600 text-sm font-bold mb-2" htmlFor="grid-password">
                         Email
                       </label>
-                      <input
-                        type="email"
+                      <input type="email"
                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-lg shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        placeholder="Email"
-                      />
+                        placeholder="Email" v-model="email" />
                     </div>
 
                     <div class="relative w-full mb-3">
-                      <label
-                        class="block uppercase text-blueGray-600 text-sm font-bold mb-2"
-                        htmlFor="grid-password"
-                      >
+                      <label class="block uppercase text-blueGray-600 text-sm font-bold mb-2" htmlFor="grid-password">
                         Password
                       </label>
-                      <input
-                        type="password"
+                      <input type="password"
                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-lg shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        placeholder="Password"
-                      />
+                        placeholder="Password" v-model="password" />
                     </div>
+
+                    <span v-if="validationErrors.message" class="text-red-500 text-sm">{{
+                      validationErrors.message }}</span>
 
                     <div class="text-center mt-6">
                       <button
-                        @click="signIn"
                         class="bg-mainButton text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                        type="button"
-                      >
+                        type="submit">
                         Sign In
                       </button>
                     </div>
                   </form>
 
                   <div class="text-center text-lg mt-6">
-                    <p>Don’t have an account? 
-                      <span>                  
+                    <p>Don’t have an account?
+                      <span>
                         <button @click="showRegisterModal"
-                        class='ml-1 background-transparent font-bold outline-none focus:outline-none ease-linear transition-all duration-150 underline'
-                        >
+                          class='ml-1 background-transparent font-bold outline-none focus:outline-none ease-linear transition-all duration-150 underline'>
                           Sign Up
                         </button>
                       </span>
@@ -166,7 +123,8 @@
                   </div>
 
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div v-for="(pet, index) in pets" :key="index" class="border p-4 rounded-lg shadow-lg flex flex-col bg-secondaryMain">
+                    <div v-for="(pet, index) in pets" :key="index"
+                      class="border p-4 rounded-lg shadow-lg flex flex-col bg-secondaryMain">
                       <div class="items-center flex justify-center">
                         <img :src="pet.image" alt="Pet Image" class="w-full takemehomeimg h-auto mb-4 rounded-lg">
                       </div>
@@ -185,12 +143,9 @@
                   </div>
                 </div>
                 <div class="text-right mt-4 mr-3 text-mainText">
-                  <span>                  
-                    <a
-                      href="https://github.com/creativetimofficial/vue-notus?ref=vn-index"
-                      target="_blank"
-                      class="ml-1 background-transparent font-bold outline-none focus:outline-none ease-linear transition-all duration-150"
-                    >
+                  <span>
+                    <a href="https://github.com/creativetimofficial/vue-notus?ref=vn-index" target="_blank"
+                      class="ml-1 background-transparent font-bold outline-none focus:outline-none ease-linear transition-all duration-150">
                       Show More...
                     </a>
                   </span>
@@ -199,7 +154,8 @@
             </div>
 
             <!-- Right Side -->
-            <div class="w-full md:w-8/12 px-4 border-2 border-mainTheme rightside rounded-2xl pb-5 md:ml-10 mt-8 md:mt-0 flex-grow">
+            <div
+              class="w-full md:w-8/12 px-4 border-2 border-mainTheme rightside rounded-2xl pb-5 md:ml-10 mt-8 md:mt-0 flex-grow">
               <div class="text-mainText font-bold text-3xl mt-4 mb-4 flex items-center ml-1">
                 <img :src="animalNews" alt="animal news" class="w-10 h-10 mr-2">
                 <p>Animal News</p>
@@ -208,7 +164,7 @@
                 <div v-for="(item, index) in paginatedItems" :key="index" class="rightspace">
                   <div class="border-2 border-mainTheme p-4 rounded-lg shadow-lg flex">
                     <div class="w-full mr-5 flex items-center justify-center">
-                      <img :src="item.image" alt="picture" class="w-4/5 h-auto rounded-md">  
+                      <img :src="item.image" alt="picture" class="w-4/5 h-auto rounded-md">
                     </div>
                     <div class="flex flex-col justify-between">
                       <div>
@@ -222,18 +178,13 @@
                     </div>
                   </div>
                 </div>
-                
+
                 <div class="flex justify-center space-x-2 mt-6">
-                  <button
-                    v-for="page in totalPages"
-                    :key="page"
-                    @click="currentPage = page"
-                    :class="{
-                      'px-3 py-1 border-2 border-mainTheme rounded-full': true,
-                      'bg-mainTheme text-white': currentPage === page,
-                      'bg-white text-mainTheme': currentPage !== page
-                    }"
-                  >
+                  <button v-for="page in totalPages" :key="page" @click="currentPage = page" :class="{
+                    'px-3 py-1 border-2 border-mainTheme rounded-full': true,
+                    'bg-mainTheme text-white': currentPage === page,
+                    'bg-white text-mainTheme': currentPage !== page
+                  }">
                     {{ page }}
                   </button>
                 </div>
@@ -244,23 +195,11 @@
       </section>
 
       <section class="pb-4 relative block bg-mainTheme">
-        <div
-          class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
-          style="transform: translateZ(0);"
-        >
-          <svg
-            class="absolute bottom-0 overflow-hidden"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="none"
-            version="1.1"
-            viewBox="0 0 2560 100"
-            x="0"
-            y="0"
-          >
-            <polygon
-              class="text-mainTheme fill-current"
-              points="2560 0 2560 100 0 100"
-            ></polygon>
+        <div class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
+          style="transform: translateZ(0);">
+          <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+            version="1.1" viewBox="0 0 2560 100" x="0" y="0">
+            <polygon class="text-mainTheme fill-current" points="2560 0 2560 100 0 100"></polygon>
           </svg>
         </div>
 
@@ -273,25 +212,24 @@
                   <h2 class="md:text-4xl text-xl font-semibold text-secondaryMain">
                     Spare a Paw, Share Some Love:
                   </h2>
-                  <span class="inline-block md:text-4xl text-lg font-semibold text-secondaryMain mt-2">Donate to Care4Strays!</span>
+                  <span class="inline-block md:text-4xl text-lg font-semibold text-secondaryMain mt-2">Donate to
+                    Care4Strays!</span>
                 </div>
               </div>
               <p class="md:text-3xl text-base leading-relaxed mt-10 mb-4 text-secondaryMain lg:w-9/12">
-                Together, we're making a meaningful difference in their lives. Thank you for believing in Care4Strays 
+                Together, we're making a meaningful difference in their lives. Thank you for believing in Care4Strays
               </p>
             </div>
           </div>
 
           <div class="mt-10">
-            <router-link 
-              to="/donation"
-              class="get-started text-mainText font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-secondaryMain active:bg-secondaryMain uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
-            >
-              Donate for Strays 
+            <router-link to="/donation"
+              class="get-started text-mainText font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-secondaryMain active:bg-secondaryMain uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150">
+              Donate for Strays
             </router-link>
           </div>
 
-      
+
         </div>
       </section>
     </main>
@@ -317,6 +255,9 @@ import logo from "@/assets/img/logo.png";
 import RegisterModal from "@/views/auth/RegisterModal.vue";
 
 import { ref } from "vue";
+
+// api
+import { login } from "@/service/apiProviderAuth.js";
 
 export default {
   data() {
@@ -408,6 +349,12 @@ export default {
         },
         // Repeat this object to fill the list
       ],
+
+
+      // login
+      email: "",
+      password: "",
+      validationErrors: {},
     };
   },
   components: {
@@ -434,8 +381,17 @@ export default {
     closeRegisterModal() {
       this.isRegisterModalVisible = false;
     },
-    signIn() {
-      this.$router.push('/user')
+    async signIn() {
+      const username = this.email;
+      const password = this.password;
+
+      const result = await login(username, password);
+
+      if (result == true) {
+        this.$router.push('/user')
+      } else {
+        this.validationErrors.message = result;
+      }
     }
   }
 };
@@ -446,6 +402,7 @@ export default {
 .rightside {
   height: 1417px;
 }
+
 .rightspace {
   margin-bottom: 1.5rem;
 }
@@ -455,6 +412,7 @@ export default {
   .rightside {
     height: 1407px;
   }
+
   .rightspace {
     margin-bottom: 2.5rem;
   }
@@ -465,6 +423,7 @@ export default {
   .rightside {
     height: 1556px;
   }
+
   .rightspace {
     margin-bottom: 1rem;
   }
@@ -475,9 +434,11 @@ export default {
   .rightside {
     height: 1200px;
   }
+
   .rightspace {
     margin-bottom: 1rem;
   }
+
   .takemehomeimg {
     width: 50%;
   }
@@ -488,9 +449,11 @@ export default {
   .rightside {
     height: 1580px;
   }
+
   .rightspace {
     margin-bottom: 1rem;
   }
+
   .takemehomeimg {
     width: 50%;
   }
