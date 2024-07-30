@@ -48,17 +48,23 @@
 
 <script>
 import { createPopper } from "@popperjs/core";
-import image from "@/assets/img/team-1-800x800.jpg";
+
+// api
+import { getUserInfo } from "@/service/apiProviderAuth.js";
+
+// get user cookie / set cookie
+import VueCookies from 'vue-cookies';
 
 export default {
   data() {
     return {
       dropdownPopoverShow: false,
-      image: image,
-      username: "Username1",
-      user_id: "abc@gmail.com",
+      image: "",
+      username: "",
+      user_id: "",
     };
   },
+
   methods: {
     toggleDropdown: function (event) {
       event.preventDefault();
@@ -90,7 +96,24 @@ export default {
       } else if (dropdown && dropdown.contains(event.target)) {
         this.hideDropdown();
       }
-    }
+    },
+
+    async getUserInfoApi() {
+
+      const email = VueCookies.get('email');
+
+      const result = await getUserInfo(email);
+
+      console.log("hahahhah")
+      console.log(result)
+      this.image = result.userAvatar;
+      this.username = result.firstName + " " + result.lastName;
+      this.user_id = result.username;
+    },
+  },
+
+  mounted() {
+    this.getUserInfoApi();
   }
 };
 </script>
