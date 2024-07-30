@@ -3,6 +3,21 @@
     <navbar />
     <RegisterModal :showRegModal="isRegisterModalVisible" :closeRegModal="closeRegisterModal" />
     <main>
+      <div class="flex justify-center">
+        <div v-if="alertOpen" :class="alertClass">
+          <span class="text-xl inline-block mr-5 align-middle">
+            <i class="fas fa-bell"></i>
+          </span>
+          <span class="inline-block align-middle mr-8">
+            <b class="capitalize">{{ alertType }} ! </b> {{ alertMessage }}
+          </span>
+          <button
+            class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none"
+            @click="closeAlert">
+            <span>×</span>
+          </button>
+        </div>
+      </div>
       <div class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
         <div class="absolute top-0 w-full h-full bg-center bg-cover"
           :style="{ backgroundImage: `url(${headerBackground})` }">
@@ -86,9 +101,6 @@
                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-lg shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         placeholder="Password" v-model="password" />
                     </div>
-
-                    <span v-if="validationErrors.message" class="text-red-500 text-sm">{{
-                      validationErrors.message }}</span>
 
                     <div class="text-center mt-6">
                       <button
@@ -354,7 +366,9 @@ export default {
       // login
       email: "",
       password: "",
-      validationErrors: {},
+      alertOpen: false,
+      alertType: "success",
+      alertMessage: "",
     };
   },
   components: {
@@ -372,6 +386,13 @@ export default {
       const end = start + this.itemsPerPage;
       return this.items.slice(start, end);
     },
+    alertClass() {
+      return {
+        "text-white px-6 py-4 border-0 rounded-full fixed mb-4 z-50 w-6/12 mt-8": true,
+        "bg-emerald-500": this.alertType === "success",
+        "bg-red-500": this.alertType === "error",
+      };
+    },
   },
 
   methods: {
@@ -388,11 +409,27 @@ export default {
       const result = await login(username, password);
 
       if (result == true) {
+        this.alertType = "success";
+        this.alertMessage = "Login successfully!";
+        this.openAlert();
         this.$router.push('/user')
       } else {
-        this.validationErrors.message = result;
+        this.alertType = "error";
+        this.alertMessage = result || "An error occurred.";
+        this.openAlert();
       }
-    }
+    },
+
+    openAlert() {
+      this.alertOpen = true;
+      setTimeout(() => {
+        this.alertOpen = false;
+      }, 3000); // Close alert after 3 seconds
+    },
+
+    closeAlert() {
+        this.alertOpen = false;
+    },
   }
 };
 </script>

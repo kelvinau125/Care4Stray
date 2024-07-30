@@ -1,5 +1,6 @@
 import { createApp } from "vue";
 import { createWebHistory, createRouter } from "vue-router";
+import VueCookies from 'vue-cookies';
 
 // styles
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -147,6 +148,7 @@ const routes = [
         component: EditNews,
       }, 
     ],
+    meta: { requiresAuth: true },
   },
   {
     path: "/auth",
@@ -216,8 +218,8 @@ const routes = [
         path: "/user/donationhistory",
         component: donationhistory,
       }, 
-
     ],
+    meta: { requiresAuth: true },
   },
   {
     path: "/landing",
@@ -268,6 +270,15 @@ const router = createRouter({
   scrollBehavior() {
     window.scrollTo(0, 0)
   },
+});
+
+router.beforeEach((to, from, next) => {
+  const token = VueCookies.get("token");
+  if (to.matched.some(record => record.meta.requiresAuth) && !token) {
+    next("/");
+  } else {
+    next();
+  }
 });
 
 createApp(App).use(router).mount("#app");
