@@ -39,7 +39,8 @@
       </router-link >
       <div class="h-0 my-2 border border-solid border-blueGray-100" />
       <a href="javascript:void(0);"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
+        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+        @click="logOut()">
         Sign Out
       </a>
     </div>
@@ -54,6 +55,7 @@ import { getUserInfo } from "@/service/apiProviderAuth.js";
 
 // get user cookie / set cookie
 import VueCookies from 'vue-cookies';
+import { removeCookie } from '@/service/cookie';
 
 export default {
   data() {
@@ -104,6 +106,11 @@ export default {
       this.image = result.userAvatar;
       this.username = result.firstName + " " + result.lastName;
       this.user_id = result.username;
+    },
+
+    logOut() {
+      removeCookie();
+      this.$router.push("/");
     },
   },
 
