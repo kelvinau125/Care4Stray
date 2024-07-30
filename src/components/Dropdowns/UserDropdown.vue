@@ -99,13 +99,8 @@ export default {
     },
 
     async getUserInfoApi() {
+      const result = await getUserInfo(VueCookies.get('email'));
 
-      const email = VueCookies.get('email');
-
-      const result = await getUserInfo(email);
-
-      console.log("hahahhah")
-      console.log(result)
       this.image = result.userAvatar;
       this.username = result.firstName + " " + result.lastName;
       this.user_id = result.username;
@@ -118,6 +113,3 @@ export default {
 };
 </script>
 
-<style scoped>
-/* Adjust styles as needed */
-</style>

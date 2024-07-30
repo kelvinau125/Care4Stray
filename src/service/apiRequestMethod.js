@@ -7,16 +7,25 @@ import {
     uploadPreset,
 } from '@/utils/accountConfig';
 
-const header = {
-    "Content-Type": "application/json; charset=utf-8",
-    "accept": "application/json"
+function getHeaders() {
+    return {
+        "Content-Type": "application/json; charset=utf-8",
+        "accept": "application/json"
+    };
 }
 
+function getHeadersToken() {
+    return {
+        "Content-Type": "application/json; charset=utf-8",
+        "accept": "application/json",
+        "Authorization": "Bearer " + VueCookies.get('token')
+    };
+}
 
 export async function postRequest(url, body) {
     try {
         const response = await axios.post(url, body, {
-            headers: header,
+            headers: getHeaders(),
         });
 
         // console.log(response)
@@ -37,17 +46,11 @@ export async function postRequest(url, body) {
 
 export async function postRequestWithToken(url, body) {
     try {
-        console.log(VueCookies.get('token'))
-        console.log(body)
         const response = await axios.post(url, body, {
-            headers: {
-            "Content-Type": "application/json; charset=utf-8",
-            "accept": "application/json",
-            "Authorization": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIxQGdtYWlsLmNvbSIsImlhdCI6MTcyMjM0ODI4NiwiZXhwIjoxNzIyNDM0Njg2fQ.RDOwhrL9iUdl-vOk5zGrowEGX8xlxqBrJymHA7LASzy4aeYx0Dyl0KomAbAeHrBD"
-            }
+            headers: getHeadersToken(),
         });
 
-        console.log(response)
+        // console.log(response)
 
         if (response.status === 200) {
             return response;
