@@ -162,21 +162,27 @@
   <script>
   import { uploadImage } from "@/service/apiProviderImage.js";
 
+  // api
+  import { getUserInfo } from "@/service/apiProviderAuth.js";
+
+  // get user cookie / set cookie
+  import VueCookies from 'vue-cookies';
+
   export default {
     data() {
       return {
         adopter: {
-          image: require('@/assets/img/team-1-800x800.jpg').default,
-          firstName: 'Lucky',
-          lastName: 'Jesse',
-          dateOfBirth: '2024-01-07',
-          gender: 'male',
-          phoneNumber: '0123456789',
-          address: 'Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09',
-          city: 'New York',
-          state: 'kualaLumpur',
-          postalCode: '51200',
-          occupation: 'other',
+          image: '',
+          firstName: '',
+          lastName: '',
+          dateOfBirth: '',
+          gender: '',
+          phoneNumber: '',
+          address: '',
+          city: '',
+          state: '',
+          postalCode: '',
+          occupation: '',
         }
       };
     },
@@ -184,6 +190,7 @@
       triggerFileInput() {
         this.$refs.fileInput.click();
       },
+
       async handleFileChange(event) {
         const file = event.target.files[0];
         if (file) {
@@ -200,7 +207,29 @@
           } 
         }
       },
+
+      async getUserInfoApi() {
+        const result = await getUserInfo(VueCookies.get('email'));
+
+        this.adopter = {
+          image: result.userAvatar,
+          firstName: result.firstName,
+          lastName: result.lastName,
+          dateOfBirth: result.dateOfBirth,
+          gender: result.gender,
+          phoneNumber: result.phoneNumber,
+          address: result.address,
+          city: result.city,
+          state: result.state,
+          postalCode: result.postal,
+          occupation: result.occupation,
+        };
+      },
     },
+
+    mounted() {
+      this.getUserInfoApi();
+    }
   };
   </script>
   
