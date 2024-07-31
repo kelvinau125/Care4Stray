@@ -63,7 +63,7 @@ export async function login(email, password) {
         const data = response.data;
 
         if (status === 200) {
-            setCookie(data.access_token, email, data.data.role);
+            setCookie(data.access_token, email, data.data.role, data.data.id);
             return true;
 
         } else if (status === 400) {

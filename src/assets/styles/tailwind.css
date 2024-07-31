@@ -2804,6 +2804,10 @@ select {
   max-width: 28rem;
 }
 
+.max-w-lg {
+  max-width: 32rem;
+}
+
 .max-w-xl {
   max-width: 36rem;
 }
@@ -4083,10 +4087,6 @@ select {
   width: 80%;
 }
 
-.w-2\/12 {
-  width: 16.666667%;
-}
-
 .w-6\/12 {
   width: 50%;
 }
@@ -4376,7 +4376,7 @@ select {
     --tw-bg-opacity: 0.2;
     background-color: rgba(184, 198, 162, var(--tw-bg-opacity));
   }
-
+  
   .md\:block {
     display: block;
   }

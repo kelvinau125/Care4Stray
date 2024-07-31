@@ -1,5 +1,7 @@
 <template>
   <div>
+    <UpdateProfileModal :showModal="isModalVisible" :closeModal="closeModal" />
+    
     <auth-navbar />
     <user-navbar v-if="!isApplicationDetailsRoute"/>
     
@@ -44,6 +46,9 @@ import UserHeader from "@/components/Headers/UserHeader.vue";
 import PostDetailsComponent from "@/components/Post/PostDetailsComponent.vue";
 import NewsFooter from "@/components/News/NewsFooter.vue";
 
+import { ref } from "vue";
+import UpdateProfileModal from "@/components/Modal/UpdateProfileModal.vue";
+
 export default {
   name: "UserLayout",
   components: {
@@ -55,6 +60,7 @@ export default {
     UserHeader,
     PostDetailsComponent,
     NewsFooter,
+    UpdateProfileModal,
   },
   computed: {
     isApplicationDetailsRoute() {
@@ -69,6 +75,25 @@ export default {
       return this.$route.path.includes('/newsdetails')
     },
   },
+
+  data() {
+    return {
+      isModalVisible: ref(false),
+    }
+  },
+
+  methods: {
+    showModal() {
+        this.isModalVisible = true;
+    },
+    closeModal() {
+        this.isModalVisible = false;
+    },
+  },
+
+  mounted() {
+    this.showModal()
+  }
 };
 </script>
 
