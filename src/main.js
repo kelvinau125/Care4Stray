@@ -148,7 +148,7 @@ const routes = [
         component: EditNews,
       }, 
     ],
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true, role: 'ADMIN' },
   },
   {
     path: "/auth",
@@ -219,7 +219,7 @@ const routes = [
         component: donationhistory,
       }, 
     ],
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true, role: 'USER' },
   },
   {
     path: "/landing",
@@ -274,11 +274,20 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const token = VueCookies.get("token");
+  const role = VueCookies.get("role");
+
   if (to.matched.some(record => record.meta.requiresAuth) && !token) {
     next("/");
+  } else if (to.matched.some(record => record.meta.role)) {
+    const requiredRole = to.meta.role;
+    if (role === requiredRole) {
+      next();
+    } else {
+      next("/");
+    }
   } else {
     next();
   }
 });
 
-createApp(App).use(router).mount("#app");
+createApp(App).use(router).use(VueCookies).mount("#app");

@@ -63,8 +63,7 @@ export async function login(email, password) {
         const data = response.data;
 
         if (status === 200) {
-            const token = data.access_token;
-            setCookie(token, email);
+            setCookie(data.access_token, email, data.data.role);
             return true;
 
         } else if (status === 400) {

@@ -267,6 +267,7 @@ import logo from "@/assets/img/logo.png";
 import RegisterModal from "@/views/auth/RegisterModal.vue";
 
 import { ref } from "vue";
+import VueCookies from 'vue-cookies';
 
 // api
 import { login } from "@/service/apiProviderAuth.js";
@@ -412,7 +413,15 @@ export default {
         this.alertType = "success";
         this.alertMessage = "Login successfully!";
         this.openAlert();
-        this.$router.push('/user')
+
+        if(VueCookies.get("role") == "ADMIN") {
+          this.$router.push('/admin')
+        } else if(VueCookies.get("role") == "USER") {
+          this.$router.push('/user')
+        } else {
+          this.$router.push('/')
+        }
+        
       } else {
         this.alertType = "error";
         this.alertMessage = result || "An error occurred.";

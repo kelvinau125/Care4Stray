@@ -43,6 +43,8 @@ import { createPopper } from "@popperjs/core";
 
 import image from "@/assets/img/team-1-800x800.jpg";
 
+import { removeCookie } from '@/service/cookie';
+
 export default {
   data() {
     return {
@@ -52,6 +54,7 @@ export default {
   },
   methods: {
     goHomePage() {
+      removeCookie();
       this.$router.push('/')
     },
 
