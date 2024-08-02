@@ -49,6 +49,9 @@ import NewsFooter from "@/components/News/NewsFooter.vue";
 import { ref } from "vue";
 import UpdateProfileModal from "@/components/Modal/UpdateProfileModal.vue";
 
+import VueCookies from 'vue-cookies';
+import { getUserInfoStatus } from "@/service/apiProviderAuth";
+
 export default {
   name: "UserLayout",
   components: {
@@ -83,6 +86,14 @@ export default {
   },
 
   methods: {
+    async getUserProfileStatus() {
+      const result = await getUserInfoStatus(VueCookies.get("email"));
+      
+      if(!result){
+        this.showModal();
+      }
+    },
+
     showModal() {
         this.isModalVisible = true;
     },
@@ -92,7 +103,7 @@ export default {
   },
 
   mounted() {
-    this.showModal()
+    this.getUserProfileStatus()
   }
 };
 </script>

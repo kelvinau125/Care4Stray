@@ -3,8 +3,8 @@
     <div class="border border-gray-300 mb-4 rounded-lg">
       <div class="p-4 flex flex-col min-w-0 break-words w-full mb-4">
         <div class="flex items-center justify-center pb-2">
-          <img :src="adopter.image" alt="Application Image"
-            class="md:w-4/12 xl:w-3/12 md:h-auto rounded-full cursor-pointer" @click="triggerFileInput" />
+          <img :src="adopter.userAvatar" alt="Application Image"
+            class="w-60 h-60 rounded-full cursor-pointer" @click="triggerFileInput" />
           <input type="file" ref="fileInput" class="hidden" @change="handleFileChange" />
         </div>
         <div class="rounded-t bg-white mb-0 py-6">
@@ -55,9 +55,9 @@
                     v-model="adopter.gender"
                     required >
                     <option value="">Select Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+                    <option value="OTHER">Other</option>
                   </select>
                 </div>
               </div>
@@ -127,7 +127,7 @@
                     Code</label>
                   <input type="text" id="postal-code"
                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    v-model="adopter.postalCode"
+                    v-model="adopter.postal"
                     required />
                 </div>
               </div>
@@ -143,8 +143,15 @@
                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     v-model="adopter.occupation"
                     required>
-                    <option value="">Select Occupation Category</option>
-                    <option value="administrativeSupport">Administrative Support</option>
+                    <option value="">Select Occupation</option>
+                    <option value="SELF_EMPLOYED">Self Employed</option>
+                    <option value="RETIRED">Retired</option>
+                    <option value="STUDENT">Student</option>
+                    <option value="EMPLOYED">Employed</option>
+                    <option value="UNEMPLOYED">Unemployed</option>
+                    <option value="OTHER">Other</option>
+
+                    <!-- <option value="administrativeSupport">Administrative Support</option>
                     <option value="architectureAndEngineering">Architecture and Engineering</option>
                     <option value="artsDesignEntertainmentSportsAndMedia">Arts, Design, Entertainment, Sports, and Media
                     </option>
@@ -170,7 +177,7 @@
                     <option value="protectiveService">Protective Service</option>
                     <option value="salesAndRelated">Sales and Related</option>
                     <option value="transportationAndMaterialMoving">Transportation and Material Moving</option>
-                    <option value="other">Other</option>
+                    <option value="other">Other</option> -->
                   </select>
                 </div>
               </div>
@@ -198,12 +205,16 @@ import { getUserInfo } from "@/service/apiProviderAuth.js";
 
 // get user cookie / set cookie
 import VueCookies from 'vue-cookies';
+import { updateUserInfo } from "@/service/apiProviderAuth";
 
 export default {
   data() {
     return {
       adopter: {
-        image: '',
+        id: '',
+        username: '',
+        role: '',
+        userAvatar: '',
         firstName: '',
         lastName: '',
         dateOfBirth: '',
@@ -212,7 +223,7 @@ export default {
         address: '',
         city: '',
         state: '',
-        postalCode: '',
+        postal: '',
         occupation: '',
       }
     };
@@ -231,23 +242,24 @@ export default {
         }
         const result = await uploadImage(file);
 
-        if (result) {
-          console.log(result)
-        } else if (result === false) {
-          console.log(result)
-        }
+        this.adopter.userAvatar = result; 
       }
     },
 
-    updateProfile() {
-      console.log("hahahah")
+    async updateProfile() {
+      const result = await updateUserInfo(this.adopter);
+
+      console.log(result)
     },
 
     async getUserInfoApi() {
       const result = await getUserInfo(VueCookies.get('email'));
 
       this.adopter = {
-        image: result.userAvatar,
+        id: result.id,
+        username: result.username,
+        role: result.role,
+        userAvatar: result.userAvatar,
         firstName: result.firstName,
         lastName: result.lastName,
         dateOfBirth: result.dateOfBirth,
@@ -256,7 +268,7 @@ export default {
         address: result.address,
         city: result.city,
         state: result.state,
-        postalCode: result.postal,
+        postal: result.postal,
         occupation: result.occupation,
       };
     },

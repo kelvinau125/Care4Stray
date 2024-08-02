@@ -114,8 +114,15 @@
                     <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="occupation">Occupation</label>
                     <select id="occupation" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       v-model="adopter.occupation" disabled>
-                      <option value="">Select Occupation Category</option>
-                      <option value="administrativeSupport">Administrative Support</option>
+                      <option value="">Select Occupation</option>
+                      <option value="SELF_EMPLOYED">Self Employed</option>
+                      <option value="RETIRED">Retired</option>
+                      <option value="STUDENT">Student</option>
+                      <option value="EMPLOYED">Employed</option>
+                      <option value="UNEMPLOYED">Unemployed</option>
+                      <option value="OTHER">Other</option>
+
+                      <!-- <option value="administrativeSupport">Administrative Support</option>
                       <option value="architectureAndEngineering">Architecture and Engineering</option>
                       <option value="artsDesignEntertainmentSportsAndMedia">Arts, Design, Entertainment, Sports, and Media</option>
                       <option value="buildingAndGroundsCleaningAndMaintenance">Building and Grounds Cleaning and Maintenance</option>
@@ -139,7 +146,7 @@
                       <option value="protectiveService">Protective Service</option>
                       <option value="salesAndRelated">Sales and Related</option>
                       <option value="transportationAndMaterialMoving">Transportation and Material Moving</option>
-                      <option value="other">Other</option>
+                      <option value="other">Other</option> -->
                     </select>
                   </div>
                 </div>

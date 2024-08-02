@@ -1,5 +1,5 @@
-export const baseUrl = "http://192.168.0.150:8081"
-// export const baseUrl = "http://192.168.143.243:8081"
+// export const baseUrl = "http://192.168.0.150:8081"
+export const baseUrl = "http://localhost:8081"
 
 // Upload File -  Cloudinary
 export const cloudinaryUrl = "https://api.cloudinary.com/v1_1/{cloud name}/{resource_type}/upload"
@@ -20,4 +20,12 @@ export const userInfoBaseUrl = '/care4stray/user';
 
 export const userInfo = '/user';
 
+export const updateUserInfo = '/update';
+
+export const checkUserInfoStatus = '/check/';
+
 export const userInfoUrl = userInfoBaseUrl + userInfo; // get user info
+
+export const updateUserInfoUrl = userInfoBaseUrl + updateUserInfo; // update user info
+
+export const checkUserInfoStatusUrl = userInfoBaseUrl + checkUserInfoStatus; // check user info status

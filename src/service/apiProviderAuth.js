@@ -1,6 +1,8 @@
 import {
     postRequest,
     postRequestWithToken,
+    patchRequestWithToken,
+    getRequestWithToken,
 } from '@/service/apiRequestMethod';
 
 import {
@@ -8,6 +10,8 @@ import {
     createUserUrl,
     loginUrl,
     userInfoUrl,
+    updateUserInfoUrl,
+    checkUserInfoStatusUrl,
 } from '@/utils/apiConfig.js';
 
 import { setCookie } from '@/service/cookie';
@@ -105,3 +109,58 @@ export async function getUserInfo(email) {
         return false;
     }
 }
+
+// Update User Info
+export async function updateUserInfo(profileDetails) {
+    const url = baseUrl + updateUserInfoUrl;
+
+    const apiDetails = profileDetails
+
+    console.log(apiDetails)
+
+    try {
+        const response = await patchRequestWithToken(url, apiDetails);
+
+        const status = response.status;
+        const data = response.data;
+
+        if (status === 200) {
+            return true;
+        } else if (status === 400) {
+            return data.message;
+        } else {
+            console.log(`Unsuccessfully in update user info provider: ${status}`);
+            return false;
+        }
+    } catch (e) {
+        console.log(`Unsuccessful in update user info provider: ${e}`);
+        return false;
+    }
+}
+
+// Check User Info Status
+export async function getUserInfoStatus(email) {
+
+    const url = baseUrl + checkUserInfoStatusUrl + email
+
+    try {
+        const response = await getRequestWithToken(url);
+
+        const status = response.status;
+        const data = response.data;
+
+        if (status === 200) {
+            return data.data;
+        } else if (status === 400) {
+            return data.message;
+        } else {
+            console.log(`Unsuccessfully in check user info status provider: ${status}`);
+            return [];
+        }
+
+    } catch (e) {
+        console.log(`Unsuccessfully in check user info status provider: ${e}`);
+        return [];
+    }
+}
+
