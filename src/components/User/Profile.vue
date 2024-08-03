@@ -1,5 +1,20 @@
 <template>
   <div>
+    <div class="flex justify-center">
+      <div v-if="alertOpen" :class="alertClass">
+        <span class="text-xl inline-block mr-5 align-middle">
+          <i class="fas fa-bell"></i>
+        </span>
+        <span class="inline-block align-middle mr-8">
+          <b class="capitalize">{{ alertType }} ! </b> {{ alertMessage }}
+        </span>
+        <button
+          class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none"
+          @click="closeAlert">
+          <span>×</span>
+        </button>
+      </div>
+    </div>
     <div class="border border-gray-300 mb-4 rounded-lg">
       <div class="p-4 flex flex-col min-w-0 break-words w-full mb-4">
         <div class="flex items-center justify-center pb-2">
@@ -23,8 +38,9 @@
                     Name</label>
                   <input type="text" id="first-name"
                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    v-model="adopter.firstName"
-                    required />
+                    v-model="adopter.firstName" required />
+                  <span v-if="validationErrors.firstName" class="text-red-500 text-xs">{{ validationErrors.firstName
+                    }}</span>
                 </div>
               </div>
               <div class="w-full lg:w-6/12 px-4">
@@ -33,8 +49,9 @@
                     Name</label>
                   <input type="text" id="last-name"
                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    v-model="adopter.lastName" 
-                    required />
+                    v-model="adopter.lastName" required />
+                  <span v-if="validationErrors.lastName" class="text-red-500 text-xs">{{ validationErrors.lastName
+                    }}</span>
                 </div>
               </div>
               <div class="w-full lg:w-6/12 px-4">
@@ -43,8 +60,9 @@
                     Birth</label>
                   <input type="date" id="date-of-birth"
                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    v-model="adopter.dateOfBirth" 
-                    required/>
+                    v-model="adopter.dateOfBirth" required />
+                  <span v-if="validationErrors.dateOfBirth" class="text-red-500 text-xs">{{ validationErrors.dateOfBirth
+                    }}</span>
                 </div>
               </div>
               <div class="w-full lg:w-6/12 px-4">
@@ -52,13 +70,13 @@
                   <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="gender">Gender</label>
                   <select id="gender"
                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    v-model="adopter.gender"
-                    required >
+                    v-model="adopter.gender" required>
                     <option value="">Select Gender</option>
                     <option value="MALE">Male</option>
                     <option value="FEMALE">Female</option>
                     <option value="OTHER">Other</option>
                   </select>
+                  <span v-if="validationErrors.gender" class="text-red-500 text-xs">{{ validationErrors.gender }}</span>
                 </div>
               </div>
               <div class="w-full lg:w-6/12 px-4">
@@ -67,8 +85,9 @@
                     Number</label>
                   <input type="text" id="phone-number"
                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    v-model="adopter.phoneNumber"
-                    required />
+                    v-model="adopter.phoneNumber" required />
+                  <span v-if="validationErrors.phoneNumber" class="text-red-500 text-xs">{{ validationErrors.phoneNumber
+                    }}</span>
                 </div>
               </div>
             </div>
@@ -80,8 +99,9 @@
                   <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="address">Address</label>
                   <input type="text" id="address"
                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    v-model="adopter.address"
-                    required />
+                    v-model="adopter.address" required />
+                  <span v-if="validationErrors.address" class="text-red-500 text-xs">{{ validationErrors.address
+                    }}</span>
                 </div>
               </div>
               <div class="w-full lg:w-4/12 px-4">
@@ -89,8 +109,8 @@
                   <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="city">City</label>
                   <input type="text" id="city"
                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    v-model="adopter.city" 
-                    required />
+                    v-model="adopter.city" required />
+                  <span v-if="validationErrors.city" class="text-red-500 text-xs">{{ validationErrors.city }}</span>
                 </div>
               </div>
               <div class="w-full lg:w-4/12 px-4">
@@ -99,8 +119,7 @@
                     Province</label>
                   <select id="state"
                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    v-model="adopter.state"
-                    required>
+                    v-model="adopter.state" required>
                     <option value="">Select State / Province</option>
                     <option value="johor">Johor</option>
                     <option value="kedah">Kedah</option>
@@ -119,6 +138,7 @@
                     <option value="labuan">Labuan</option>
                     <option value="putrajaya">Putrajaya</option>
                   </select>
+                  <span v-if="validationErrors.state" class="text-red-500 text-xs">{{ validationErrors.state }}</span>
                 </div>
               </div>
               <div class="w-full lg:w-4/12 px-4">
@@ -127,8 +147,8 @@
                     Code</label>
                   <input type="text" id="postal-code"
                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    v-model="adopter.postal"
-                    required />
+                    v-model="adopter.postal" required />
+                  <span v-if="validationErrors.postal" class="text-red-500 text-xs">{{ validationErrors.postal }}</span>
                 </div>
               </div>
             </div>
@@ -141,8 +161,7 @@
                     for="occupation">Occupation</label>
                   <select id="occupation"
                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    v-model="adopter.occupation"
-                    required>
+                    v-model="adopter.occupation" required>
                     <option value="">Select Occupation</option>
                     <option value="SELF_EMPLOYED">Self Employed</option>
                     <option value="RETIRED">Retired</option>
@@ -198,7 +217,7 @@
 </template>
 
 <script>
-// import { uploadImage } from "@/service/apiProviderImage.js";
+import { uploadImage } from "@/service/apiProviderImage.js";
 
 // api
 import { getUserInfo } from "@/service/apiProviderAuth.js";
@@ -227,9 +246,27 @@ export default {
         occupation: '',
       },
 
-      previewImage: '',
+      previewImage: null,
+      selectedFile: null,
+      validationErrors: {},
+
+      alertOpen: false,
+      alertType: "success",
+      alertMessage: "",
     };
   },
+
+  computed: {
+    alertClass() {
+      return {
+        "text-white px-6 py-4 border-0 rounded-full fixed mb-4 z-50 w-6/12 mt-8": true,
+        "bg-orange-500": this.alertType === "waiting",
+        "bg-emerald-500": this.alertType === "success",
+        "bg-red-500": this.alertType === "error",
+      };
+    },
+  },
+
   methods: {
     triggerFileInput() {
       this.$refs.fileInput.click();
@@ -245,19 +282,44 @@ export default {
           return;
         }
 
-        const previewImage = URL.createObjectURL(file);        
-        this.adopter.userAvatar = previewImage;
+        this.previewImage = URL.createObjectURL(file);
+        this.adopter.userAvatar = "",
+          this.selectedFile = file;
 
-        // const result = await uploadImage(file);
-
-        // this.adopter.userAvatar = result; 
       }
     },
 
     async updateProfile() {
-      const result = await updateUserInfo(this.adopter);
 
-      console.log(result)
+      if (this.validateAndSubmit()) {
+        if (this.selectedFile) {
+          this.alertOpen = true;
+          this.alertType = "waiting";
+          this.alertMessage = "Please wait, profile is updating! ";
+
+          const uploadedImageUrl = await uploadImage(this.selectedFile);
+          if (uploadedImageUrl.status === 200) {
+            this.adopter.userAvatar = uploadedImageUrl.data.url;
+          }
+        }
+
+        const result = await updateUserInfo(this.adopter);
+        if (result) {
+          this.alertType = "success";
+          this.alertMessage = "Account update successfully!";
+          this.alertOpen = true;
+          setTimeout(() => {
+            this.alertOpen = false;
+          }, 3000); // Close alert after 3 seconds
+        }
+      } else {
+        this.alertType = "error";
+        this.alertMessage = "Please fill up all the information correctly";
+        this.alertOpen = true;
+        setTimeout(() => {
+          this.alertOpen = false;
+        }, 3000); // Close alert after 3 seconds
+      }
     },
 
     async getUserInfoApi() {
@@ -280,6 +342,51 @@ export default {
         occupation: result.occupation,
       };
     },
+
+    validateAndSubmit() {
+      this.validationErrors = {}; // Reset errors
+      let isValid = true;
+
+      // Validate first name (alphabets only)
+      if (!this.adopter.firstName) {
+        this.validationErrors.firstName = "First name is required.";
+        isValid = false;
+      } else if (!/^[A-Za-z]+$/.test(this.adopter.firstName)) {
+        this.validationErrors.firstName = "First name should contain only alphabets.";
+        isValid = false;
+      }
+
+      // Validate last name (alphabets only)
+      if (!this.adopter.lastName) {
+        this.validationErrors.lastName = "Last name is required.";
+        isValid = false;
+      } else if (!/^[A-Za-z]+$/.test(this.adopter.lastName)) {
+        this.validationErrors.lastName = "Last name should contain only alphabets.";
+        isValid = false;
+      }
+
+      // Validate phone number (10-11 digits only)
+      if (!this.adopter.phoneNumber) {
+        this.validationErrors.phoneNumber = "Phone number is required.";
+        isValid = false;
+      } else if (!/^\d{10,11}$/.test(this.adopter.phoneNumber)) {
+        this.validationErrors.phoneNumber = "Phone number must be 10-11 digits.";
+        isValid = false;
+      }
+
+      // Validate postal code (numbers only)
+      if (!this.adopter.postal) {
+        this.validationErrors.postal = "Postal code is required.";
+        isValid = false;
+      } else if (!/^\d+$/.test(this.adopter.postal)) {
+        this.validationErrors.postal = "Postal code should contain only numbers.";
+        isValid = false;
+      }
+
+      if (isValid) {
+        return true
+      }
+    }
   },
 
   mounted() {

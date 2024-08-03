@@ -26,7 +26,7 @@ export async function uploadImage(file) {
     // console.log(response.data.url);
     
     if (status === 200) {
-      return response.data.url;
+      return response;
     } else {
       console.log(`Unsuccessfully upload to Cloudinary: ${response.status}`);
       return false;

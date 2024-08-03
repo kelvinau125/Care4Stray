@@ -6,7 +6,7 @@
         <div class="flex flex-row items-center justify-center gap-3">
           <span
             class="w-10 h-10 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full">
-            <img alt="..." class="w-full rounded-full align-middle border-none shadow-lg" :src="image" />
+            <img alt="..." class="w-full h-full rounded-full align-middle border-none shadow-lg" :src="image" />
           </span>
 
           <!-- Username and UID, hidden on mobile view -->

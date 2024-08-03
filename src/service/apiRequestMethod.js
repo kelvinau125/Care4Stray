@@ -120,7 +120,7 @@ export async function postFileRequest(file, url) {
             },
         });
 
-        console.log(response)
+        // console.log(response)
 
         if (response.status === 200) {
             return response;
