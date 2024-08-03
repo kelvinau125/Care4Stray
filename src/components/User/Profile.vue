@@ -275,7 +275,6 @@ export default {
     async handleFileChange(event) {
       const file = event.target.files[0];
 
-
       if (file) {
         if (file.size > 20 * 1024 * 1024) {
           alert("File size exceeds 20MB. Please choose a smaller file.");
@@ -284,7 +283,7 @@ export default {
 
         this.previewImage = URL.createObjectURL(file);
         this.adopter.userAvatar = "",
-          this.selectedFile = file;
+        this.selectedFile = file;
 
       }
     },

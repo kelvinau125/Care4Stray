@@ -29,3 +29,14 @@ export const userInfoUrl = userInfoBaseUrl + userInfo; // get user info
 export const updateUserInfoUrl = userInfoBaseUrl + updateUserInfo; // update user info
 
 export const checkUserInfoStatusUrl = userInfoBaseUrl + checkUserInfoStatus; // check user info status
+
+// News
+export const newsBaseUrl = '/admin_only';
+
+export const createNews = '/news';
+
+export const udpateNews = '/news/update';
+
+export const createNewsUrl = newsBaseUrl + createNews; // create news
+
+export const udpateNewsUrl = newsBaseUrl + udpateNews; // update news
