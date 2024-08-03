@@ -290,7 +290,6 @@ export default {
     },
 
     async updateProfile() {
-
       if (this.validateAndSubmit()) {
         if (this.selectedFile) {
           this.alertOpen = true;
@@ -305,12 +304,12 @@ export default {
 
         const result = await updateUserInfo(this.adopter);
         if (result) {
-          this.alertType = "success";
-          this.alertMessage = "Account update successfully!";
-          this.alertOpen = true;
-          setTimeout(() => {
-            this.alertOpen = false;
-          }, 3000); // Close alert after 3 seconds
+          // Store success message in sessionStorage before refreshing
+          sessionStorage.setItem('alertType', 'success');
+          sessionStorage.setItem('alertMessage', 'Account update successfully!');
+
+          // Refresh the page
+          window.location.reload();
         }
       } else {
         this.alertType = "error";
@@ -321,6 +320,7 @@ export default {
         }, 3000); // Close alert after 3 seconds
       }
     },
+
 
     async getUserInfoApi() {
       const result = await getUserInfo(VueCookies.get('email'));
@@ -391,6 +391,25 @@ export default {
 
   mounted() {
     this.getUserInfoApi();
+
+    // Check if there's an alert message in sessionStorage
+    const alertType = sessionStorage.getItem('alertType');
+    const alertMessage = sessionStorage.getItem('alertMessage');
+
+    if (alertType && alertMessage) {
+      this.alertType = alertType;
+      this.alertMessage = alertMessage;
+      this.alertOpen = true;
+
+      // Set a timeout to close the alert after 3 seconds
+      setTimeout(() => {
+        this.alertOpen = false;
+      }, 3000);
+
+      // Remove the alert message from sessionStorage
+      sessionStorage.removeItem('alertType');
+      sessionStorage.removeItem('alertMessage');
+    }
   }
 };
 </script>
