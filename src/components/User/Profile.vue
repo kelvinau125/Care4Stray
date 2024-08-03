@@ -3,7 +3,7 @@
     <div class="border border-gray-300 mb-4 rounded-lg">
       <div class="p-4 flex flex-col min-w-0 break-words w-full mb-4">
         <div class="flex items-center justify-center pb-2">
-          <img :src="adopter.userAvatar" alt="Application Image"
+          <img :src="adopter.userAvatar || previewImage" alt="Application Image"
             class="w-60 h-60 rounded-full cursor-pointer" @click="triggerFileInput" />
           <input type="file" ref="fileInput" class="hidden" @change="handleFileChange" />
         </div>
@@ -198,7 +198,7 @@
 </template>
 
 <script>
-import { uploadImage } from "@/service/apiProviderImage.js";
+// import { uploadImage } from "@/service/apiProviderImage.js";
 
 // api
 import { getUserInfo } from "@/service/apiProviderAuth.js";
@@ -225,7 +225,9 @@ export default {
         state: '',
         postal: '',
         occupation: '',
-      }
+      },
+
+      previewImage: '',
     };
   },
   methods: {
@@ -235,14 +237,20 @@ export default {
 
     async handleFileChange(event) {
       const file = event.target.files[0];
+
+
       if (file) {
         if (file.size > 20 * 1024 * 1024) {
           alert("File size exceeds 20MB. Please choose a smaller file.");
           return;
         }
-        const result = await uploadImage(file);
 
-        this.adopter.userAvatar = result; 
+        const previewImage = URL.createObjectURL(file);        
+        this.adopter.userAvatar = previewImage;
+
+        // const result = await uploadImage(file);
+
+        // this.adopter.userAvatar = result; 
       }
     },
 

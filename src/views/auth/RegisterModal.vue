@@ -185,7 +185,7 @@ export default {
     computed: {
         alertClass() {
             return {
-                "text-white px-6 py-4 border-0 rounded-full absolute mb-4 z-50 w-6/12 mt-8": true,
+                "text-white px-6 py-4 border-0 rounded-full fixed mb-4 z-50 w-6/12 mt-8": true,
                 "bg-emerald-500": this.alertType === "success",
                 "bg-red-500": this.alertType === "error",
             };
