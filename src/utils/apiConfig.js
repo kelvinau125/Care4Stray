@@ -41,8 +41,12 @@ export const udpateNews = '/news/update';
 
 export const getNewsLists = '/news/lists';
 
+export const getNewsDetails = '/news/lists/{newID}';
+
 export const createNewsUrl = newsAdminBaseUrl + createNews; // create news
 
 export const udpateNewsUrl = newsAdminBaseUrl + udpateNews; // update news
 
 export const getNewsListsUrl = newsBaseUrl + getNewsLists; // get News Lists
+
+export const getNewsDetailsUrl = newsBaseUrl + getNewsDetails; // get News Details
