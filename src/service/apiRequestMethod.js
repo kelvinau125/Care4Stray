@@ -66,17 +66,15 @@ export async function postRequestWithToken(url, body) {
     }
 }
 
-export async function getRequestWithToken(url) {
+export async function getRequest(url) {
     try {
-      const response = await axios.get(url, {
-        headers: getHeadersToken(),
-      });
-  
-      if (response.status === 200) {
-        return response;
-      } else {
-        throw new Error(`Error: ${response.status}`);
-      }
+        const response = await axios.get(url);
+
+        if (response.status === 200) {
+            return response;
+        } else {
+            throw new Error(`Error: ${response.status}`);
+        }
     } catch (error) {
         if (error.response && error.response.status === 400) {
             return error.response;
@@ -84,7 +82,27 @@ export async function getRequestWithToken(url) {
             throw new Error(`Exception: ${error.message}`);
         }
     }
-  }
+}
+
+export async function getRequestWithToken(url) {
+    try {
+        const response = await axios.get(url, {
+            headers: getHeadersToken(),
+        });
+
+        if (response.status === 200) {
+            return response;
+        } else {
+            throw new Error(`Error: ${response.status}`);
+        }
+    } catch (error) {
+        if (error.response && error.response.status === 400) {
+            return error.response;
+        } else {
+            throw new Error(`Exception: ${error.message}`);
+        }
+    }
+}
 
 export async function patchRequestWithToken(url, body) {
     try {

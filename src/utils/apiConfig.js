@@ -31,12 +31,18 @@ export const updateUserInfoUrl = userInfoBaseUrl + updateUserInfo; // update use
 export const checkUserInfoStatusUrl = userInfoBaseUrl + checkUserInfoStatus; // check user info status
 
 // News
-export const newsBaseUrl = '/admin_only';
+export const newsAdminBaseUrl = '/admin_only';
+
+export const newsBaseUrl = '/care4stray';
 
 export const createNews = '/news';
 
 export const udpateNews = '/news/update';
 
-export const createNewsUrl = newsBaseUrl + createNews; // create news
+export const getNewsLists = '/news/lists';
 
-export const udpateNewsUrl = newsBaseUrl + udpateNews; // update news
+export const createNewsUrl = newsAdminBaseUrl + createNews; // create news
+
+export const udpateNewsUrl = newsAdminBaseUrl + udpateNews; // update news
+
+export const getNewsListsUrl = newsBaseUrl + getNewsLists; // get News Lists

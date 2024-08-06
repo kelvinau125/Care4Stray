@@ -176,9 +176,10 @@
                 <div v-for="(item, index) in paginatedItems" :key="index" class="rightspace">
                   <div class="border-2 border-mainTheme p-4 rounded-lg shadow-lg flex">
                     <div class="w-full mr-5 flex items-center justify-center">
-                      <img :src="item.image" alt="picture" class="w-4/5 h-auto rounded-md">
+                      <img :src="item.image" alt="picture" class="h-auto rounded-md" style="width: 200px; height: 200px;">
                     </div>
-                    <div class="flex flex-col justify-between">
+
+                    <div class="w-full flex flex-col justify-between">
                       <div>
                         <h2 class="text-xl font-bold mb-2">{{ item.title }}</h2>
                         <p>{{ item.description }}</p>
@@ -271,6 +272,7 @@ import VueCookies from 'vue-cookies';
 
 // api
 import { login } from "@/service/apiProviderAuth.js";
+import { getNewsList } from '@/service/apiProviderNews';
 
 export default {
   data() {
@@ -288,49 +290,27 @@ export default {
       isRegisterModalVisible: ref(false),
 
       items: [
-        {
-          image: require('@/assets/img/team-1-800x800.jpg').default, // replace with actual path
-          title: "Rescued dog 'trapped for several days' down well",
-          description: "A dog rescued from a well had been trapped for several days and was 'giving up' in front of his rescuers' eyes, it has emerged.",
-          author: "Federica Bedendo",
-          date: "2 days ago",
-        },
-        {
-          image: require('@/assets/img/team-2-800x800.jpg').default, // replace with actual path
-          title: "Rescued dog 'trapped for several days' down well",
-          description: "A dog rescued from a well had been trapped for several days and was 'giving up' in front of his rescuers' eyes, it has emerged.",
-          author: "Federica Bedendo",
-          date: "2 days ago",
-        },
-        {
-          image: require('@/assets/img/team-4-470x470.png').default, // replace with actual path
-          title: "Rescued dog 'trapped for several days' down well",
-          description: "A dog rescued from a well had been trapped for several days and was 'giving up' in front of his rescuers' eyes, it has emerged.",
-          author: "Federica Bedendo",
-          date: "2 days ago",
-        },
-        {
-          image: require('@/assets/img/sketch.jpg').default, // replace with actual path
-          title: "Rescued dog 'trapped for several days' down well",
-          description: "A dog rescued from a well had been trapped for several days and was 'giving up' in front of his rescuers' eyes, it has emerged.",
-          author: "Federica Bedendo",
-          date: "2 days ago",
-        },
-        {
-          image: require('@/assets/img/sketch.jpg').default, // replace with actual path
-          title: "Rescued dog 'trapped for several days' down well",
-          description: "A dog rescued from a well had been trapped for several days and was 'giving up' in front of his rescuers' eyes, it has emerged.",
-          author: "Federica Bedendo",
-          date: "2 days ago",
-        },
-        {
-          image: require('@/assets/img/sketch.jpg').default, // replace with actual path
-          title: "Rescued dog 'trapped for several days' down well",
-          description: "A dog rescued from a well had been trapped for several days and was 'giving up' in front of his rescuers' eyes, it has emerged.",
-          author: "Federica Bedendo",
-          date: "2 days ago",
-        },
-        // Repeat this object to fill the list
+        // {
+        //   image: require('@/assets/img/team-1-800x800.jpg').default, // replace with actual path
+        //   title: "Rescued dog 'trapped for several days' down well",
+        //   description: "A dog rescued from a well had been trapped for several days and was 'giving up' in front of his rescuers' eyes, it has emerged.",
+        //   author: "Federica Bedendo",
+        //   date: "2 days ago",
+        // },
+        // {
+        //   image: require('@/assets/img/team-2-800x800.jpg').default, // replace with actual path
+        //   title: "Rescued dog 'trapped for several days' down well",
+        //   description: "A dog rescued from a well had been trapped for several days and was 'giving up' in front of his rescuers' eyes, it has emerged.",
+        //   author: "Federica Bedendo",
+        //   date: "2 days ago",
+        // },
+        // {
+        //   image: require('@/assets/img/team-2-800x800.jpg').default, // replace with actual path
+        //   title: "Rescued dog 'trapped for several days' down well",
+        //   description: "A dog rescued from a well had been trapped for several days and was 'giving up' in front of his rescuers' eyes, it has emerged.",
+        //   author: "Federica Bedendo",
+        //   date: "2 days ago",
+        // },
       ],
       currentPage: 1,
       itemsPerPage: 5, // Adjust this number based on how many items you want per page
@@ -395,8 +375,23 @@ export default {
       };
     },
   },
-
+  mounted() {
+    this.generateNewsLists()
+  },
   methods: {
+    async generateNewsLists() {
+      this.getNewsList = await getNewsList();
+      for (let i = 0; i < this.getNewsList.length; i++) {
+        this.items.push({
+          id: this.getNewsList[i]["id"],
+          image: this.getNewsList[i]["pic"],
+          title: this.getNewsList[i]["title"],
+          description: this.getNewsList[i]["content"],
+          author: this.getNewsList[i]["author"],
+          date: this.getNewsList[i]["duration"],
+        });
+      }
+    },
     showRegisterModal() {
       this.isRegisterModalVisible = true;
     },
