@@ -141,9 +141,9 @@ export default {
     async submitNews() {
       this.alertOpen = true;
       this.alertType = "waiting";
-      this.alertMessage = "Please wait, profile is updating! ";
+      this.alertMessage = "Please wait, news is updating! ";
 
-      const uploadedImageUrl = await uploadImage(this.news.media);
+      const uploadedImageUrl = await uploadImage(this.news.media, (this.isImage ?"image" :"video"));
 
       if (uploadedImageUrl.status === 200) {
         this.news.media = uploadedImageUrl.data.url;

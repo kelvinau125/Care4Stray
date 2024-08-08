@@ -11,12 +11,13 @@ import {
 } from '@/utils/apiConfig.js';
 
 // Update Image
-export async function uploadImage(file) {
+export async function uploadImage(file, resourcetype) {
 
   const url = cloudinaryUrl
     .replace("{cloud name}", cloudName)
-    .replace("{resource_type}", "image");
+    .replace("{resource_type}", resourcetype);
 
+  console.log(url)
   try {
     const response = await postFileRequest(file, url);
     const status = response.status;

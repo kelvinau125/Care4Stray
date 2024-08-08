@@ -295,7 +295,7 @@ export default {
           this.alertType = "waiting";
           this.alertMessage = "Please wait, profile is updating! ";
 
-          const uploadedImageUrl = await uploadImage(this.selectedFile);
+          const uploadedImageUrl = await uploadImage(this.selectedFile, "image");
           if (uploadedImageUrl.status === 200) {
             this.adopter.userAvatar = uploadedImageUrl.data.url;
           }

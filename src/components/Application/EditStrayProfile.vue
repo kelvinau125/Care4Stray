@@ -155,7 +155,7 @@ export default {
           alert("File size exceeds 20MB. Please choose a smaller file.");
           return;
         }
-        const result = await uploadImage(file);
+        const result = await uploadImage(file, "image");
 
         if (result) {
           console.log(result)

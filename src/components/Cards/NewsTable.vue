@@ -35,7 +35,7 @@
 
                 <tbody>
                     <tr v-for="(project, index) in projects" :key="index">
-                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 max-w-200-px truncate">
                             <div class="flex">
                                 {{ project.title }}
                             </div>
@@ -94,7 +94,7 @@
 
 <script>
 import { createPopper } from "@popperjs/core";
-
+import { getNewsList } from '@/service/apiProviderNews';
 
 export default {
     components: {
@@ -112,20 +112,20 @@ export default {
                 { text: '' }
             ],
             projects: [
-                {
-                    id: "1",
-                    title: "Rescued dog 'trapped for several days' down well",
-                    date: "2024/4/24",
-                    author: "Hello Kitty",
-                    status: "active",
-                },
-                {
-                    id: "2",
-                    title: "Rescued dog 'trapped for several days' down well",
-                    date: "2024/4/24",
-                    author: "Hello Kitty",
-                    status: "inactive",
-                }
+                // {
+                //     id: "1",
+                //     title: "Rescued dog 'trapped for several days' down well",
+                //     date: "2024/4/24",
+                //     author: "Hello Kitty",
+                //     status: "active",
+                // },
+                // {
+                //     id: "2",
+                //     title: "Rescued dog 'trapped for several days' down well",
+                //     date: "2024/4/24",
+                //     author: "Hello Kitty",
+                //     status: "inactive",
+                // }
             ]
         }
     },
@@ -135,15 +135,31 @@ export default {
             default: 'light'
         },
     },
+    mounted() {
+        this.generateNewsLists()
+    },
     methods: {
+        async generateNewsLists() {
+            this.getNewsList = await getNewsList();
+            for (let i = 0; i < this.getNewsList.length; i++) {   
+                this.projects.push({
+                    id: this.getNewsList[i]["id"],
+                    title: this.getNewsList[i]["title"],
+                    date:  new Date(this.getNewsList[i]["createdDate"]).toISOString().split('T')[0],
+                    author: this.getNewsList[i]["author"],
+                    status: this.getNewsList[i]["status"],
+                });
+            }
+        },
+
         statusColor(status) {
             switch (status) {
-                case 'active':
+                case 'ACTIVE':
                     return 'text-emerald-500';
-                case 'deactivate':
-                    return 'text-red-500';
-                default:
+                case 'INACTIVE':
                     return 'text-gray-500';
+                default:
+                    return 'text-red-500';
             }
         },
 

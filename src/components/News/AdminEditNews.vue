@@ -1,5 +1,21 @@
 <template>
   <div class="w-full mx-auto p-4 bg-white rounded-lg shadow-lg">
+    <div class="flex justify-center">
+      <div v-if="alertOpen" :class="alertClass" style="margin-top: -100px;">
+        <span class="text-xl inline-block mr-5 align-middle">
+          <i class="fas fa-bell"></i>
+        </span>
+        <span class="inline-block align-middle mr-8">
+          <b class="capitalize">{{ alertType }} ! </b> {{ alertMessage }}
+        </span>
+        <button
+          class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none"
+          @click="closeAlert">
+          <span>×</span>
+        </button>
+      </div>
+    </div>
+
     <div class="flex justify-between">
       <div>
         <h2 class="text-2xl font-semibold text-gray-800 mb-6 pt-2">Edit News Article</h2>
@@ -67,38 +83,91 @@
 </template>
 
 <script>
+import { getNewsDetails } from '@/service/apiProviderNews';
+
 export default {
   data() {
     return {
+      newsID: this.$route.query.newsID,
+
       news: {
-        date: '2024/1/15',
-        title: 'Hallo',
-        author: 'Hallo Kitty',
-        media: null,
-        details: 'Hallo Kitty Hallo Kitty Hallo Kitty Hallo Kitty Hallo Kitty Hallo Kitty Hallo Kitty Hallo Kitty',
-        status: "inactive",
+        // date: '2024/1/15',
+        // title: 'Hallo',
+        // author: 'Hallo Kitty',
+        // media: null,
+        // details: 'Hallo Kitty Hallo Kitty Hallo Kitty Hallo Kitty Hallo Kitty Hallo Kitty Hallo Kitty Hallo Kitty',
+        // status: "inactive",
       },
 
       previewUrl: null,
       isImage: false,
       isVideo: false,
+
+      alertOpen: false,
+      alertType: "success",
+      alertMessage: "",
     };
   },
+  mounted() {
+    this.getNewsDetailsApi()
+  },
   methods: {
-    statusColor(status) {
-      switch (status) {
-        case 'active':
-          return 'text-emerald-500';
-        case 'inactive':
-          return 'text-red-500';
-        default:
-          return 'text-gray-500';
+    async getNewsDetailsApi() {
+      const result = await getNewsDetails(this.newsID);
+
+      this.news = {
+        id: result.id,
+        date: new Date(result.createdDate).toISOString().split('T')[0],
+        title: result.title,
+        author: result.author,
+        media: result.pic,
+        details: result.content,
+        status: result.status,
+      };
+
+      const mediaUrl = result.pic;
+      if (mediaUrl) {
+        if (mediaUrl.match(/\.(jpeg|jpg|gif|png)$/)) {
+          this.isImage = true;
+          this.isVideo = false;
+        } else if (mediaUrl.match(/\.(mp4|avi|mkv)$/)) {
+          this.isImage = false;
+          this.isVideo = true;
+        }
+        this.previewUrl = mediaUrl;
       }
     },
 
-    handleFileUpload(event) {
+    statusColor(status) {
+      switch (status) {
+        case 'ACTIVE':
+          return 'text-emerald-500';
+        case 'INACTIVE':
+          return 'text-gray-500';
+        default:
+          return 'text-red-500';
+      }
+    },
+
+  handleFileUpload(event) {
       const file = event.target.files[0];
       if (file) {
+        const maxSizeInBytes = this.isImage ? 20 * 1024 * 1024 : 80 * 1024 * 1024; // 20MB for images, 80MB for videos
+        if (file.size > maxSizeInBytes) {
+
+          this.previewUrl = null;
+          this.isImage = false;
+          this.isVideo = false;
+
+          this.alertType = "error";
+          this.alertMessage = `File size exceeds the maximum allowed size of ${maxSizeInBytes / 1024 / 1024}MB.`;
+          this.alertOpen = true;
+          setTimeout(() => {
+            this.alertOpen = false;
+          }, 3000); // Close alert after 3 seconds
+          
+          return;
+        }
         this.news.media = file;
         this.previewUrl = URL.createObjectURL(file);
         this.isImage = file.type.startsWith('image/');
@@ -109,17 +178,29 @@ export default {
         this.isVideo = false;
       }
     },
+
     submitNews() {
-      // Handle news submission logic here, e.g., send the news data to a server
-      console.log('News submitted:', this.news);
-      // Reset form
-      this.news.title = '';
-      this.news.author = '';
-      this.news.media = null;
-      this.news.details = '';
-      this.previewUrl = null;
-      this.isImage = false;
-      this.isVideo = false;
+      this.alertOpen = true;
+      this.alertType = "waiting";
+      this.alertMessage = "Please wait, news is updating! ";
+
+      const uploadedImageUrl = await uploadImage(this.news.media, (this.isImage ?"image" :"video"));
+
+      if (uploadedImageUrl.status === 200) {
+        this.news.media = uploadedImageUrl.data.url;
+        const result = await createNews(this.news);
+        if (result) {
+          this.alertType = "success";
+          this.alertMessage = "news successful created";
+          this.alertOpen = true;
+          setTimeout(() => {
+            this.alertOpen = false;
+          }, 3000); // Close alert after 3 seconds
+
+          // Refresh the page
+          window.location.reload();
+        }
+      }
     },
   },
 };
