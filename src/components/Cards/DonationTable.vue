@@ -50,7 +50,7 @@
 
             <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
               <div class="flex">
-                <i :class="project.isAnonymously === 'yes' ? 'fas fa-check' : 'fas fa-times'"></i>
+                <i :class="project.isAnonymously === 'true' ? 'fas fa-check' : 'fas fa-times'"></i>
               </div>
             </td>
 
@@ -66,6 +66,7 @@
 </template>
 
 <script>
+import { getAllDonationlistAdmin } from '@/service/apiProviderDonation';
 
 export default {
   data() {
@@ -78,13 +79,13 @@ export default {
         { text: 'Status' },
       ],
       projects: [
-        {
-          date: "2024/15/2",
-          name: "Kelvin",
-          amount: "150",
-          isAnonymously: "yes",
-          status: "completed",
-        }
+        // {
+        //   date: "2024/15/2",
+        //   name: "Kelvin",
+        //   amount: "150",
+        //   isAnonymously: "yes",
+        //   status: "completed",
+        // }
       ]
     }
   },
@@ -94,17 +95,32 @@ export default {
       default: 'light'
     },
   },
+  mounted() {
+    this.getAllDonationApi();
+  },
   methods: {
+    async getAllDonationApi() {
+      this.getList = await getAllDonationlistAdmin();
+      for (let i = 0; i < this.getList.length; i++) {
+        this.projects.push({
+          date: new Date(this.getList[i]["createdDate"]).toISOString().split('T')[0],
+          name: this.getList[i]["user"]["firstName"] + " " + this.getList[i]["user"]["lastName"],
+          amount: this.getList[i]["amount"],
+          isAnonymously: this.getList[i]["isAnonymously"],
+          status: this.getList[i]["status"],
+        });
+      }
+    },
     statusColor(status) {
       switch (status) {
-        case 'pending':
+        case 'PENDING':
           return 'text-orange-500';
-        case 'completed':
+        case 'SUCCESS':
           return 'text-emerald-500';
-        case 'delayed':
+        case 'UNSUCCESS':
           return 'text-red-500';
-        case 'on schedule':
-          return 'text-teal-500';
+        // case 'on schedule':
+        //   return 'text-teal-500';
         default:
           return 'text-gray-500';
       }

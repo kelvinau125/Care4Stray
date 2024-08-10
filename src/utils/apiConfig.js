@@ -73,10 +73,24 @@ export const updateNewsStatusUrl = adminBaseUrl + updateNewsStatus; // update ne
 
 export const donationBaseUrl = userBaseUrl + '/donation';
 
+export const donationAdminBaseUrl = adminBaseUrl + '/donation';
+
 export const createDonation = '/create';
 
 export const updateDonationStatus = '/updateStatus/{donationID}';
 
+export const getAllDonationlistAdmin = '/all'
+
+export const getAllDonationlist = '/donationList'
+
+export const getDonationbyUserID = '/list?userId={userID}'
+
 export const createDonationUrl = donationBaseUrl + createDonation;
 
 export const updateDonationStatusUrl = donationBaseUrl + updateDonationStatus;
+
+export const getAllDonationlistUrl = donationBaseUrl + getAllDonationlist;
+
+export const getDonationbyUserIDUrl = donationBaseUrl + getDonationbyUserID;
+
+export const getAllDonationlistAdminUrl = donationAdminBaseUrl + getAllDonationlistAdmin; // Admin
