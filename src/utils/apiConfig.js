@@ -68,3 +68,11 @@ export const udpateNewsUrl = adminBaseUrl + udpateNews; // update news - Admin
 export const getNewsListsAdminUrl = adminBaseUrl + getNewsListsAdmin; // get News Lists - Admin
 
 export const updateNewsStatusUrl = adminBaseUrl + updateNewsStatus; // update news status - Admin
+
+// donation
+
+export const donationBaseUrl = userBaseUrl + '/donation';
+
+export const createDonation = '/create';
+
+export const createDonationUrl = donationBaseUrl + createDonation;

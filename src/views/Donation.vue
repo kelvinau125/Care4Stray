@@ -6,7 +6,8 @@
         <div class="container mx-auto px-4 h-full">
           <div class="flex content-center items-center justify-center h-full">
             <div class="w-full lg:w-6/12 px-4">
-              <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-secondaryMain border-mainText border-2">
+              <div
+                class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-secondaryMain border-mainText border-2">
                 <div class="rounded-t mb-0 px-6 py-6">
                   <div class="text-center mb-3">
                     <h6 class="text-mainText text-3xl font-bold">
@@ -17,60 +18,61 @@
                 </div>
 
                 <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-                  <form>
+                  <form @submit.prevent="submitDonation()">
                     <div class="relative w-full mb-3">
-                      <label class="block uppercase text-mainText text-xs font-bold mb-2" htmlFor="grid-password">
+                      <label class="block uppercase text-mainText text-xs font-bold mb-2">
                         Name
                       </label>
                       <input type="name"
                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        placeholder="Name" />
-                    </div>
-
-                    <div class="mb-3">
-                      <label class="inline-flex items-center cursor-pointer">
-                        <input
-                          id="customCheckLogin"
-                          type="checkbox"
-                          class="form-checkbox border-0 rounded text-mainText ml-1 w-5 h-5 ease-linear transition-all duration-150"
-                        />
-                        <span class="ml-2 text-sm font-semibold text-mainText">
-                          Make donation anonymously (option) 
-                        </span>
-                      </label>
+                        :class="{ 'bg-gray-100': isUser !== null }" placeholder="Name" v-model="donation.username"
+                        required :disabled="isUser" />
                     </div>
 
                     <div class="relative w-full mb-3">
-                      <label class="block uppercase text-mainText text-xs font-bold mb-2" htmlFor="grid-password">
+                      <label class="block uppercase text-mainText text-xs font-bold mb-2">
                         Phone Number
                       </label>
                       <input type="phonenumber"
                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        placeholder="Phone Number" />
+                        :class="{ 'bg-gray-100': isUser !== null }" placeholder="Phone Number" v-model="donation.phoneNo"
+                        required :disabled="isUser" />
                     </div>
 
                     <div class="relative w-full mb-3">
-                      <label class="block uppercase text-mainText text-xs font-bold mb-2" htmlFor="grid-password">
+                      <label class="block uppercase text-mainText text-xs font-bold mb-2">
                         Email
                       </label>
                       <input type="email"
                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        placeholder="Email" />
+                        :class="{ 'bg-gray-100': isUser !== null }" placeholder="Email" v-model="donation.email" required
+                        :disabled="isUser" />
                     </div>
 
                     <div class="relative w-full mb-3">
-                      <label class="block uppercase text-mainText text-xs font-bold mb-2" htmlFor="grid-password">
+                      <label class="block uppercase text-mainText text-xs font-bold mb-2">
                         Donation Amount (MYR)
                       </label>
                       <input type="message"
                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        placeholder="Donation Amount (MYR)" />
+                        placeholder="Donation Amount (MYR)" v-model="donation.amount" required />
+                    </div>
+
+                    <div class="mb-3 mt-6">
+                      <label class="inline-flex items-center cursor-pointer">
+                        <input id="customCheckLogin" type="checkbox"
+                          class="form-checkbox border-0 rounded text-mainText ml-1 w-5 h-5 ease-linear transition-all duration-150"
+                          v-model="donation.annoymously" />
+                        <span class="ml-2 text-sm font-semibold text-mainText">
+                          Make donation anonymously (option)
+                        </span>
+                      </label>
                     </div>
 
                     <div class="text-center mt-6">
                       <button
                         class="bg-mainText text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                        type="button">
+                        type="submit">
                         Submit
                       </button>
                     </div>
@@ -78,7 +80,7 @@
                 </div>
               </div>
             </div>
-            <img :src="donation" alt="donation picture" class="w-full lg:w-6/12 px-4 pr-4"/>
+            <img :src="donationPic" alt="donation picture" class="w-full lg:w-6/12 px-4 pr-4" />
           </div>
         </div>
         <footer-small absolute />
@@ -88,10 +90,17 @@
 </template>
 
 <script>
-import donation from "@/assets/img/donation.png";
+import donationPic from "@/assets/img/donation.png";
 
 import Navbar from "@/components/Navbars/AuthNavbar.vue";
 import FooterSmall from "@/components/Footers/FooterSmall.vue";
+
+// get user cookie
+import VueCookies from 'vue-cookies';
+
+// api
+import { getUserInfo } from "@/service/apiProviderAuth.js";
+import { createDonation } from "@/service/apiProviderDonation.js";
 
 export default {
   components: {
@@ -101,8 +110,49 @@ export default {
 
   data() {
     return {
-      donation,
+      donation: {
+        username: '',
+        annoymously: false,
+        phoneNo: '',
+        email: '',
+        amount: '',
+      },
+
+      donationPic,
+
+      isUser: VueCookies.isKey('email')
     };
   },
+
+  mounted() {
+    this.getUserInfoApi()
+  },
+
+  methods: {
+    async getUserInfoApi() {
+      const result = await getUserInfo(VueCookies.get('email'));
+
+      this.donation.username = result.firstName + " " + result.lastName;
+      this.donation.phoneNo = result.phoneNumber;
+      this.donation.email = result.email;
+    },
+
+    async submitDonation() {
+      const result = await createDonation(this.donation.amount, this.donation.annoymously)
+
+      console.log(result.amount)
+      console.log(result.id)
+
+      if (result != null) {
+        this.$router.push({
+          path: "/payment",
+          query: {
+            amount: result.amount,
+            transactionId: result.id,
+          },
+        });
+      }
+    }
+  }
 };
 </script>
