@@ -12,6 +12,7 @@ import {
     updateDonationStatusUrl,
     getAllDonationlistUrl,
     getAllDonationlistAdminUrl,
+    getDonationbyUserIDUrl,
 } from '@/utils/apiConfig.js';
 
 import VueCookies from 'vue-cookies';
@@ -125,6 +126,31 @@ export async function getAllDonationlistAdmin() {
 
     } catch (e) {
         console.log(`Unsuccessful in get all donation list admin provider: ${e}`);
+        return false;
+    }
+}
+
+// Get donation list by user id
+export async function getDonationByUserID() {
+    const url = baseUrl + (getDonationbyUserIDUrl.replace("{userID}", VueCookies.get('id')));
+
+    try {
+        const response = await getRequestWithToken(url);
+
+        const status = response.status;
+        const data = response.data;
+
+        if (status === 200) {
+            return data.data;
+        } else if (status === 400) {
+            return data.message;
+        } else {
+            console.log(`Unsuccessfully in get alldonation list by user id provider: ${status}`);
+            return false;
+        }
+
+    } catch (e) {
+        console.log(`Unsuccessful in get all donation list by user id provider: ${e}`);
         return false;
     }
 }
