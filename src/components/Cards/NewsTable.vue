@@ -97,8 +97,8 @@
 
 <script>
 import { createPopper } from "@popperjs/core";
-import { getNewsListAdmin } from '@/service/apiProviderNews';
-import { updateNewsStatus } from '@/service/apiProviderNews';
+
+import { updateNewsStatus, getNewsListAdmin } from '@/service/apiProviderNews';
 
 export default {
     components: {
@@ -168,10 +168,13 @@ export default {
         },
 
         async toUpdateStatus(id, status) {
+           
             const newStatus = status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
-
+            
             const result = await updateNewsStatus(id,newStatus);
 
+            this.hideDropdown();
+            
             if (result) {
                 // Find the index of the project in the projects array
                 const projectIndex = this.projects.findIndex(project => project.id === id);

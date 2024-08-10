@@ -77,8 +77,9 @@
                                 <a
                                     href="javascript:void(0);"
                                     class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                    @click.native.stop="toUpdateStatus(project.id, project.status)"
                                 >
-                                    {{ project.status == "active" ? "Inactive" : "Active" }}
+                                    {{ project.status == "ACTIVE" ? "INACTIVE" : "ACTIVE" }}
                                 </a>
                             </div>
                         </td>
@@ -91,6 +92,8 @@
 
 <script>
 import { createPopper } from "@popperjs/core";
+
+import { getUserList, updateUserStatus } from '@/service/apiProviderAuth';
 
 export default {
     data() {
@@ -105,38 +108,38 @@ export default {
                 { text: '' } // Empty header cell if needed
             ],
             projects: [
-                {
-                    id: "1",
-                    image: require('@/assets/img/team-1-800x800.jpg').default,
-                    name: "kelvin",
-                    isAdopted: "yes",
-                    numberAdopted: "1",
-                    status: "active",
-                },
-                {
-                    id: "2",
-                    image: require('@/assets/img/team-1-800x800.jpg').default,
-                    name: "kelvin",
-                    isAdopted: "yes",
-                    numberAdopted: "1",
-                    status: "active",
-                },
-                {
-                    id: "3",
-                    image: require('@/assets/img/team-1-800x800.jpg').default,
-                    name: "kelvin",
-                    isAdopted: "yes",
-                    numberAdopted: "1",
-                    status: "inactive",
-                },
-                {
-                    id: "4",
-                    image: require('@/assets/img/team-1-800x800.jpg').default,
-                    name: "kelvin",
-                    isAdopted: "yes",
-                    numberAdopted: "1",
-                    status: "active",
-                },
+                // {
+                //     id: "1",
+                //     image: require('@/assets/img/team-1-800x800.jpg').default,
+                //     name: "kelvin",
+                //     isAdopted: "yes",
+                //     numberAdopted: "1",
+                //     status: "active",
+                // },
+                // {
+                //     id: "2",
+                //     image: require('@/assets/img/team-1-800x800.jpg').default,
+                //     name: "kelvin",
+                //     isAdopted: "yes",
+                //     numberAdopted: "1",
+                //     status: "active",
+                // },
+                // {
+                //     id: "3",
+                //     image: require('@/assets/img/team-1-800x800.jpg').default,
+                //     name: "kelvin",
+                //     isAdopted: "yes",
+                //     numberAdopted: "1",
+                //     status: "inactive",
+                // },
+                // {
+                //     id: "4",
+                //     image: require('@/assets/img/team-1-800x800.jpg').default,
+                //     name: "kelvin",
+                //     isAdopted: "yes",
+                //     numberAdopted: "1",
+                //     status: "active",
+                // },
             ]
         }
     },
@@ -146,12 +149,47 @@ export default {
             default: 'light'
         },
     },
+    mounted() {
+        this.getUserListApi()
+    },
     methods: {
+        async getUserListApi() {
+            this.getUserList = await getUserList();
+            for (let i = 0; i < this.getUserList.length; i++) {
+                this.projects.push({
+                    id: this.getUserList[i]["id"],
+                    image: this.getUserList[i]["userAvatar"],
+                    name: this.getUserList[i]["firstName"] + " " + this.getUserList[i]["lastName"],
+                    isAdopted: "yes",
+                    numberAdopted: "123",
+                    status: this.getUserList[i]["userStatus"],
+                });
+            }
+        },
+
+        async toUpdateStatus(id, status) {
+           
+           const newStatus = status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
+           
+           const result = await updateUserStatus(id,newStatus);
+
+           this.hideDropdown();
+           
+           if (result) {
+               // Find the index of the project in the projects array
+               const projectIndex = this.projects.findIndex(project => project.id === id);
+               if (projectIndex !== -1) {
+                   // Update the status of the specific project
+                   this.projects[projectIndex].status = newStatus;
+               }
+           }
+       },
+
         statusColor(status) {
             switch (status) {
-                case 'active':
+                case 'ACTIVE':
                     return 'text-emerald-500';
-                case 'inactive':
+                case 'INACTIVE':
                     return 'text-red-500';
                 default:
                     return 'text-gray-500';

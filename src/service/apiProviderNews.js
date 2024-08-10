@@ -155,7 +155,7 @@ export async function updateNews(newsDetails) {
 
 // Update News Status
 export async function updateNewsStatus(newsID, status) {
-    const url = baseUrl + (updateNewsStatusUrl.replace("{newID}", newsID)); ;
+    const url = baseUrl + (updateNewsStatusUrl.replace("{newID}", newsID));
 
     const apiDetails = {
         newsStatus: status

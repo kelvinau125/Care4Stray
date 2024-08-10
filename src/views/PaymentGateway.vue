@@ -1,6 +1,6 @@
 <template>
-    <div class="container mx-auto p-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+  <div class="container mx-auto p-8 min-h-screen flex items-center justify-center bg-main">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
         <!-- Payment Form -->
         <div class="p-6 bg-white rounded-lg shadow-lg">
           <div class="flex justify-between items-center mb-4">

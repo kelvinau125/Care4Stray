@@ -4,8 +4,12 @@ export const baseUrl = "http://localhost:8081"
 // Upload File -  Cloudinary
 export const cloudinaryUrl = "https://api.cloudinary.com/v1_1/{cloud name}/{resource_type}/upload"
 
+export const userBaseUrl = "/care4stray";
+
+export const adminBaseUrl = "/admin_only";
+
 // User Auth
-export const userAuthBaseUrl = '/care4stray/auth';
+export const userAuthBaseUrl = userBaseUrl + '/auth';
 
 export const createUser = '/register';
 
@@ -16,7 +20,7 @@ export const createUserUrl = userAuthBaseUrl + createUser; // create user
 export const loginUrl = userAuthBaseUrl + login; // login
 
 // User Info
-export const userInfoBaseUrl = '/care4stray/user';
+export const userInfoBaseUrl = userBaseUrl + '/user';
 
 export const userInfo = '/user';
 
@@ -24,16 +28,22 @@ export const updateUserInfo = '/update';
 
 export const checkUserInfoStatus = '/check/';
 
+export const getAllUserList = '/user/all';
+
+export const updateUserStatus = '/status/{userID}'
+
 export const userInfoUrl = userInfoBaseUrl + userInfo; // get user info
 
 export const updateUserInfoUrl = userInfoBaseUrl + updateUserInfo; // update user info
 
 export const checkUserInfoStatusUrl = userInfoBaseUrl + checkUserInfoStatus; // check user info status
 
-// News
-export const newsAdminBaseUrl = '/admin_only';
+export const getAllUserListUrl = adminBaseUrl + getAllUserList; // get all user list - Admin
 
-export const newsBaseUrl = '/care4stray';
+export const updateUserStatusUrl = adminBaseUrl + updateUserStatus; // get all user list - Admin
+
+
+// News
 
 export const createNews = '/news';
 
@@ -47,14 +57,14 @@ export const getNewsDetails = '/news/lists/{newID}';
 
 export const updateNewsStatus = '/news/status/{newID}';
 
-export const createNewsUrl = newsAdminBaseUrl + createNews; // create news
+export const getNewsListsUrl = userBaseUrl + getNewsLists; // get News Lists
 
-export const udpateNewsUrl = newsAdminBaseUrl + udpateNews; // update news
+export const getNewsDetailsUrl = userBaseUrl + getNewsDetails; // get News Details
 
-export const getNewsListsUrl = newsBaseUrl + getNewsLists; // get News Lists
+export const createNewsUrl = adminBaseUrl + createNews; // create news - Admin
 
-export const getNewsListsAdminUrl = newsAdminBaseUrl + getNewsListsAdmin; // get News Lists Admin
+export const udpateNewsUrl = adminBaseUrl + udpateNews; // update news - Admin
 
-export const getNewsDetailsUrl = newsBaseUrl + getNewsDetails; // get News Details
+export const getNewsListsAdminUrl = adminBaseUrl + getNewsListsAdmin; // get News Lists - Admin
 
-export const updateNewsStatusUrl = newsAdminBaseUrl + updateNewsStatus; // update news status
+export const updateNewsStatusUrl = adminBaseUrl + updateNewsStatus; // update news status - Admin
