@@ -35,7 +35,8 @@
 
                 <tbody>
                     <tr v-for="(project, index) in projects" :key="index">
-                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 max-w-200-px truncate">
+                        <th
+                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 max-w-200-px truncate">
                             <div class="flex">
                                 {{ project.title }}
                             </div>
@@ -73,15 +74,17 @@
                                 <a href="javascript:void(0);"
                                     class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
                                     @click.native.stop="toEditNews(project.id)">
-                                    Edit
+                                    EDIT
                                 </a>
                                 <a href="javascript:void(0);"
-                                    class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-                                    {{ project.status == "active" ? "Inactive" : "Active" }}
+                                    class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                    @click.native.stop="toUpdateStatus(project.id, project.status)">
+                                    {{ project.status == "ACTIVE" ? "INACTIVE" : "ACTIVE" }}
                                 </a>
                                 <a href="javascript:void(0);"
-                                    class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-                                    Delete
+                                    class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                    @click.native.stop="toDeleteNews(project.id)">
+                                    DELETE
                                 </a>
                             </div>
                         </td>
@@ -94,7 +97,8 @@
 
 <script>
 import { createPopper } from "@popperjs/core";
-import { getNewsList } from '@/service/apiProviderNews';
+import { getNewsListAdmin } from '@/service/apiProviderNews';
+import { updateNewsStatus } from '@/service/apiProviderNews';
 
 export default {
     components: {
@@ -140,12 +144,12 @@ export default {
     },
     methods: {
         async generateNewsLists() {
-            this.getNewsList = await getNewsList();
-            for (let i = 0; i < this.getNewsList.length; i++) {   
+            this.getNewsList = await getNewsListAdmin();
+            for (let i = 0; i < this.getNewsList.length; i++) {
                 this.projects.push({
                     id: this.getNewsList[i]["id"],
                     title: this.getNewsList[i]["title"],
-                    date:  new Date(this.getNewsList[i]["createdDate"]).toISOString().split('T')[0],
+                    date: new Date(this.getNewsList[i]["createdDate"]).toISOString().split('T')[0],
                     author: this.getNewsList[i]["author"],
                     status: this.getNewsList[i]["status"],
                 });
@@ -160,6 +164,34 @@ export default {
                     return 'text-gray-500';
                 default:
                     return 'text-red-500';
+            }
+        },
+
+        async toUpdateStatus(id, status) {
+            const newStatus = status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
+
+            const result = await updateNewsStatus(id,newStatus);
+
+            if (result) {
+                // Find the index of the project in the projects array
+                const projectIndex = this.projects.findIndex(project => project.id === id);
+                if (projectIndex !== -1) {
+                    // Update the status of the specific project
+                    this.projects[projectIndex].status = newStatus;
+                }
+            }
+        },
+
+        async toDeleteNews(id) {
+            const result = await updateNewsStatus(id, "DEACTIVATED");
+
+            if (result) {
+                // Find the index of the project in the projects array
+                const projectIndex = this.projects.findIndex(project => project.id === id);
+                if (projectIndex !== -1) {
+                     // Remove the specific project from the array
+                    this.projects.splice(projectIndex, 1);
+                }
             }
         },
 

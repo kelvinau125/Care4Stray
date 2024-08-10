@@ -150,3 +150,25 @@ export async function postFileRequest(file, url) {
     }
 }
 
+export async function putRequestWithToken(url, body) {
+    try {
+        const response = await axios.put(url, body, {
+            headers: getHeadersToken(),
+        });
+
+        // console.log(response)
+
+        if (response.status === 200) {
+            return response;
+        } else {
+            throw new Error(`Error: ${response.status}`);
+        }
+    } catch (error) {
+        if (error.response && error.response.status === 400) {
+            return error.response;
+        } else {
+            throw new Error(`Exception: ${error.message}`);
+        }
+    }
+}
+

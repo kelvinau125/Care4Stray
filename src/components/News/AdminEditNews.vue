@@ -74,7 +74,7 @@
 
     <!-- Submit Button -->
     <div class="flex justify-end">
-      <button @click="submitNews"
+      <button @click="updateNewsDetails()"
         class="px-4 py-2 bg-emerald-500 text-white font-bold rounded-lg shadow-md hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
         Update News
       </button>
@@ -84,6 +84,9 @@
 
 <script>
 import { getNewsDetails } from '@/service/apiProviderNews';
+
+import { updateNews } from '@/service/apiProviderNews';
+import { uploadImage } from "@/service/apiProviderImage.js";
 
 export default {
   data() {
@@ -107,6 +110,16 @@ export default {
       alertType: "success",
       alertMessage: "",
     };
+  },
+  computed: {
+    alertClass() {
+      return {
+        "text-white px-6 py-4 border-0 rounded-full fixed mb-4 z-50 w-6/12": true,
+        "bg-orange-500": this.alertType === "waiting",
+        "bg-emerald-500": this.alertType === "success",
+        "bg-red-500": this.alertType === "error",
+      };
+    },
   },
   mounted() {
     this.getNewsDetailsApi()
@@ -149,7 +162,7 @@ export default {
       }
     },
 
-  handleFileUpload(event) {
+    handleFileUpload(event) {
       const file = event.target.files[0];
       if (file) {
         const maxSizeInBytes = this.isImage ? 20 * 1024 * 1024 : 80 * 1024 * 1024; // 20MB for images, 80MB for videos
@@ -165,7 +178,7 @@ export default {
           setTimeout(() => {
             this.alertOpen = false;
           }, 3000); // Close alert after 3 seconds
-          
+
           return;
         }
         this.news.media = file;
@@ -179,19 +192,33 @@ export default {
       }
     },
 
-    submitNews() {
+    async updateNewsDetails() {
       this.alertOpen = true;
       this.alertType = "waiting";
-      this.alertMessage = "Please wait, news is updating! ";
+      this.alertMessage = "Please wait, news is updating!";
 
-      const uploadedImageUrl = await uploadImage(this.news.media, (this.isImage ?"image" :"video"));
+      let uploadedImageUrl;
 
-      if (uploadedImageUrl.status === 200) {
-        this.news.media = uploadedImageUrl.data.url;
-        const result = await createNews(this.news);
+      // Check if the media has changed
+      if (this.previewUrl !== this.news.media) {
+        uploadedImageUrl = await uploadImage(this.news.media, this.isImage ? "image" : "video");
+      }
+
+      if (!uploadedImageUrl || uploadedImageUrl.status === 200) {
+        this.news.media = uploadedImageUrl ? uploadedImageUrl.data.url : this.news.media;
+
+        const result = await updateNews({
+          id: this.news.id,
+          title: this.news.title,
+          author: this.news.author,
+          pic: this.news.media,
+          content: this.news.details,
+          status: this.news.status,
+        });
+
         if (result) {
           this.alertType = "success";
-          this.alertMessage = "news successful created";
+          this.alertMessage = "News updated successfully!";
           this.alertOpen = true;
           setTimeout(() => {
             this.alertOpen = false;
@@ -200,6 +227,13 @@ export default {
           // Refresh the page
           window.location.reload();
         }
+      } else {
+        this.alertType = "error";
+        this.alertMessage = "Failed to upload image/video. Please try again.";
+        this.alertOpen = true;
+        setTimeout(() => {
+          this.alertOpen = false;
+        }, 3000); // Close alert after 3 seconds
       }
     },
   },

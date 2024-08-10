@@ -116,8 +116,6 @@ export async function updateUserInfo(profileDetails) {
 
     const apiDetails = profileDetails
 
-    console.log(apiDetails)
-
     try {
         const response = await patchRequestWithToken(url, apiDetails);
 

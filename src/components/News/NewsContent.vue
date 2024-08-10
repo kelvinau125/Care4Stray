@@ -36,9 +36,14 @@ export default {
       }
     };
   },
-
-  mounted() {
-    this.getNewsDetailsApi()
+  watch: {
+    '$route.query.newsID': {
+      immediate: true, 
+      handler(newNewsID) {
+        this.newsID = newNewsID;
+        this.getNewsDetailsApi();
+      }
+    }
   },
 
   methods: {
