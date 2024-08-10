@@ -75,4 +75,8 @@ export const donationBaseUrl = userBaseUrl + '/donation';
 
 export const createDonation = '/create';
 
+export const updateDonationStatus = '/updateStatus/{donationID}';
+
 export const createDonationUrl = donationBaseUrl + createDonation;
+
+export const updateDonationStatusUrl = donationBaseUrl + updateDonationStatus;

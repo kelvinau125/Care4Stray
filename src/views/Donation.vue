@@ -35,8 +35,8 @@
                       </label>
                       <input type="phonenumber"
                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        :class="{ 'bg-gray-100': isUser !== null }" placeholder="Phone Number" v-model="donation.phoneNo"
-                        required :disabled="isUser" />
+                        :class="{ 'bg-gray-100': isUser !== null }" placeholder="Phone Number"
+                        v-model="donation.phoneNo" required :disabled="isUser" />
                     </div>
 
                     <div class="relative w-full mb-3">
@@ -45,8 +45,8 @@
                       </label>
                       <input type="email"
                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        :class="{ 'bg-gray-100': isUser !== null }" placeholder="Email" v-model="donation.email" required
-                        :disabled="isUser" />
+                        :class="{ 'bg-gray-100': isUser !== null }" placeholder="Email" v-model="donation.email"
+                        required :disabled="isUser" />
                     </div>
 
                     <div class="relative w-full mb-3">
@@ -140,17 +140,11 @@ export default {
     async submitDonation() {
       const result = await createDonation(this.donation.amount, this.donation.annoymously)
 
-      console.log(result.amount)
-      console.log(result.id)
-
       if (result != null) {
-        this.$router.push({
-          path: "/payment",
-          query: {
-            amount: result.amount,
-            transactionId: result.id,
-          },
-        });
+        localStorage.setItem('donationAmount', result.amount);
+        localStorage.setItem('transactionId', result.id);
+
+        this.$router.push("/payment");
       }
     }
   }
