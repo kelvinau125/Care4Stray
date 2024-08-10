@@ -275,6 +275,10 @@ export default {
                 if (result == true) {
                     this.alertType = "success";
                     this.alertMessage = "Account created successfully!";
+                   
+                    if(this.$route.path !== '/') {
+                        this.$router.push("/");
+                    }  
                     this.closeModal();
                 } else {
                     this.alertType = "error";

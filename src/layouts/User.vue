@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <UpdateProfileModal :showModal="isModalVisible" :closeModal="closeModal" />
-    
+  <div> 
     <auth-navbar />
     <user-navbar v-if="!isApplicationDetailsRoute"/>
+
+    <UpdateProfileModal :showModal="isModalVisible" :closeModal="closeModal" />
     
     <div class="flex flex-col md:flex-row">
       <!-- User Sidebar -->

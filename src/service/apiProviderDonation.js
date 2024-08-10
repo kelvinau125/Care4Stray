@@ -18,17 +18,20 @@ import {
 import VueCookies from 'vue-cookies';
 
 // Create News - Admin
-export async function createDonation(donationAmount, Anonymously) {
+export async function createDonation(donationAmount, Anonymously, isUser) {
     const url = baseUrl + createDonationUrl;
 
     const apiDetails = {
-        user: {
-            "id": VueCookies.get("id"),
-            "role": VueCookies.get("role"),
-        },
         amount: donationAmount,
         isAnonymously: Anonymously,
     };
+
+    if (isUser) {
+        apiDetails.user = {
+            id: VueCookies.get("id"),
+            role: VueCookies.get("role"),
+        };
+    }
 
     try {
         const response = await postRequest(url, apiDetails);

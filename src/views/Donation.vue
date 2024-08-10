@@ -1,6 +1,10 @@
 <template>
   <div>
     <navbar />
+  
+    <DonationModal :showModal="isModalVisible" :closeModal="closeModal" :showRegisterModal="showRegisterModal"/>
+    <RegisterModal :showRegModal="isRegisterModalVisible" :closeRegModal="closeRegisterModal" />
+
     <main>
       <section class="relative w-full h-full py-40 min-h-screen">
         <div class="container mx-auto px-4 h-full">
@@ -26,27 +30,27 @@
                       <input type="name"
                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         :class="{ 'bg-gray-100': isUser !== null }" placeholder="Name" v-model="donation.username"
-                        required :disabled="isUser" />
+                        :disabled="isUser" />
                     </div>
 
-                    <div class="relative w-full mb-3">
+                    <div class="relative w-full mb-3" v-show="isUser">
                       <label class="block uppercase text-mainText text-xs font-bold mb-2">
                         Phone Number
                       </label>
                       <input type="phonenumber"
                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         :class="{ 'bg-gray-100': isUser !== null }" placeholder="Phone Number"
-                        v-model="donation.phoneNo" required :disabled="isUser" />
+                        v-model="donation.phoneNo" :disabled="isUser" />
                     </div>
 
-                    <div class="relative w-full mb-3">
+                    <div class="relative w-full mb-3" v-show="isUser">
                       <label class="block uppercase text-mainText text-xs font-bold mb-2">
                         Email
                       </label>
                       <input type="email"
                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         :class="{ 'bg-gray-100': isUser !== null }" placeholder="Email" v-model="donation.email"
-                        required :disabled="isUser" />
+                        :disabled="isUser" />
                     </div>
 
                     <div class="relative w-full mb-3">
@@ -62,7 +66,7 @@
                       <label class="inline-flex items-center cursor-pointer">
                         <input id="customCheckLogin" type="checkbox"
                           class="form-checkbox border-0 rounded text-mainText ml-1 w-5 h-5 ease-linear transition-all duration-150"
-                          v-model="donation.annoymously" />
+                          v-model="donation.annoymously" :disabled="!isUser" />
                         <span class="ml-2 text-sm font-semibold text-mainText">
                           Make donation anonymously (option)
                         </span>
@@ -95,6 +99,10 @@ import donationPic from "@/assets/img/donation.png";
 import Navbar from "@/components/Navbars/AuthNavbar.vue";
 import FooterSmall from "@/components/Footers/FooterSmall.vue";
 
+import DonationModal from "@/components/Modal/DonationModal.vue";
+import RegisterModal from "@/views/auth/RegisterModal.vue";
+
+import { ref } from "vue";
 // get user cookie
 import VueCookies from 'vue-cookies';
 
@@ -106,10 +114,17 @@ export default {
   components: {
     Navbar,
     FooterSmall,
+    DonationModal,
+    RegisterModal,
   },
 
   data() {
     return {
+      isModalVisible: ref(false),
+      isRegisterModalVisible: ref(false),
+      
+      isUser: VueCookies.isKey('email'),
+
       donation: {
         username: '',
         annoymously: false,
@@ -119,26 +134,49 @@ export default {
       },
 
       donationPic,
-
-      isUser: VueCookies.isKey('email')
     };
   },
 
   mounted() {
+    this.donation.annoymously = !this.isUser;
     this.getUserInfoApi()
+
+    if(!this.isUser) {
+      this.showModal()
+    }
   },
 
   methods: {
+    showModal() {
+        this.isModalVisible = true;
+    },
+    closeModal() {
+        this.isModalVisible = false;
+    },
+    showRegisterModal() {
+      this.isModalVisible = false;
+      this.isRegisterModalVisible = true;
+    },
+    closeRegisterModal() {
+      this.isRegisterModalVisible = false;
+    },
+    
     async getUserInfoApi() {
-      const result = await getUserInfo(VueCookies.get('email'));
+      if (this.isUser) {
+        const result = await getUserInfo(VueCookies.get('email'));
 
-      this.donation.username = result.firstName + " " + result.lastName;
-      this.donation.phoneNo = result.phoneNumber;
-      this.donation.email = result.email;
+        this.donation.username = result.firstName + " " + result.lastName;
+        this.donation.phoneNo = result.phoneNumber;
+        this.donation.email = result.email;
+      } else {
+        this.donation.username = "Anonymously";
+        this.donation.phoneNo = "";
+        this.donation.email = "";
+      }
     },
 
     async submitDonation() {
-      const result = await createDonation(this.donation.amount, this.donation.annoymously)
+      const result = await createDonation(this.donation.amount, this.donation.annoymously, this.isUser)
 
       if (result != null) {
         localStorage.setItem('donationAmount', result.amount);
