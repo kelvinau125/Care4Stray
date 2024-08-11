@@ -32,6 +32,8 @@ export const getAllUserList = '/user/all';
 
 export const updateUserStatus = '/status/{userID}'
 
+export const getUserInfoAdmin = '/userid'
+
 export const userInfoUrl = userInfoBaseUrl + userInfo; // get user info
 
 export const updateUserInfoUrl = userInfoBaseUrl + updateUserInfo; // update user info
@@ -41,6 +43,9 @@ export const checkUserInfoStatusUrl = userInfoBaseUrl + checkUserInfoStatus; // 
 export const getAllUserListUrl = adminBaseUrl + getAllUserList; // get all user list - Admin
 
 export const updateUserStatusUrl = adminBaseUrl + updateUserStatus; // get all user list - Admin
+
+export const getUserInfoAdminUrl = adminBaseUrl + getUserInfoAdmin; // get all user list - Admin
+
 
 
 // News

@@ -15,6 +15,7 @@ import {
     checkUserInfoStatusUrl,
     getAllUserListUrl,
     updateUserStatusUrl,
+    getUserInfoAdminUrl,
 } from '@/utils/apiConfig.js';
 
 import { setCookie } from '@/service/cookie';
@@ -216,6 +217,34 @@ export async function updateUserStatus(userID, status) {
 
     } catch (e) {
         console.log(`Unsuccessful in update news status provider: ${e}`);
+        return false;
+    }
+}
+
+// User Info - Admin
+export async function getUserInfoAdmin(userID) {
+    const url = baseUrl + getUserInfoAdminUrl;
+
+    const apiDetails = {
+        id: userID,
+    };
+
+    try {
+        const response = await postRequestWithToken(url, apiDetails);
+
+        const status = response.status;
+        const data = response.data;
+
+        if (status === 200) {
+            return data.data;
+        } else if (status === 400) {
+            return data.message;
+        } else {
+            console.log(`Unsuccessfully in user info admin provider: ${status}`);
+            return false;
+        }
+    } catch (e) {
+        console.log(`Unsuccessful in user info admin provider: ${e}`);
         return false;
     }
 }
