@@ -2,11 +2,44 @@
   <div>
     <div class="border border-gray-300 mb-4 rounded-lg bg-white">
       <div class="p-4 flex flex-col min-w-0 break-words w-full mb-4">
-        <div class="flex items-center justify-center pb-2 pt-4">
-          <img :src="stray.image" alt="Application Image"
-            class="md:w-4/12 xl:w-3/12 md:h-auto rounded-full cursor-pointer" @click="triggerFileInput" />
-          <input type="file" ref="fileInput" class="hidden" @change="handleFileChange" />
+
+        <div class="flex items-center justify-center pb-2 pt-4 flex-row">
+          <div
+            v-for="(image, index) in stray.image"
+            :key="index"
+            class="relative group inline-block m-2"
+          >
+            <img
+              :src="image"
+              alt="Stray Image"
+              class="rounded-lg cursor-pointer"
+              style="width: 17rem; height: auto;"
+            />
+            <img
+              src="@/assets/img/close.png"
+              @click="removeImage(index)"
+              class="absolute w-8 h-8 transform translate-x-2 translate-y-2 opacity-75 group-hover:opacity-100 transition-opacity duration-200 ease-in-out cursor-pointer"
+              style="top: -15px; right: -15px;"
+            />
+          </div>
+          <input
+            type="file"
+            ref="fileInput"
+            class="hidden"
+            @change="handleFileChange"
+            multiple
+          />
         </div>
+
+        <div class="flex justify-center mb-4">
+          <button
+            @click="triggerFileInput"
+            class="bg-emerald-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-opacity-90 transition duration-200"
+          >
+            Upload Image
+          </button>
+        </div>
+
         <div class="rounded-t mb-0 py-6">
           <div class="text-center flex justify-between">
             <h6 class="text-blueGray-700 text-xl font-bold justify-start flex">Animal Information</h6>
@@ -126,7 +159,7 @@
 </template>
 
 <script>
-import { uploadImage } from "@/service/apiProviderImage.js";
+// import { uploadImage } from "@/service/apiProviderImage.js";
 
 export default {
   data() {
@@ -134,7 +167,7 @@ export default {
       userId: this.$route.query.applicationID,
 
       stray: {
-        image: require('@/assets/img/team-1-800x800.jpg').default,
+        image: [require('@/assets/img/team-1-800x800.jpg').default, require('@/assets/img/team-1-800x800.jpg').default, require('@/assets/img/team-1-800x800.jpg').default, require('@/assets/img/team-1-800x800.jpg').default],
         name: '',
         gender: '',
         age: '',
@@ -149,20 +182,26 @@ export default {
       this.$refs.fileInput.click();
     },
     async handleFileChange(event) {
-      const file = event.target.files[0];
-      if (file) {
-        if (file.size > 20 * 1024 * 1024) {
-          alert("File size exceeds 20MB. Please choose a smaller file.");
-          return;
-        }
-        const result = await uploadImage(file, "image");
+      const files = event.target.files;
+      if (files.length) {
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          if (file.size > 20 * 1024 * 1024) {
+            alert("File size exceeds 20MB. Please choose a smaller file.");
+            return;
+          }
 
-        if (result) {
-          console.log(result)
-        } else if (result === false) {
-          console.log(result)
+          // const result = await uploadImage(file, "image");
+
+          // if (result) {
+          //   this.stray.image.push(result.imageUrl); // Assuming the image URL is returned in result.imageUrl
+          // }
         }
       }
+    },
+
+    removeImage(index) {
+      this.stray.image.splice(index, 1); // Remove the image at the specified index
     },
 
     goBack() {
