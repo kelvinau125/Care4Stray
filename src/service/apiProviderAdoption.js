@@ -1,11 +1,16 @@
 
 import {
     postRequestWithToken,
+    getRequestWithToken,
+    getRequest,
 } from '@/service/apiRequestMethod';
 
 import {
     baseUrl,
     createStrayUrl,
+    getAllStrayUrl,
+    getAllStrayDetailsByIDUrl,
+    getAllStrayListUrl,
 } from '@/utils/apiConfig.js';
 
 import VueCookies from 'vue-cookies';
@@ -39,6 +44,83 @@ export async function createAdoption(adoptionDetails) {
 
     } catch (e) {
         console.log(`Unsuccessful in create adoption provider: ${e}`);
+        return false;
+    }
+}
+
+// Get All Stray - Admin
+export async function getAllStrayList() {
+    const url = baseUrl + getAllStrayUrl;
+
+    try {
+        const response = await getRequestWithToken(url);
+
+        const status = response.status;
+        const data = response.data;
+
+        if (status === 200) {
+            return data.data;
+        } else if (status === 400) {
+            return data.message;
+        } else {
+            console.log(`Unsuccessfully in get all stray list admin provider: ${status}`);
+            return false;
+        }
+
+    } catch (e) {
+        console.log(`Unsuccessful in  get all stray list admin provider: ${e}`);
+        return false;
+    }
+}
+
+// Get All Stray - Admin
+export async function getStrayDetails(strayID) {
+    const url = baseUrl + (getAllStrayDetailsByIDUrl.replace("{strayID}", strayID));
+
+    try {
+        const response = await getRequestWithToken(url);
+
+        const status = response.status;
+        const data = response.data;
+
+        if (status === 200) {
+            return data.data;
+        } else if (status === 400) {
+            return data.message;
+        } else {
+            console.log(`Unsuccessfully in get stray details by id provider: ${status}`);
+            return false;
+        }
+
+    } catch (e) {
+        console.log(`Unsuccessful in get stray details by id provider: ${e}`);
+        return false;
+    }
+}
+
+// Get All Stray List
+export async function getStrayList() {
+    const url = baseUrl + getAllStrayListUrl;
+
+    console.log(url)
+
+    try {
+        const response = await getRequest(url);
+
+        const status = response.status;
+        const data = response.data;
+
+        if (status === 200) {
+            return data.data;
+        } else if (status === 400) {
+            return data.message;
+        } else {
+            console.log(`Unsuccessfully in get stray details by id provider: ${status}`);
+            return false;
+        }
+
+    } catch (e) {
+        console.log(`Unsuccessful in get stray details by id provider: ${e}`);
         return false;
     }
 }

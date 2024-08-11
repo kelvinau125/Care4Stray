@@ -136,30 +136,30 @@
 
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div v-for="(pet, index) in pets" :key="index"
-                      class="border p-4 rounded-lg shadow-lg flex flex-col bg-secondaryMain">
+                      class="border p-4 rounded-lg shadow-lg flex flex-col bg-secondaryMain cursor-pointer" style="height: 429px; width: auto;" @click="showRegisterModal()">
                       <div class="items-center flex justify-center">
                         <img :src="pet.image" alt="Pet Image" class="w-full takemehomeimg h-auto mb-4 rounded-lg">
                       </div>
                       <div class="flex flex-row items-end">
                         <h2 class="text-xl font-bold mb-2 mr-2">{{ pet.name }}</h2>
-                        <p class="text-gray-600 mb-2">{{ pet.age }}</p>
+                        <p class="text-gray-600 mb-2">{{ pet.age }} years old</p>
                       </div>
                       <ul class="text-left list-disc list-inside mb-4">
                         <li v-for="(trait, tIndex) in pet.traits" :key="tIndex">{{ trait }}</li>
                       </ul>
                       <div class="flex space-x-2">
-                        <span class="material-icons"><img :src="vaccine" alt="vaccine" class="w-8 h-8 p-1"></span>
-                        <span class="material-icons"><img :src="worm" alt="warm" class="w-8 h-8 p-1"></span>
+                        <span class="material-icons" v-if="pet.vaccined"><img :src="vaccine" alt="vaccine" class="w-8 h-8 p-1"></span>
+                        <span class="material-icons" v-if="pet.dewormed"><img :src="worm" alt="warm" class="w-8 h-8 p-1"></span>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="text-right mt-4 mr-3 text-mainText">
                   <span>
-                    <a href="https://github.com/creativetimofficial/vue-notus?ref=vn-index" target="_blank"
+                    <button @click="showRegisterModal()"
                       class="ml-1 background-transparent font-bold outline-none focus:outline-none ease-linear transition-all duration-150">
                       Show More...
-                    </a>
+                    </button>
                   </span>
                 </div>
               </div>
@@ -176,7 +176,8 @@
                 <div v-for="(item, index) in paginatedItems" :key="index" class="rightspace">
                   <div class="border-2 border-mainTheme p-4 rounded-lg shadow-lg flex">
                     <div class="w-full mr-5 flex items-center justify-center">
-                      <img :src="item.image" alt="picture" class="h-auto rounded-md" style="width: 200px; height: 200px;">
+                      <img :src="item.image" alt="picture" class="h-auto rounded-md"
+                        style="width: 200px; height: 200px;">
                     </div>
 
                     <div class="w-full flex flex-col justify-between">
@@ -273,6 +274,7 @@ import VueCookies from 'vue-cookies';
 // api
 import { login } from "@/service/apiProviderAuth.js";
 import { getNewsList } from '@/service/apiProviderNews';
+import { getStrayList } from "@/service/apiProviderAdoption";
 
 export default {
   data() {
@@ -316,31 +318,30 @@ export default {
       itemsPerPage: 5, // Adjust this number based on how many items you want per page
 
       pets: [
-        {
-          image: require('@/assets/img/sketch.jpg').default, // replace with actual path
-          name: "Mimi",
-          age: "3 years",
-          traits: ["Litter trained", "Food critic approved with a love of play", "Affectionate feline"],
-        },
-        {
-          image: require('@/assets/img/sketch.jpg').default, // replace with actual path
-          name: "Mimi",
-          age: "3 years",
-          traits: ["Litter trained", "Food critic approved with a love of play", "Affectionate feline"],
-        },
-        {
-          image: require('@/assets/img/sketch.jpg').default, // replace with actual path
-          name: "Mimi",
-          age: "3 years",
-          traits: ["Litter trained", "Food critic approved with a love of play", "Affectionate feline"],
-        },
-        {
-          image: require('@/assets/img/sketch.jpg').default, // replace with actual path
-          name: "Mimi",
-          age: "3 years",
-          traits: ["Litter trained", "Food critic approved with a love of play", "Affectionate feline"],
-        },
-        // Repeat this object to fill the list
+        // {
+        //   image: require('@/assets/img/sketch.jpg').default, // replace with actual path
+        //   name: "Mimi",
+        //   age: "3 years",
+        //   traits: ["Litter trained", "Food critic approved with a love of play", "Affectionate feline"],
+        // },
+        // {
+        //   image: require('@/assets/img/sketch.jpg').default, // replace with actual path
+        //   name: "Mimi",
+        //   age: "3 years",
+        //   traits: ["Litter trained", "Food critic approved with a love of play", "Affectionate feline"],
+        // },
+        // {
+        //   image: require('@/assets/img/sketch.jpg').default, // replace with actual path
+        //   name: "Mimi",
+        //   age: "3 years",
+        //   traits: ["Litter trained", "Food critic approved with a love of play", "Affectionate feline"],
+        // },
+        // {
+        //   image: require('@/assets/img/sketch.jpg').default, // replace with actual path
+        //   name: "Mimi",
+        //   age: "3 years",
+        //   traits: ["Litter trained", "Food critic approved with a love of play", "Affectionate feline"],
+        // },
       ],
 
 
@@ -376,9 +377,32 @@ export default {
     },
   },
   mounted() {
-    this.generateNewsLists()
+    this.getAllStrayListApi();
+    this.generateNewsLists();
   },
   methods: {
+    async getAllStrayListApi() {
+      this.getList = await getStrayList();
+
+      // Shuffle the getNewsList array using the Fisher-Yates algorithm
+      for (let i = this.getList.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [this.getList[i], this.getList[j]] = [this.getList[j], this.getList[i]];
+      }
+
+      for (let i = 0; i < 4; i++) {
+        this.pets.push({
+          id: this.getList[i]["strayId"],
+          image: this.getList[i]["mainPicture"],
+          name: this.getList[i]["name"],
+          age: this.getList[i]["age"],
+          traits: this.getList[i]["behaviour"].slice(0, 4),
+          vaccined: this.getList[i]["vaccinated"],
+          dewormed: this.getList[i]["dewormed"],
+        });
+      }
+    },
+
     async generateNewsLists() {
       this.getNewsList = await getNewsList();
       for (let i = 0; i < this.getNewsList.length; i++) {
@@ -409,14 +433,14 @@ export default {
         this.alertMessage = "Login successfully!";
         this.openAlert();
 
-        if(VueCookies.get("role") == "ADMIN") {
+        if (VueCookies.get("role") == "ADMIN") {
           this.$router.push('/admin')
-        } else if(VueCookies.get("role") == "USER") {
+        } else if (VueCookies.get("role") == "USER") {
           this.$router.push('/user')
         } else {
           this.$router.push('/')
         }
-        
+
       } else {
         this.alertType = "error";
         this.alertMessage = result || "An error occurred.";
@@ -432,7 +456,7 @@ export default {
     },
 
     closeAlert() {
-        this.alertOpen = false;
+      this.alertOpen = false;
     },
   }
 };
@@ -451,7 +475,7 @@ export default {
 /* Large screens (1024px - 1279px) */
 @media screen and (max-width: 1279px) {
   .rightside {
-    height: 1407px;
+    height: 1421px;
   }
 
   .rightspace {

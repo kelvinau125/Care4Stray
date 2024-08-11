@@ -105,11 +105,11 @@ export const createStray = '/create_stray';
 
 export const getAllStray = '/stray/all';
 
-export const updateStrayStatus = '/stray/updateStatus/{adoptionID}';
+export const updateStrayStatus = '/stray/updateStatus/{strayID}';
 
 export const getAllStrayList = '/getStray';
 
-export const getAllStrayListByID = '/getStray/{adoptionID}';
+export const getAllStrayDetailsByID = '/getStray/{strayID}';
 
 export const createStrayUrl = adoptionAdminBaseUrl + createStray;
 
@@ -117,9 +117,9 @@ export const getAllStrayUrl = adoptionAdminBaseUrl + getAllStray;
 
 export const updateStrayStatusUrl = adoptionAdminBaseUrl + updateStrayStatus;
 
-export const getAllStrayListUrl = adoptionAdminBaseUrl + getAllStrayList;
+export const getAllStrayListUrl = adoptionBaseUrl + getAllStrayList;
 
-export const getAllStrayListByIDUrl = adoptionAdminBaseUrl + getAllStrayListByID;
+export const getAllStrayDetailsByIDUrl = adoptionBaseUrl + getAllStrayDetailsByID;
 
 
 

@@ -166,8 +166,6 @@ import { createAdoption } from "@/service/apiProviderAdoption";
 export default {
   data() {
     return {
-      userId: this.$route.query.applicationID,
-
       stray: {
         image: [],
         name: '',

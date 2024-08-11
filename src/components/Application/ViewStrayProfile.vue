@@ -2,30 +2,32 @@
     <div>
         <div class="border border-gray-300 mb-4 rounded-lg bg-white">
             <div class="p-4 flex flex-col min-w-0 break-words w-full mb-4">
-                <div class="flex pb-2 pt-4">
+                <div class="flex pb-2 pt-4 justify-between">
 
-                    <div class="ml-3">
+                    <div class="ml-3 mt-1">
                         <div class="text-sm whitespace-nowrap">
                             <i :class="['fas fa-circle', statusColor(stray.status), 'mr-2']"></i>
                             {{ stray.status }}
                         </div>
                     </div>
 
-                    <div class="flex items-center justify-center">
-                        <img :src="stray.image" alt="Application Image"
-                            class="md:w-4/12 xl:w-3/12 md:h-auto rounded-full cursor-pointer "
-                            @click="triggerFileInput" />
-                        <input type="file" ref="fileInput" class="hidden" @change="handleFileChange" />
-                    </div>
-
                     <div class="mr-2">
                         <button
                             class="bg-emerald-500 text-white active:bg-indigo-600 text-sm font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                            type="button" @click="toEditApplication()">
+                            type="button" @click="toEditApplication()" style="width: 5rem;">
                             edit
                         </button>
                     </div>
                 </div>
+
+
+                <div class="flex items-center justify-center pb-2 pt-4 flex-row">
+                    <div v-for="(image, index) in stray.image" :key="index" class="relative group inline-block m-2">
+                        <img :src="image" alt="Stray Image" class="rounded-lg"
+                            style="width: 17rem; height: auto;" />
+                    </div>
+                </div>
+
 
                 <div class="rounded-t mb-0 py-6">
                     <div class="text-center flex justify-between">
@@ -55,8 +57,8 @@
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                         v-model="stray.gender" disabled>
                                         <option value="">Select Gender</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
+                                        <option value="MALE">Male</option>
+                                        <option value="FEMALE">Female</option>
                                     </select>
                                 </div>
                             </div>
@@ -107,8 +109,8 @@
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                         v-model="stray.vaccined" disabled>
                                         <option value="" disabled>Select an option</option>
-                                        <option value="yes">Yes</option>
-                                        <option value="no">No</option>
+                                        <option value="true">Yes</option>
+                                        <option value="false">No</option>
                                     </select>
                                 </div>
                             </div>
@@ -121,8 +123,8 @@
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                         v-model="stray.dewormed" disabled>
                                         <option value="" disabled>Select an option</option>
-                                        <option value="yes">Yes</option>
-                                        <option value="no">No</option>
+                                        <option value="true">Yes</option>
+                                        <option value="false">No</option>
                                     </select>
                                 </div>
                             </div>
@@ -144,45 +146,43 @@
 </template>
 
 <script>
-import { uploadImage } from "@/service/apiProviderImage.js";
+
+import { getStrayDetails } from "@/service/apiProviderAdoption";
 
 export default {
     data() {
         return {
-            userId: this.$route.query.applicationID,
-
+            strayID: this.$route.query.strayID,
 
             stray: {
-                image: require('@/assets/img/team-1-800x800.jpg').default,
-                name: 'Lucky',
-                gender: 'male',
-                age: '21 month',
-                behaviors: ['hallo', "hallo", "hallo"],
-                vaccined: "yes",
-                dewormed: "no",
-                status: "available",
+                image: [],
+                name: '',
+                gender: '',
+                age: '' + "Years Old",
+                behaviors: [],
+                vaccined: "",
+                dewormed: "",
+                status: "",
             }
         };
     },
+    mounted() {
+        this.getStrayDetailsApi()
+    },
     methods: {
-        triggerFileInput() {
-            this.$refs.fileInput.click();
-        },
-        async handleFileChange(event) {
-            const file = event.target.files[0];
-            if (file) {
-                if (file.size > 20 * 1024 * 1024) {
-                    alert("File size exceeds 20MB. Please choose a smaller file.");
-                    return;
-                }
-                const result = await uploadImage(file, "image");
+        async getStrayDetailsApi() {
+            const result = await getStrayDetails(this.strayID);
 
-                if (result) {
-                    console.log(result)
-                } else if (result === false) {
-                    console.log(result)
-                }
-            }
+            this.stray = {
+                image: result.pictureUrl,
+                name: result.name,
+                gender: result.gender,
+                age: result.age,
+                behaviors: result.behaviour,
+                vaccined: result.vaccinated,
+                dewormed: result.dewormed,
+                status: result.status,
+            };
         },
 
         toEditApplication() {
@@ -197,12 +197,14 @@ export default {
 
         statusColor(status) {
             switch (status) {
-                case 'pending':
+                case 'UNDER_REVIEW':
                     return 'text-orange-500';
-                case 'available':
+                case 'AVAILABLE':
                     return 'text-emerald-500';
-                case 'adopted':
+                case 'ADOPTION_FAILED':
                     return 'text-red-500';
+                case 'ADOPTED':
+                    return 'text-gray-500';
                 default:
                     return 'text-gray-500';
             }
@@ -211,14 +213,6 @@ export default {
         goBack() {
             this.$router.go(-1);
         },
-
-        addBehavior() {
-            this.stray.behaviors.push(''); // Add an empty string to the behaviors array
-        },
-
-        removeBehavior(index) {
-            this.stray.behaviors.splice(index, 1); // Remove the behavior at the specified index
-        }
     },
 };
 </script>

@@ -34,7 +34,7 @@
                 </thead>
 
                 <tbody>
-                    <tr v-for="(project, index) in projects" :key="index" @click="toStrayDetails(project.id)">
+                    <tr v-for="(project, index) in projects" :key="index" @click="toStrayDetails(project.id)" class="cursor-pointer">
                         <th
                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
                             <img :src="project.strayimage" class="h-12 w-12 bg-white rounded-full border" alt="..." />
@@ -86,11 +86,11 @@
                                 <a href="javascript:void(0);"
                                     class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
                                     @click.native.stop="toEditApplication(project.id)">
-                                   Edit
+                                    EDIT
                                 </a>
                                 <a href="javascript:void(0);"
                                     class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-                                   Delete
+                                    DELETE
                                 </a>
                             </div>
                         </td>
@@ -103,6 +103,7 @@
 
 <script>
 import { createPopper } from "@popperjs/core";
+import { getAllStrayList } from "@/service/apiProviderAdoption";
 
 export default {
     components: {
@@ -122,36 +123,36 @@ export default {
                 { text: '' }
             ],
             projects: [
-                {
-                    id: 1,
-                    strayimage: require('@/assets/img/team-1-800x800.jpg').default,
-                    strayname: "Hello Kitty",
-                    gender: "M",
-                    age: "18",
-                    isVaccinated: "no",
-                    isDeworm: "yes",
-                    status: "available",
-                },
-                {
-                    id: 1,
-                    strayimage: require('@/assets/img/team-1-800x800.jpg').default,
-                    strayname: "Hello Kitty",
-                    gender: "M",
-                    age: "18",
-                    isVaccinated: "no",
-                    isDeworm: "yes",
-                    status: "pending",
-                },
-                {
-                    id: 1,
-                    strayimage: require('@/assets/img/team-1-800x800.jpg').default,
-                    strayname: "Hello Kitty",
-                    gender: "M",
-                    age: "18",
-                    isVaccinated: "no",
-                    isDeworm: "yes",
-                    status: "adopted",
-                }
+                // {
+                //     id: 1,
+                //     strayimage: require('@/assets/img/team-1-800x800.jpg').default,
+                //     strayname: "Hello Kitty",
+                //     gender: "M",
+                //     age: "18",
+                //     isVaccinated: "no",
+                //     isDeworm: "yes",
+                //     status: "available",
+                // },
+                // {
+                //     id: 1,
+                //     strayimage: require('@/assets/img/team-1-800x800.jpg').default,
+                //     strayname: "Hello Kitty",
+                //     gender: "M",
+                //     age: "18",
+                //     isVaccinated: "no",
+                //     isDeworm: "yes",
+                //     status: "pending",
+                // },
+                // {
+                //     id: 1,
+                //     strayimage: require('@/assets/img/team-1-800x800.jpg').default,
+                //     strayname: "Hello Kitty",
+                //     gender: "M",
+                //     age: "18",
+                //     isVaccinated: "no",
+                //     isDeworm: "yes",
+                //     status: "adopted",
+                // }
             ]
         }
     },
@@ -161,15 +162,36 @@ export default {
             default: 'light'
         },
     },
+    mounted() {
+        this.getAllStrayListApi();
+    },
     methods: {
+        async getAllStrayListApi() {
+            this.getList = await getAllStrayList();
+            for (let i = 0; i < this.getList.length; i++) {
+                this.projects.push({
+                    id: this.getList[i]["strayId"],
+                    strayimage: this.getList[i]["mainPicture"],
+                    strayname: this.getList[i]["name"],
+                    gender: this.getList[i]["gender"],
+                    age: this.getList[i]["age"],
+                    isVaccinated: this.getList[i]["vaccinated"],
+                    isDeworm: this.getList[i]["dewormed"],
+                    status: this.getList[i]["status"],
+                });
+            }
+        },
+
         statusColor(status) {
             switch (status) {
-                case 'pending':
+                case 'UNDER_REVIEW':
                     return 'text-orange-500';
-                case 'available':
+                case 'AVAILABLE':
                     return 'text-emerald-500';
-                case 'adopted':
+                case 'ADOPTION_FAILED':
                     return 'text-red-500';
+                case 'ADOPTED':
+                    return 'text-gray-500';
                 default:
                     return 'text-gray-500';
             }
