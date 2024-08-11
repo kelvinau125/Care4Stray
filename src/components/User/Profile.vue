@@ -283,7 +283,7 @@ export default {
 
         this.previewImage = URL.createObjectURL(file);
         this.adopter.userAvatar = "",
-        this.selectedFile = file;
+          this.selectedFile = file;
 
       }
     },
@@ -385,7 +385,10 @@ export default {
       if (isValid) {
         return true
       }
-    }
+    },
+    closeAlert() {
+      this.alertOpen = false;
+    },
   },
 
   mounted() {

@@ -1,9 +1,15 @@
 <template>
   <div class="w-full mx-auto p-4 bg-white rounded-lg shadow-lg">
+    <!-- Loading Overlay -->
+    <div v-if="alertType === 'waiting'" class="loading-overlay">
+    </div>
+
+    <!-- Alert Box -->
     <div class="flex justify-center">
       <div v-if="alertOpen" :class="alertClass" style="margin-top: -100px;">
         <span class="text-xl inline-block mr-5 align-middle">
-          <i class="fas fa-bell"></i>
+          <i v-if="alertType !== 'waiting'" class="fas fa-bell"></i>
+          <i v-if="alertType === 'waiting'" class="fas fa-spinner"></i>
         </span>
         <span class="inline-block align-middle mr-8">
           <b class="capitalize">{{ alertType }} ! </b> {{ alertMessage }}
@@ -45,8 +51,10 @@
 
       <!-- Preview uploaded media -->
       <div v-if="previewUrl" class="mb-4">
-        <img v-if="isImage" :src="previewUrl" alt="Preview" class="w-full h-auto mb-2 rounded-lg shadow-md" />
-        <video v-if="isVideo" :src="previewUrl" controls class="w-full h-auto mb-2 rounded-lg shadow-md"></video>
+        <img v-if="isImage" :src="previewUrl" alt="Preview" class="w-full h-auto mb-2 rounded-lg shadow-md"
+          style="width: 25rem; height: auto;" />
+        <video v-if="isVideo" :src="previewUrl" controls class="w-full h-auto mb-2 rounded-lg shadow-md"
+          style="width: 70%; height: auto;"></video>
       </div>
 
       <!-- Details -->
@@ -124,7 +132,7 @@ export default {
           setTimeout(() => {
             this.alertOpen = false;
           }, 3000); // Close alert after 3 seconds
-          
+
           return;
         }
         this.news.media = file;
@@ -143,7 +151,7 @@ export default {
       this.alertType = "waiting";
       this.alertMessage = "Please wait, news is updating! ";
 
-      const uploadedImageUrl = await uploadImage(this.news.media, (this.isImage ?"image" :"video"));
+      const uploadedImageUrl = await uploadImage(this.news.media, (this.isImage ? "image" : "video"));
 
       if (uploadedImageUrl.status === 200) {
         this.news.media = uploadedImageUrl.data.url;
@@ -154,13 +162,31 @@ export default {
           this.alertOpen = true;
           setTimeout(() => {
             this.alertOpen = false;
-          }, 3000); // Close alert after 3 seconds
-
-          // Refresh the page
-          this.$router.push("/admin/news")
+            // Refresh the page
+            this.$router.push("/admin/news")
+          }, 1000); // Close alert after 3 seconds
         }
       }
+    },
+
+    closeAlert() {
+      this.alertOpen = false;
     },
   },
 };
 </script>
+
+<style scoped>
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9;
+}
+</style>

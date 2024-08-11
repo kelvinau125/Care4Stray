@@ -236,6 +236,10 @@ export default {
         }, 3000); // Close alert after 3 seconds
       }
     },
+
+    closeAlert() {
+      this.alertOpen = false;
+    },
   },
 };
 </script>

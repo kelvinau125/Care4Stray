@@ -94,3 +94,36 @@ export const getAllDonationlistUrl = donationBaseUrl + getAllDonationlist;
 export const getDonationbyUserIDUrl = donationBaseUrl + getDonationbyUserID;
 
 export const getAllDonationlistAdminUrl = donationAdminBaseUrl + getAllDonationlistAdmin; // Admin
+
+// Adoption
+
+export const adoptionBaseUrl = userBaseUrl + '/adoption';
+
+export const adoptionAdminBaseUrl = adminBaseUrl + '/adoption';
+
+export const createStray = '/create_stray';
+
+export const getAllStray = '/stray/all';
+
+export const updateStrayStatus = '/stray/updateStatus/{adoptionID}';
+
+export const getAllStrayList = '/getStray';
+
+export const getAllStrayListByID = '/getStray/{adoptionID}';
+
+export const createStrayUrl = adoptionAdminBaseUrl + createStray;
+
+export const getAllStrayUrl = adoptionAdminBaseUrl + getAllStray;
+
+export const updateStrayStatusUrl = adoptionAdminBaseUrl + updateStrayStatus;
+
+export const getAllStrayListUrl = adoptionAdminBaseUrl + getAllStrayList;
+
+export const getAllStrayListByIDUrl = adoptionAdminBaseUrl + getAllStrayListByID;
+
+
+
+
+
+
+
