@@ -3,6 +3,7 @@ import {
     postRequestWithToken,
     getRequestWithToken,
     getRequest,
+    patchRequestWithToken,
 } from '@/service/apiRequestMethod';
 
 import {
@@ -11,6 +12,7 @@ import {
     getAllStrayUrl,
     getAllStrayDetailsByIDUrl,
     getAllStrayListUrl,
+    updateStrayDetailsUrl,
 } from '@/utils/apiConfig.js';
 
 import VueCookies from 'vue-cookies';
@@ -121,6 +123,32 @@ export async function getStrayList() {
 
     } catch (e) {
         console.log(`Unsuccessful in get stray details by id provider: ${e}`);
+        return false;
+    }
+}
+
+// Update Stray Details
+export async function udpateStrayDetails(newsDetails) {
+    const url = baseUrl + updateStrayDetailsUrl;
+
+    const apiDetails = newsDetails
+
+    try {
+        const response = await patchRequestWithToken(url, apiDetails);
+
+        const status = response.status;
+        const data = response.data;
+
+        if (status === 200) {
+            return true;
+        } else if (status === 400) {
+            return data.message;
+        } else {
+            console.log(`Unsuccessfully in update news details provider: ${status}`);
+            return false;
+        }
+    } catch (e) {
+        console.log(`Unsuccessful in update news details provider: ${e}`);
         return false;
     }
 }

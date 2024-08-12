@@ -54,7 +54,8 @@
                   <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="first-name">Name</label>
                   <input type="text" id="first-name"
                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    v-model="stray.name" />
+                    v-model="stray.name" required/>
+                  <span v-if="nameError" class="text-red-500 text-sm">{{ nameError }}</span>
                 </div>
               </div>
 
@@ -63,11 +64,11 @@
                   <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="gender">Gender</label>
                   <select id="gender"
                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    v-model="stray.gender">
+                    v-model="stray.gender" required>
                     <option value="">Select Gender</option>
                     <option value="MALE">Male</option>
                     <option value="FEMALE">Female</option>
-                  </select>
+                  </select> 
                 </div>
               </div>
 
@@ -76,7 +77,8 @@
                   <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="last-name">Age</label>
                   <input type="text" id="last-name"
                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    v-model="stray.age" />
+                    v-model="stray.age" required/>
+                  <span v-if="ageError" class="text-red-500 text-sm">{{ ageError }}</span>
                 </div>
               </div>
             </div>
@@ -93,7 +95,7 @@
                   <div v-for="(behavior, index) in stray.behaviors" :key="index" class="flex items-center mb-2">
                     <input type="text" :id="'behavior-' + index"
                       class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      v-model="stray.behaviors[index]" placeholder="Enter behavior" />
+                      v-model="stray.behaviors[index]" placeholder="Enter behavior" required/>
                     <button type="button" @click="removeBehavior(index)"
                       class="ml-2 bg-red-500 text-white px-2 py-1 rounded">
                       Remove
@@ -117,7 +119,7 @@
                     for="vaccined">Vaccined</label>
                   <select id="vaccined"
                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    v-model="stray.vaccined">
+                    v-model="stray.vaccined" required>
                     <option value="" disabled>Select an option</option>
                     <option value="true">Yes</option>
                     <option value="false">No</option>
@@ -131,7 +133,7 @@
                     for="dewormed">Dewormed</label>
                   <select id="dewormed"
                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    v-model="stray.dewormed">
+                    v-model="stray.dewormed" required>
                     <option value="" disabled>Select an option</option>
                     <option value="true">Yes</option>
                     <option value="false">No</option>
@@ -143,7 +145,7 @@
             <div class="justify-end flex px-3 mt-10">
               <button
                 class="w-40 bg-secondTheme text-mainText active:bg-secondTheme font-bold uppercase text-xs px-4 py-2 rounded-xl shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button" @click="goBack()">
+                type="submit">
                 Change
               </button>
             </div>
@@ -156,7 +158,7 @@
 
 <script>
 import { uploadImage } from "@/service/apiProviderImage.js";
-import { getStrayDetails } from "@/service/apiProviderAdoption";
+import { getStrayDetails, udpateStrayDetails } from "@/service/apiProviderAdoption";
 
 export default {
   data() {
@@ -167,13 +169,14 @@ export default {
         image: [],
         name: '',
         gender: '',
-        age: '' + "Years Old",
+        age: '',
         behaviors: [],
         vaccined: "",
         dewormed: "",
       },
 
       newImages: [],
+      addedImages: [],
 
       alertOpen: false,
       alertType: "success",
@@ -246,12 +249,14 @@ export default {
           const reader = new FileReader();
           reader.onload = (e) => {
             this.stray.image.push(e.target.result);
+            this.addedImages.push(e.target.result);
           };
           reader.readAsDataURL(file);
+        
           this.newImages.push(file);
         }
       } else {
-        this.previewUrl = [];
+        this.newImages = [];
       }
     },
     async getStrayDetailsApi() {
@@ -299,74 +304,78 @@ export default {
 
       const uploadedImageUrls = [];
 
-      for (let i = 0; i < this.newImages.length; i++) {
-        const file = this.newImages[i];
-        try {
-          const response = await uploadImage(file, "image");
-          if (response.status === 200) {
-            uploadedImageUrls.push(response.data.url);
-          } else {
-            console.error(`Failed to upload image at index ${i}`);
+      if (this.newImages != null) {
+        for (let i = 0; i < this.newImages.length; i++) {
+          const file = this.newImages[i];
+          try {
+            const response = await uploadImage(file, "image");
+            if (response.status === 200) {
+              uploadedImageUrls.push(response.data.url);
+            } else {
+              console.error(`Failed to upload image at index ${i}`);
+            }
+          } catch (error) {
+            console.error(`Error uploading image at index ${i}:`, error);
           }
-        } catch (error) {
-          console.error(`Error uploading image at index ${i}:`, error);
         }
       }
 
-      // Merge new image URLs with existing image URLs
-      // const allImageUrls = [...this.stray.image.filter(img => typeof img === 'string'), ...uploadedImageUrls];
+      this.stray.image = this.stray.image.filter(image => !this.addedImages.includes(image));
 
-      // Do something with the array of uploaded image URLs
-      console.log(uploadedImageUrls);
+      const allImageUrls = [...this.stray.image.filter(img => typeof img === 'string'), ...uploadedImageUrls];
 
-      // const mainPicture = uploadedImageUrls.length > 0 ? uploadedImageUrls[0] : "";
+      const mainPicture = allImageUrls[0] || "";
 
-      // const cleanedBehaviors = this.stray.behaviors.filter(behavior => behavior.trim() !== '');
+      const cleanedBehaviors = this.stray.behaviors.filter(behavior => behavior.trim() !== '');
 
-      // const adoptionDetails = {
-      //   name: this.stray.name,
-      //   age: this.stray.age,
-      //   gender: this.stray.gender,
-      //   behaviour: cleanedBehaviors,
-      //   mainPicture: mainPicture,
-      //   pictureUrl: allImageUrls,
-      //   isVaccinated: this.stray.vaccined,
-      //   isDewormed: this.stray.dewormed,
-      // }
+      const strayDetails = {
+        strayId: this.strayID,
+        name: this.stray.name,
+        age: this.stray.age,
+        gender: this.stray.gender,
+        behaviour: cleanedBehaviors,
+        mainPicture: mainPicture,
+        pictureUrl: allImageUrls,
+        isVaccinated: this.stray.vaccined,
+        isDewormed: this.stray.dewormed,
+      }
 
-      // const result = await createAdoption(adoptionDetails);
+      const result = await udpateStrayDetails(strayDetails);
 
-      // if (result) {
-      //   this.alertType = "success";
-      //   this.alertMessage = "Stray application successful created";
-      //   this.alertOpen = true;
-      //   setTimeout(() => {
-      //     this.alertOpen = false;
-      //     // Refresh the page
-      //     this.$router.go(-1);
-      //   }, 1000); // Close alert after 3 seconds
-    }
-  },
-  removeImage(index) {
-    this.stray.image.splice(index, 1); // Remove the image at the specified index
-    // this.previewUrl.splice(index, 1); // Remove the image at the specified index
-  },
+      if (result) {
+        this.alertType = "success";
+        this.alertMessage = "Stray application update successful";
+        this.alertOpen = true;
+        setTimeout(() => {
+          this.alertOpen = false;
+          // Refresh the page
+          // this.$router.go(-1);
+        }, 1000); // Close alert after 1 seconds
+        
+        window.location.reload();
+      }
+    },
+    removeImage(index) {
+      this.stray.image.splice(index, 1); // Remove the image at the specified index
+      // this.previewUrl.splice(index, 1); // Remove the image at the specified index
+    },
 
 
-  goBack() {
-    this.$router.go(-1);
-  },
+    goBack() {
+      this.$router.go(-1);
+    },
 
-  addBehavior() {
-    this.stray.behaviors.push(''); // Add an empty string to the behaviors array
-  },
+    addBehavior() {
+      this.stray.behaviors.push(''); // Add an empty string to the behaviors array
+    },
 
-  removeBehavior(index) {
-    this.stray.behaviors.splice(index, 1); // Remove the behavior at the specified index
-  },
+    removeBehavior(index) {
+      this.stray.behaviors.splice(index, 1); // Remove the behavior at the specified index
+    },
 
-  closeAlert() {
-    this.alertOpen = false;
+    closeAlert() {
+      this.alertOpen = false;
+    },
   },
 
   watch: {

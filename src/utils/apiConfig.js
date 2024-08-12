@@ -47,7 +47,6 @@ export const updateUserStatusUrl = adminBaseUrl + updateUserStatus; // get all u
 export const getUserInfoAdminUrl = adminBaseUrl + getUserInfoAdmin; // get all user list - Admin
 
 
-
 // News
 
 export const createNews = '/news';
@@ -112,6 +111,8 @@ export const getAllStray = '/stray/all';
 
 export const updateStrayStatus = '/stray/updateStatus/{strayID}';
 
+export const updateStrayDetails = '/stray/update';
+
 export const getAllStrayList = '/getStray';
 
 export const getAllStrayDetailsByID = '/getStray/{strayID}';
@@ -121,6 +122,8 @@ export const createStrayUrl = adoptionAdminBaseUrl + createStray;
 export const getAllStrayUrl = adoptionAdminBaseUrl + getAllStray;
 
 export const updateStrayStatusUrl = adoptionAdminBaseUrl + updateStrayStatus;
+
+export const updateStrayDetailsUrl = adoptionAdminBaseUrl + updateStrayDetails;
 
 export const getAllStrayListUrl = adoptionBaseUrl + getAllStrayList;
 

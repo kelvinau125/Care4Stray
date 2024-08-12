@@ -131,8 +131,6 @@ export async function updateNews(newsDetails) {
 
     const apiDetails = newsDetails
 
-    console.log(apiDetails)
-
     try {
         const response = await patchRequestWithToken(url, apiDetails);
 
