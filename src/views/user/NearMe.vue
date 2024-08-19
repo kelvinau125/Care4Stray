@@ -13,7 +13,7 @@
 import PostComponent from "@/components/Post/Post.vue";
 import CreatePostComponent from "@/components/Post/CreatePost.vue";
 
-import { getAllCreatedPost } from "@/service/apiProviderPost";
+import { getAllCreatedPost, likeorUnlike } from "@/service/apiProviderPost"
 
 export default {
   components: {
@@ -47,15 +47,30 @@ export default {
         // },
       ],
 
-      getList: [] 
     };
   },
   mounted() {
     this.getAllCreatedPostApi()
   },
   methods: {
-    handleLikePost(postId) {
-      console.log(`Liked post with ID: ${postId}`);
+    async handleLikePost(postId) {
+      const post = this.posts.find(p => p.id === postId);
+
+      if (post) {
+        // Optimistically update the UI
+        const originalIsLiked = post.isliked;
+        post.isliked = !post.isliked;
+        post.likeCount += post.isliked ? 1 : -1;
+
+        // Make the API call
+        const result = await likeorUnlike(postId);
+
+        // Revert if the API call fails
+        if (!result) {
+          post.isliked = originalIsLiked;
+          post.likeCount += post.isliked ? 1 : -1;
+        }
+      }
     },
     async getAllCreatedPostApi() {
       this.getList = await getAllCreatedPost();
@@ -72,7 +87,7 @@ export default {
           isliked: this.getList[i]["isLiked"],
           likeCount: this.getList[i]["likeCount"],
           commentCount: this.getList[i]["commentCount"],
-          duration: "12 min",
+          duration: this.getList[i]["duration"],
         });
       }
     },

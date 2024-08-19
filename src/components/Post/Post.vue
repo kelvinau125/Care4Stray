@@ -1,6 +1,5 @@
 <template>
-  <div ref="postContainer" class="border border-gray-300 p-4 mb-4 rounded-lg"
-  @click="toPostDetails(post.id)">
+  <div ref="postContainer" class="border border-gray-300 p-4 mb-4 rounded-lg" @click="toPostDetails(post.id)">
     <div class="flex items-center mb-4 justify-between">
       <div class="flex items-center">
         <img :src="post.userAvatar" alt="User Avatar" class="w-12 h-12 rounded-full mr-4" />
@@ -14,22 +13,18 @@
     </div>
     <div class="mb-4">
       <h3 class="font-bold text-lg mb-2">{{ post.title }}</h3>
-      <p class="text-gray-700 whitespace-pre-line" v-if="isAdoptionRoute">{{ post.description }}</p>
+      <p class="text-gray-700 whitespace-pre-line ml-2" v-if="isAdoptionRoute">
+        <ul>
+          <li v-for="(item, index) in post.description" :key="index">
+            • {{ item }}
+          </li>
+        </ul>
+      </p>
       <div class="flex flex-wrap mt-4">
-        <div
-          v-for="(image, index) in displayedImages"
-          :key="index"
-          class="relative w-32 h-32 mr-2 mb-2 "
-        >
-          <img
-            :src="image"
-            alt="Post Image"
-            class="w-full h-full object-cover rounded-lg"
-          />
-          <div
-            v-if="index === displayedImages.length - 1 && remainingImages > 0"
-            class="absolute inset-0 flex items-center justify-center bg-gray-200 bg-opacity-75 text-gray-700 rounded-lg"
-          >
+        <div v-for="(image, index) in displayedImages" :key="index" class="relative w-32 h-32 mr-2 mb-2 ">
+          <img :src="image" alt="Post Image" class="w-full h-full object-cover rounded-lg" />
+          <div v-if="index === displayedImages.length - 1 && remainingImages > 0"
+            class="absolute inset-0 flex items-center justify-center bg-gray-200 bg-opacity-75 text-gray-700 rounded-lg">
             +{{ remainingImages }}
           </div>
         </div>
@@ -37,20 +32,21 @@
     </div>
     <div class="flex items-center justify-between">
       <div class="flex space-x-4">
-        <button @click.stop="likePost" class="flex items-center justify-center">
+        <div @click.stop="likePost" class="flex items-center justify-center cursor-pointer">
           <i :class="['text-2xl', post.isliked ? 'fas fa-heart text-red-500' : 'far fa-heart text-mainText']"></i>
           <span class="ml-2">{{ post.likeCount }}</span>
-        </button>
-     
-        <button @click="toPostDetails(post.id)" class="flex items-center justify-center">
+        </div>
+
+        <div @click="toPostDetails(post.id)" class="flex items-center justify-center cursor-pointer">
           <i class="far fa-comment text-2xl"></i>
           <span class="ml-2">{{ post.commentCount }}</span>
-        </button>
+        </div>
       </div>
 
       <div class="flex space-x-2" v-if="isAdoptionRoute">
-        <span class="material-icons"><img :src="vaccine" alt="vaccine" class="w-8 h-8 p-1"></span>
-        <span class="material-icons"><img :src="worm" alt="warm" class="w-8 h-8 p-1"></span>
+        <span class="material-icons" v-if="post.isVaccinated"><img :src="vaccine" alt="vaccine"
+            class="w-8 h-8 p-1"></span>
+        <span class="material-icons" v-if="post.isDewormed"><img :src="worm" alt="warm" class="w-8 h-8 p-1"></span>
       </div>
     </div>
   </div>
