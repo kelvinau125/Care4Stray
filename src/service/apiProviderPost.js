@@ -216,8 +216,8 @@ export async function commentPost(postID, commentDetails) {
 }
 
 // Get Comment List
-export async function getCommentList() {
-    const url = baseUrl + getCommentListUrl
+export async function getCommentList(postId) {
+    const url = baseUrl + (getCommentListUrl.replace("{postID}", postId));
 
     try {
         const response = await getRequestWithToken(url);

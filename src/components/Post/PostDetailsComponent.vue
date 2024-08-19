@@ -35,7 +35,7 @@
 
                 <div class="flex items-center justify-center cursor-pointer">
                     <i class="far fa-comment text-2xl"></i>
-                    <span class="ml-2">{{ post.commentCount }}</span>
+                    <!-- <span class="ml-2">{{ post.commentCount }}</span> -->
                 </div>
             </div>
 
@@ -109,7 +109,7 @@ export default {
             this.post.id = this.getList['postId']
             this.post.userAvatar = this.getList['author']['userAvatar']
             this.post.username = this.getList['author']['firstName'] + " " + this.getList['author']['lastName'],
-                this.post.date = new Date(this.getList["createdDate"]).toISOString().split('T')[0]
+            this.post.date = new Date(this.getList["createdDate"]).toISOString().split('T')[0]
             this.post.title = this.getList['content']
             this.post.description = this.getList['content']
             this.post.images = this.getList['picture']
