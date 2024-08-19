@@ -302,7 +302,7 @@ export default {
       }
 
       // Do something with the array of uploaded image URLs
-      console.log(uploadedImageUrls);
+      // console.log(uploadedImageUrls);
 
       const mainPicture = uploadedImageUrls.length > 0 ? uploadedImageUrls[0] : "";
 

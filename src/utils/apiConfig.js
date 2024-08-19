@@ -129,6 +129,42 @@ export const getAllStrayListUrl = adoptionBaseUrl + getAllStrayList;
 
 export const getAllStrayDetailsByIDUrl = adoptionBaseUrl + getAllStrayDetailsByID;
 
+// Post
+export const postBaseUrl = userBaseUrl + '/post';
+
+export const postAdminBaseUrl = adminBaseUrl + '/post';
+
+export const getAlladoptionPost = '/adoption-list';
+
+export const createPost = '/create';
+
+export const getPostDetails = '/{postID}';
+
+export const getAllCreatedPost = '/create-list';
+
+export const likeorUnlike = '/like';
+
+export const createComment = '/comment'
+
+export const getCommentList = '/comment-list/{postID}'
+
+export const getAlladoptionPostUrl = postBaseUrl + getAlladoptionPost;
+
+export const createPostUrl = postBaseUrl + createPost;
+
+export const getPostDetailsUrl = postBaseUrl + getPostDetails;
+
+export const getAllCreatedPostUrl = postBaseUrl + getAllCreatedPost;
+
+export const likeorUnlikeUrl = postBaseUrl + likeorUnlike;
+
+export const createCommentUrl = postBaseUrl + createComment;
+
+export const getCommentListUrl = postBaseUrl + getCommentList;
+
+
+
+
 
 
 

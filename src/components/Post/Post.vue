@@ -14,7 +14,7 @@
     </div>
     <div class="mb-4">
       <h3 class="font-bold text-lg mb-2">{{ post.title }}</h3>
-      <p class="text-gray-700 whitespace-pre-line">{{ post.description }}</p>
+      <p class="text-gray-700 whitespace-pre-line" v-if="isAdoptionRoute">{{ post.description }}</p>
       <div class="flex flex-wrap mt-4">
         <div
           v-for="(image, index) in displayedImages"
@@ -37,11 +37,14 @@
     </div>
     <div class="flex items-center justify-between">
       <div class="flex space-x-4">
-        <button @click="likePost">
+        <button @click.stop="likePost" class="flex items-center justify-center">
           <i :class="['text-2xl', post.isliked ? 'fas fa-heart text-red-500' : 'far fa-heart text-mainText']"></i>
+          <span class="ml-2">{{ post.likeCount }}</span>
         </button>
-        <button @click="toPostDetails(post.id)">
+     
+        <button @click="toPostDetails(post.id)" class="flex items-center justify-center">
           <i class="far fa-comment text-2xl"></i>
+          <span class="ml-2">{{ post.commentCount }}</span>
         </button>
       </div>
 

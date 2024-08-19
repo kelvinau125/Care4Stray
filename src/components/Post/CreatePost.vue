@@ -59,10 +59,17 @@
 </template>
 
 <script>
+// get user cookie
+import VueCookies from 'vue-cookies';
+
+import { getUserInfo } from "@/service/apiProviderAuth.js";
+import { uploadImage } from "@/service/apiProviderImage.js";
+import { createPost } from "@/service/apiProviderPost.js";
+
 export default {
   data() {
     return {
-      avatar: require("@/assets/img/team-1-800x800.jpg").default,
+      avatar: "https://res.cloudinary.com/dfmnw3bin/image/upload/v1722330239/default_avatar.jpg",
       selectedFile: null,
 
 
@@ -84,8 +91,20 @@ export default {
         "bg-red-500": this.alertType === "error",
       };
     },
+    hasErrors() {
+      return this.contentError;
+    },
+  },
+  mounted() {
+    this.getUserInfoApi()
   },
   methods: {
+    async getUserInfoApi() {
+      const result = await getUserInfo(VueCookies.get('email'));
+
+      this.avatar = result.userAvatar;
+    },
+
     handleFileChange(event) {
       const files = event.target.files;
       if (files.length) {
@@ -127,14 +146,83 @@ export default {
       this.image.splice(index, 1); // Remove the image at the specified index
       this.previewUrl.splice(index, 1); // Remove the image at the specified index
     },
-    postContent() {
-      // Logic to post content including selected file
-      console.log("Posting content with file:", this.selectedFile);
+    async postContent() {
+      this.validateContent();
+
+      // Minimum required images and behaviors
+      if (this.image.length < 1) {
+        this.alertType = "error";
+        this.alertMessage = "Please upload at least one image.";
+        this.alertOpen = true;
+        setTimeout(() => {
+          this.alertOpen = false;
+        }, 3000);
+        return;
+      }
+
+      if (this.hasErrors) {
+        this.alertType = "error";
+        this.alertMessage = this.contentError;
+        this.alertOpen = true;
+        setTimeout(() => {
+          this.alertOpen = false;
+        }, 3000); // Close alert after 3 seconds
+        return;
+      }
+
+      this.alertOpen = true;
+      this.alertType = "waiting";
+      this.alertMessage = "Please wait, Post is updating! ";
+
+      const uploadedImageUrls = [];
+
+      for (let i = 0; i < this.image.length; i++) {
+        const file = this.image[i];
+        try {
+          const response = await uploadImage(file, "image");
+          if (response.status === 200) {
+            uploadedImageUrls.push(response.data.url);
+          } else {
+            console.error(`Failed to upload image at index ${i}`);
+          }
+        } catch (error) {
+          console.error(`Error uploading image at index ${i}:`, error);
+        }
+      }
+
+      const postDetails = {
+        content: this.content,
+        picture: uploadedImageUrls,
+      }
+
+      const result = await createPost(postDetails);
+
+      if (result) {
+        this.alertType = "success";
+        this.alertMessage = "Post successful created";
+        this.alertOpen = true;
+        setTimeout(() => {
+          this.alertOpen = false;
+          // Refresh the page
+          window.location.reload();
+        }, 1000); // Close alert after 3 seconds
+      }
+
     },
     closeAlert() {
       this.alertOpen = false;
     },
+    validateContent() {
+      if (!this.content) {
+        this.contentError = 'Content cannot be empty.';
+      } else {
+        this.contentError = '';
+      }
+    }
   },
+  watch: {
+    'content': 'validateContent',
+  }
 };
 </script>
 
