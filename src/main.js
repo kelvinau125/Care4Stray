@@ -49,6 +49,7 @@ import RegisterModal from "@/views/auth/RegisterModal.vue";
 import News from "@/views/user/News.vue";
 import NearMe from "@/views/user/NearMe.vue";
 import Adoption from "@/views/user/Adoption.vue";
+import ownPost from "@/views/user/OwnPost.vue"
 import notification from "@/views/user/Notification.vue";
 import application from "@/views/user/Application.vue";
 import applicationdetails from "@/views/user/ApplicationDetails.vue";
@@ -185,6 +186,10 @@ const routes = [
       {
         path: "/user/adoption",
         component: Adoption,
+      },
+      {
+        path: "/user/ownpost",
+        component: ownPost,
       },
       {
         path: "/user/notification",

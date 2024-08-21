@@ -1,7 +1,10 @@
 <template>
   <div>
     <div>
-      <CreatePostComponent />
+      <div v-if="posts.length > 0" class="flex items-center justify-center flex-col mt-6">
+        <img :src="posts[0].userAvatar" alt="User Avatar" class="w-40 h-40 rounded-full" />
+        <p class="font-semibold text-mainText text-2xl mr-3 py-3 mb-2">@ {{ posts[0].username }}</p>
+      </div>
     </div>
     <div>
       <PostComponent v-for="post in posts" :key="post.id" :post="post" @like-post="handleLikePost" />
@@ -11,14 +14,12 @@
 
 <script>
 import PostComponent from "@/components/Post/Post.vue";
-import CreatePostComponent from "@/components/Post/CreatePost.vue";
 
-import { getAllCreatedPost, likeorUnlike } from "@/service/apiProviderPost"
+import { getAllCreatedPostByUserID, likeorUnlike } from "@/service/apiProviderPost"
 
 export default {
   components: {
     PostComponent,
-    CreatePostComponent,
   },
   data() {
     return {
@@ -47,6 +48,7 @@ export default {
         // },
       ],
 
+      userID: this.$route.query.postID,
     };
   },
   mounted() {
@@ -73,12 +75,12 @@ export default {
       }
     },
     async getAllCreatedPostApi() {
-      this.getList = await getAllCreatedPost();
+      this.getList = await getAllCreatedPostByUserID(this.userID);
 
       for (let i = 0; i < this.getList.length; i++) {
         this.posts.push({
           id: this.getList[i]["postId"],
-          userid: this.getList[i]["author"]["id"],
+          userid: this.userID,
           userAvatar: this.getList[i]["author"]["userAvatar"],
           username: this.getList[i]["author"]["firstName"] + " " + this.getList[i]["author"]["lastName"],
           date: new Date(this.getList[i]["createdDate"]).toISOString().split('T')[0],

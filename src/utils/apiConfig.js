@@ -148,6 +148,8 @@ export const createComment = '/comment'
 
 export const getCommentList = '/comment-list/{postID}'
 
+export const getCreatedListByUserID = '/create-list-user'
+
 export const getAlladoptionPostUrl = postBaseUrl + getAlladoptionPost;
 
 export const createPostUrl = postBaseUrl + createPost;
@@ -162,6 +164,7 @@ export const createCommentUrl = postBaseUrl + createComment;
 
 export const getCommentListUrl = postBaseUrl + getCommentList;
 
+export const getCreatedListByUserIDUrl = postBaseUrl + getCreatedListByUserID;
 
 
 

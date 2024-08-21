@@ -13,6 +13,7 @@ import {
     getAlladoptionPostUrl,
     createCommentUrl,
     getCommentListUrl,
+    getCreatedListByUserIDUrl,
 } from '@/utils/apiConfig.js';
 
 import VueCookies from 'vue-cookies';
@@ -236,6 +237,35 @@ export async function getCommentList(postId) {
 
     } catch (e) {
         console.log(`Unsuccessful in get comment list provider: ${e}`);
+        return false;
+    }
+}
+
+// Get All Created Post by User ID
+export async function getAllCreatedPostByUserID(userID) {
+    const url = baseUrl + getCreatedListByUserIDUrl;
+
+    const apiDetails = {
+        userId: userID
+    };
+
+    try {
+        const response = await postRequestWithToken(url, apiDetails);
+
+        const status = response.status;
+        const data = response.data;
+
+        if (status === 200) {
+            return data.data;
+        } else if (status === 400) {
+            return data.message;
+        } else {
+            console.log(`Unsuccessfully in get all created post by user id provider: ${status}`);
+            return false;
+        }
+
+    } catch (e) {
+        console.log(`Unsuccessful in get all created post by user id provider: ${e}`);
         return false;
     }
 }

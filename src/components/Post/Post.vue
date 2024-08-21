@@ -1,8 +1,10 @@
 <template>
-  <div ref="postContainer" class="border border-gray-300 p-4 mb-4 rounded-lg" @click="toPostDetails(post.id)">
+  <div ref="postContainer" 
+  :class="['border border-gray-300 p-4 mb-4 rounded-lg', isOwnPost ? 'bg-mainTheme' : '']"
+  @click="toPostDetails(post.id)">
     <div class="flex items-center mb-4 justify-between">
       <div class="flex items-center">
-        <img :src="post.userAvatar" alt="User Avatar" class="w-12 h-12 rounded-full mr-4" />
+        <img :src="post.userAvatar" alt="User Avatar" class="w-12 h-12 rounded-full mr-4 cursor-pointer" @click.stop="toUserPost(post.userid)" />
         <div class="text-sm">
           <p class="font-semibold">{{ post.username }}</p>
           <p class="text-gray-500">{{ post.date }}</p>
@@ -86,6 +88,9 @@ export default {
     isAdoptionRoute() {
       return this.$route.path.includes('/user/adoption');
     },
+    isOwnPost() {
+      return this.$route.path.includes('/user/ownpost');
+    },
   },
   mounted() {
     this.updateContainerWidth();
@@ -95,6 +100,15 @@ export default {
     window.removeEventListener('resize', this.updateContainerWidth);
   },
   methods: {
+    toUserPost(id) {
+      // Push
+      this.$router.push({
+        path: '/user/ownpost',
+        query: {
+          postID: id,
+        },
+      });
+    },
     updateContainerWidth() {
       this.containerWidth = this.$refs.postContainer.clientWidth;
     },

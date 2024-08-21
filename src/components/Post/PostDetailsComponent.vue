@@ -2,7 +2,8 @@
     <div ref="postContainer" class="bg-mainTheme px-12 pt-8 pb-4 mb-2">
         <div class="flex items-center mb-4 justify-between">
             <div class="flex items-center">
-                <img :src="post.userAvatar" alt="User Avatar" class="w-12 h-12 rounded-full mr-4" />
+                <img :src="post.userAvatar" alt="User Avatar" class="w-12 h-12 rounded-full mr-4 cursor-pointer"
+                    @click.stop="toUserPost(post.userId)" />
                 <div class="text-sm">
                     <p class="font-semibold">{{ post.username }}</p>
                 </div>
@@ -79,6 +80,7 @@ export default {
 
             post: {
                 id: "",
+                userId: "",
                 userAvatar: "https://res.cloudinary.com/dfmnw3bin/image/upload/v1722330239/default_avatar.jpg",
                 username: "",
                 date: "",
@@ -103,10 +105,20 @@ export default {
         this.getPostDetailsApi();
     },
     methods: {
+        toUserPost(id) {
+            // Push
+            this.$router.push({
+                path: '/user/ownpost',
+                query: {
+                    postID: id,
+                },
+            });
+        },
         async getPostDetailsApi() {
             this.getList = await getPostDetails(this.postID);
 
             this.post.id = this.getList['postId']
+            this.post.userId = this.getList['author']['id']
             this.post.userAvatar = this.getList['author']['userAvatar']
             this.post.username = this.getList['author']['firstName'] + " " + this.getList['author']['lastName'],
             this.post.date = new Date(this.getList["createdDate"]).toISOString().split('T')[0]
