@@ -93,7 +93,7 @@ export default {
           isliked: this.getList[i]["isLike"],
           likeCount: this.getList[i]["likeCount"],
           commentCount: this.getList[i]["commentCount"],
-          // duration: this.getList[i]["duration"],
+          duration: this.getList[i]["duration"],
         });
       }
     },

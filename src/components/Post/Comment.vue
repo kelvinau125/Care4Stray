@@ -18,7 +18,7 @@
           <p>{{ comment.text }}</p>
         </div>
       </div>
-      <span class="text-gray-600 text-sm ml-auto">12 min</span>
+      <span class="text-gray-600 text-sm ml-auto">{{ comment.duration }}</span>
     </div>
 
   </div>
@@ -69,7 +69,8 @@ export default {
           id: this.comments.length + 1,
           username: this.username,
           avatar: this.userAvatar,
-          text: this.newComment
+          text: this.newComment,
+          duration: "1 seconds ago",
         });
         this.newComment = "";
 
@@ -84,6 +85,7 @@ export default {
           username: this.getList[i]["user"]["firstName"] + " " + this.getList[i]["user"]["lastName"],
           avatar: this.getList[i]["user"]["userAvatar"],
           text: this.getList[i]["comment"],
+          duration: this.getList[i]["duration"],
         });
       }
     },
