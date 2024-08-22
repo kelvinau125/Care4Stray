@@ -90,6 +90,8 @@ export default {
           keyword: this.searchKeyword,
         },
       });
+
+      this.searchKeyword = ""
     }
   }
 };
