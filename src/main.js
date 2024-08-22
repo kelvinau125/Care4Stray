@@ -58,6 +58,7 @@ import postdetails from "@/views/user/PostDetails.vue";
 import newsdetails from "@/views/user/NewsDetails.vue";
 import profile from "@/components/User/Profile.vue";
 import donationhistory from "@/components/User/DonationHistory.vue";
+import searchPost from "@/views/user/SearchPost.vue"
 
 // views without layouts
 
@@ -222,6 +223,10 @@ const routes = [
       {
         path: "/user/donationhistory",
         component: donationhistory,
+      }, 
+      {
+        path: "/user/search",
+        component: searchPost,
       }, 
     ],
     meta: { requiresAuth: true, role: 'USER' },

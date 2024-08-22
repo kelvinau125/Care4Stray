@@ -86,7 +86,7 @@ export default {
     },
 
     isAdoptionRoute() {
-      return this.$route.path.includes('/user/adoption');
+      return this.$route.path.includes('/user/adoption') || this.$route.path.includes('/user/search');
     },
     isOwnPost() {
       return this.$route.path.includes('/user/ownpost');
