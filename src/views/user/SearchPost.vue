@@ -1,12 +1,6 @@
 <template>
   <div>
     <div>
-      <div v-if="posts.length > 0" class="flex items-center justify-center flex-col mt-6">
-        <img :src="posts[0].userAvatar" alt="User Avatar" class="w-40 h-40 rounded-full" />
-        <p class="font-semibold text-mainText text-2xl mr-3 py-3 mb-2">@ {{ posts[0].username }}</p>
-      </div>
-    </div>
-    <div>
       <PostComponent v-for="post in posts" :key="post.id" :post="post" @like-post="handleLikePost" />
     </div>
   </div>
@@ -55,7 +49,17 @@ export default {
     };
   },
   mounted() {
-    this.getAllSearchApi()
+    this.getAllSearchApi();
+
+    this.$watch(
+      () => this.$route.query.keyword,
+      async (newKeyword) => {
+        if (newKeyword) {
+          this.searchKeyword = newKeyword;
+          await this.getAllSearchApi();
+        }
+      }
+    );
   },
   methods: {
     async handleLikePost(postId) {
@@ -78,6 +82,8 @@ export default {
       }
     },
     async getAllSearchApi() {
+      this.posts = [];
+
       this.getList = await searchAllPost(VueCookies.get('id'), this.searchKeyword);
 
       for (let i = 0; i < this.getList.length; i++) {
@@ -88,7 +94,7 @@ export default {
           username: this.getList[i]["author"]["firstName"] + " " + this.getList[i]["author"]["lastName"],
           date: new Date(this.getList[i]["createdDate"]).toISOString().split('T')[0],
           title: this.getList[i]["isAdoption"] ? this.getList[i]["strayPost"]["name"] : this.getList[i]["content"],
-          description: this.getList[i]["isAdoption"] ? this.getList[i]["strayPost"]["behaviour"] : "",         
+          description: this.getList[i]["isAdoption"] ? this.getList[i]["strayPost"]["behaviour"] : "",
           images: this.getList[i]["isAdoption"] ? [this.getList[i]["strayPost"]["mainPicture"]] : this.getList[i]["picture"],
           isliked: this.getList[i]["isLiked"],
           likeCount: this.getList[i]["likeCount"],
