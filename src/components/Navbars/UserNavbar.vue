@@ -79,6 +79,11 @@ export default {
         return;
       }
 
+      if (this.$route.path !== '/user/search') {
+        // Store the current path before navigating to the search page
+        sessionStorage.setItem('previousPage', this.$route.fullPath);
+      }
+
       this.$router.push({
         path: '/user/search',
         query: {

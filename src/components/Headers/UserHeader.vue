@@ -14,6 +14,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      searchKeyword: this.$route.query.keyword,
+    }
+  },
   computed: {
     pageTitle() {
       if (this.$route.path === '/user/editapplicationdetails') {
@@ -22,15 +27,32 @@ export default {
       else if (this.$route.path === '/user/postdetails') {
         return 'Post'
       }
+      else if (this.$route.path === '/user/search') {
+        return this.searchKeyword || 'Search';
+      }
       else {
         return 'Adoption Application'
       }
     }
   },
+  watch: {
+    '$route.query.keyword': function(newKeyword) {
+      this.searchKeyword = newKeyword;
+    }
+  },
   methods: {
     goBack() {
-      this.$router.go(-1);
+      if (this.$route.path !== '/user/search') {
+        this.$router.go(-1);
+      } else {
+        const previousPage = sessionStorage.getItem('previousPage');
+        if (previousPage) {
+          this.$router.replace(previousPage);
+        } else {
+          this.$router.go(-1);
+        }
+      }
     }
-  }
+  },
 };
 </script>
