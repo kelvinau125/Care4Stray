@@ -3,10 +3,16 @@
         <EditApplicationModal :showModal="isModalVisible" :closeModal="closeModal" />
         <CancelApplicationModal :showModal="isCancelModalVisible" :closeModal="closeCancelModal" />
 
+        <!-- Loading Overlay -->
+        <div v-if="alertType === 'waiting'" class="loading-overlay">
+        </div>
+
+        <!-- Alert Box -->
         <div class="flex justify-center">
-            <div v-if="alertOpen" :class="alertClass">
+            <div v-if="alertOpen" :class="alertClass" style="margin-top: -100px;">
                 <span class="text-xl inline-block mr-5 align-middle">
-                    <i class="fas fa-bell"></i>
+                    <i v-if="alertType !== 'waiting'" class="fas fa-bell"></i>
+                    <i v-if="alertType === 'waiting'" class="fas fa-spinner"></i>
                 </span>
                 <span class="inline-block align-middle mr-8">
                     <b class="capitalize">{{ alertType }} ! </b> {{ alertMessage }}
@@ -90,7 +96,7 @@
                                         v-model="adopter.firstName" required />
                                     <span v-if="validationErrors.firstName" class="text-red-500 text-xs">{{
                                         validationErrors.firstName
-                                        }}</span>
+                                    }}</span>
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
@@ -104,7 +110,7 @@
                                         v-model="adopter.lastName" required />
                                     <span v-if="validationErrors.lastName" class="text-red-500 text-xs">{{
                                         validationErrors.lastName
-                                    }}</span>
+                                        }}</span>
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
@@ -118,7 +124,7 @@
                                         v-model="adopter.dateOfBirth" required />
                                     <span v-if="validationErrors.dateOfBirth" class="text-red-500 text-xs">{{
                                         validationErrors.dateOfBirth
-                                    }}</span>
+                                        }}</span>
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
@@ -150,7 +156,7 @@
                                         v-model="adopter.phoneNumber" required />
                                     <span v-if="validationErrors.phoneNumber" class="text-red-500 text-xs">{{
                                         validationErrors.phoneNumber
-                                    }}</span>
+                                        }}</span>
                                 </div>
                             </div>
                         </div>
@@ -172,7 +178,7 @@
                                         v-model="adopter.address" required />
                                     <span v-if="validationErrors.address" class="text-red-500 text-xs">{{
                                         validationErrors.address
-                                    }}</span>
+                                        }}</span>
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -507,3 +513,18 @@ export default {
 
 };
 </script>
+
+<style scoped>
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9;
+}
+</style>

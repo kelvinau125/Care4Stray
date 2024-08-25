@@ -14,6 +14,7 @@ import {
     getAllStrayListUrl,
     updateStrayDetailsUrl,
     createAdoptionUrl,
+    getAllAdoptionUrl,
 } from '@/utils/apiConfig.js';
 
 import VueCookies from 'vue-cookies';
@@ -166,8 +167,6 @@ export async function createApplication(applicationDetails) {
         const status = response.status;
         const data = response.data;
 
-        console.log(data)
-
         if (status === 200) {
             return true;
         } else if (status === 400) {
@@ -179,6 +178,35 @@ export async function createApplication(applicationDetails) {
 
     } catch (e) {
         console.log(`Unsuccessful in create application provider: ${e}`);
+        return false;
+    }
+}
+
+// Get All Application List
+export async function getAllApplicationList() {
+    const url = baseUrl + getAllAdoptionUrl;
+
+    const apiDetails = {
+        userId: VueCookies.get("id"),
+    };
+
+    try {
+        const response = await postRequestWithToken(url, apiDetails);
+
+        const status = response.status;
+        const data = response.data;
+
+        if (status === 200) {
+            return data.data;
+        } else if (status === 400) {
+            return data.message;
+        } else {
+            console.log(`Unsuccessfully in get all application list provider: ${status}`);
+            return false;
+        }
+
+    } catch (e) {
+        console.log(`Unsuccessful in get all application list provider: ${e}`);
         return false;
     }
 }
