@@ -123,7 +123,8 @@
                                     </label>
                                     <select id="gender"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': !isEdit }" :disabled="!isEdit" v-model="adopter.gender">
+                                        :class="{ 'disabled-bg': !isEdit }" :disabled="!isEdit"
+                                        v-model="adopter.gender">
                                         <option value="">Select Gender</option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
@@ -170,7 +171,8 @@
                                     </label>
                                     <input type="text" id="city"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        :class="{ 'disabled-bg': !isEdit }" :readonly="!isEdit" v-model="adopter.city" />
+                                        :class="{ 'disabled-bg': !isEdit }" :readonly="!isEdit"
+                                        v-model="adopter.city" />
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -325,7 +327,7 @@ export default {
             isModalVisible: ref(false),
             isCancelModalVisible: ref(false),
 
-            isEdit: false,
+            isEdit: true,
 
             application: {
                 id: 1,

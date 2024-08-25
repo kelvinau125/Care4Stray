@@ -3,6 +3,21 @@
         <EditApplicationModal :showModal="isModalVisible" :closeModal="closeModal" />
         <CancelApplicationModal :showModal="isCancelModalVisible" :closeModal="closeCancelModal" />
 
+        <div class="flex justify-center">
+            <div v-if="alertOpen" :class="alertClass">
+                <span class="text-xl inline-block mr-5 align-middle">
+                    <i class="fas fa-bell"></i>
+                </span>
+                <span class="inline-block align-middle mr-8">
+                    <b class="capitalize">{{ alertType }} ! </b> {{ alertMessage }}
+                </span>
+                <button
+                    class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none"
+                    @click="closeAlert">
+                    <span>×</span>
+                </button>
+            </div>
+        </div>
         <div class="mb-4">
             <p class="text-blueGray-700 text-xl font-bold pb-2">Animal’s Information</p>
             <div class="flex flex-col items-start p-4 space-x-4 border border-gray-300 rounded-lg">
@@ -37,13 +52,13 @@
                     </div>
                 </div>
                 <div class="flex pt-2 space-x-4">
-                    <div
-                        class="w-32 flex justify-center items-center bg-secondaryMain border-mainTheme border-2 text-mainText font-bold uppercase text-xs px-4 py-1 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                    <div class="w-32 flex justify-center items-center bg-secondaryMain border-mainTheme border-2 text-mainText font-bold uppercase text-xs px-4 py-1 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        v-if="application.vaccined">
                         <img :src="vaccine" alt="vaccine" class="w-8 h-8 p-1" />Vaccinated
                     </div>
 
-                    <div
-                        class="w-32 flex justify-center items-center border-mainTheme border-2 bg-secondaryMain text-mainText font-bold uppercase text-xs px-4 py-1 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                    <div class="w-32 flex justify-center items-center border-mainTheme border-2 bg-secondaryMain text-mainText font-bold uppercase text-xs px-4 py-1 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        v-if="application.dewormed">
                         <img :src="worm" alt="worm" class="w-8 h-8 p-1" />Deworm
                     </div>
                 </div>
@@ -57,9 +72,9 @@
                         </h6>
                     </div>
                 </div>
-                <div class="flex-auto py-10 pt-0">
-                    <hr class=" border-b-1 border-blueGray-300" />
-                    <form>
+                <form @submit.prevent="submitApplication()">
+                    <div class="flex-auto py-10 pt-0">
+                        <hr class=" border-b-1 border-blueGray-300" />
                         <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
                             User Information
                         </h6>
@@ -72,7 +87,10 @@
                                     </label>
                                     <input type="text" id="first-name"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        v-model="adopter.firstName" />
+                                        v-model="adopter.firstName" required />
+                                    <span v-if="validationErrors.firstName" class="text-red-500 text-xs">{{
+                                        validationErrors.firstName
+                                        }}</span>
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
@@ -83,7 +101,10 @@
                                     </label>
                                     <input type="text" id="last-name"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        v-model="adopter.lastName" />
+                                        v-model="adopter.lastName" required />
+                                    <span v-if="validationErrors.lastName" class="text-red-500 text-xs">{{
+                                        validationErrors.lastName
+                                    }}</span>
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
@@ -94,7 +115,10 @@
                                     </label>
                                     <input type="date" id="date-of-birth"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        v-model="adopter.dateOfBirth" />
+                                        v-model="adopter.dateOfBirth" required />
+                                    <span v-if="validationErrors.dateOfBirth" class="text-red-500 text-xs">{{
+                                        validationErrors.dateOfBirth
+                                    }}</span>
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
@@ -105,12 +129,14 @@
                                     </label>
                                     <select id="gender"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        v-model="adopter.gender">
+                                        v-model="adopter.gender" required>
                                         <option value="">Select Gender</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Other</option>
+                                        <option value="MALE">Male</option>
+                                        <option value="FEMALE">Female</option>
+                                        <option value="OTHER">Other</option>
                                     </select>
+                                    <span v-if="validationErrors.gender" class="text-red-500 text-xs">{{
+                                        validationErrors.gender }}</span>
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
@@ -121,7 +147,10 @@
                                     </label>
                                     <input type="text" id="phone-number"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        v-model="adopter.phoneNumber" />
+                                        v-model="adopter.phoneNumber" required />
+                                    <span v-if="validationErrors.phoneNumber" class="text-red-500 text-xs">{{
+                                        validationErrors.phoneNumber
+                                    }}</span>
                                 </div>
                             </div>
                         </div>
@@ -140,7 +169,10 @@
                                     </label>
                                     <input type="text" id="address"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        v-model="adopter.address" />
+                                        v-model="adopter.address" required />
+                                    <span v-if="validationErrors.address" class="text-red-500 text-xs">{{
+                                        validationErrors.address
+                                    }}</span>
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -150,7 +182,9 @@
                                     </label>
                                     <input type="text" id="city"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        v-model="adopter.city" />
+                                        v-model="adopter.city" required />
+                                    <span v-if="validationErrors.city" class="text-red-500 text-xs">{{
+                                        validationErrors.city }}</span>
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -160,7 +194,7 @@
                                     </label>
                                     <select id="state"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        v-model="adopter.state">
+                                        v-model="adopter.state" required>
                                         <option value="">Select State / Province</option>
                                         <option value="johor">Johor</option>
                                         <option value="kedah">Kedah</option>
@@ -179,6 +213,8 @@
                                         <option value="labuan">Labuan</option>
                                         <option value="putrajaya">Putrajaya</option>
                                     </select>
+                                    <span v-if="validationErrors.state" class="text-red-500 text-xs">{{
+                                        validationErrors.state }}</span>
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -189,7 +225,9 @@
                                     </label>
                                     <input type="text" id="postal-code"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        v-model="adopter.postalCode" />
+                                        v-model="adopter.postal" required />
+                                    <span v-if="validationErrors.postal" class="text-red-500 text-xs">{{
+                                        validationErrors.postal }}</span>
                                 </div>
                             </div>
                         </div>
@@ -208,7 +246,7 @@
                                     </label>
                                     <select id="occupation"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        v-model="adopter.occupation">
+                                        v-model="adopter.occupation" required>
                                         <option value="">Select Occupation</option>
                                         <option value="SELF_EMPLOYED">Self Employed</option>
                                         <option value="RETIRED">Retired</option>
@@ -259,17 +297,15 @@
                                 </div>
                             </div>
                         </div>
-
-
-                    </form>
-                </div>
-                <div class="justify-end flex px-3">
-                    <button
-                        class="w-40 bg-secondTheme text-mainText active:bg-secondTheme font-bold uppercase text-xs px-4 py-2 rounded-xl shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="button">
-                        Submit
-                    </button>
-                </div>
+                    </div>
+                    <div class="justify-end flex px-3">
+                        <button
+                            class="w-40 bg-secondTheme text-mainText active:bg-secondTheme font-bold uppercase text-xs px-4 py-2 rounded-xl shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                            type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -280,21 +316,25 @@
 import vaccine from "@/assets/img/tabler_vaccine.png";
 import worm from "@/assets/img/contrast_worm.png";
 
+// api
+import { getUserInfo } from "@/service/apiProviderAuth.js";
+import { getStrayDetails, createApplication } from "@/service/apiProviderAdoption";
+
+// get user cookie / set cookie
+import VueCookies from 'vue-cookies';
+
 export default {
     data() {
         return {
             application: {
-                id: 1,
-                image: require('@/assets/img/team-1-800x800.jpg').default,
-                name: 'Doggy',
-                gender: 'Female',
-                age: 21,
-                behaviors: [
-                    'Affectionate feline',
-                    'Good with human',
-                    'Good for Beginner Adopter',
-                    'Good with other pets',
-                ],
+                id: "",
+                image: "",
+                name: '',
+                gender: '',
+                age: "",
+                behaviors: [],
+                vaccined: "",
+                dewormed: "",
             },
 
             vaccine,
@@ -309,13 +349,160 @@ export default {
                 address: '',
                 city: '',
                 state: '',
-                postalCode: '',
+                postal: '',
                 occupation: '',
-            }
+            },
+
+            strayID: this.$route.query.strayID,
+
+            validationErrors: {},
+
+            alertOpen: false,
+            alertType: "success",
+            alertMessage: "",
+
+            applicationDetails: {},
         };
     },
 
+    mounted() {
+        this.getUserInfoApi();
+        this.getStrayDetailsApi();
+    },
+
+    computed: {
+        alertClass() {
+            return {
+                "text-white px-6 py-4 border-0 rounded-full fixed mb-4 z-50 w-6/12": true,
+                "bg-orange-500": this.alertType === "waiting",
+                "bg-emerald-500": this.alertType === "success",
+                "bg-red-500": this.alertType === "error",
+            };
+        },
+    },
+
     methods: {
+        async getUserInfoApi() {
+            const result = await getUserInfo(VueCookies.get('email'));
+
+            this.adopter = {
+                id: result.id,
+                username: result.username,
+                userAvatar: result.userAvatar,
+                role: result.role,
+                firstName: result.firstName,
+                lastName: result.lastName,
+                dateOfBirth: result.dateOfBirth,
+                gender: result.gender,
+                phoneNumber: result.phoneNumber,
+                address: result.address,
+                city: result.city,
+                state: result.state,
+                postal: result.postal,
+                occupation: result.occupation,
+            };
+        },
+
+        async getStrayDetailsApi() {
+            const result = await getStrayDetails(this.strayID);
+
+            this.application = {
+                id: result.strayId,
+                image: result.mainPicture,
+                name: result.name,
+                gender: result.gender,
+                age: result.age,
+                behaviors: result.behaviour,
+                vaccined: result.isVaccinated,
+                dewormed: result.isDewormed,
+            };
+        },
+
+        async submitApplication() {
+            this.alertOpen = true;
+            this.alertType = "waiting";
+            this.alertMessage = "Please wait, profile is updating! ";
+
+            if (this.validateAndSubmit()) {
+                this.alertOpen = true;
+                this.alertType = "waiting";
+                this.alertMessage = "Please wait, profile is updating! ";
+
+                this.applicationDetails = {
+                    user: {
+                        ...this.adopter
+                    },
+                    stray: {
+                        strayId: this.strayID
+                    }
+                };
+
+                const result = await createApplication(this.applicationDetails);
+                if (result) {
+                    // Store success message in sessionStorage before refreshing
+                    sessionStorage.setItem('alertType', 'success');
+                    sessionStorage.setItem('alertMessage', 'Application upload successfully!');
+
+                    this.$router.push('/user/application')
+                }
+            } else {
+                this.alertType = "error";
+                this.alertMessage = "Please fill up all the information correctly";
+                this.alertOpen = true;
+                setTimeout(() => {
+                    this.alertOpen = false;
+                }, 3000); // Close alert after 3 seconds
+            }
+        },
+
+        validateAndSubmit() {
+            this.validationErrors = {}; // Reset errors
+            let isValid = true;
+
+            // Validate first name (alphabets only)
+            if (!this.adopter.firstName) {
+                this.validationErrors.firstName = "First name is required.";
+                isValid = false;
+            } else if (!/^[A-Za-z]+$/.test(this.adopter.firstName)) {
+                this.validationErrors.firstName = "First name should contain only alphabets.";
+                isValid = false;
+            }
+
+            // Validate last name (alphabets only)
+            if (!this.adopter.lastName) {
+                this.validationErrors.lastName = "Last name is required.";
+                isValid = false;
+            } else if (!/^[A-Za-z]+$/.test(this.adopter.lastName)) {
+                this.validationErrors.lastName = "Last name should contain only alphabets.";
+                isValid = false;
+            }
+
+            // Validate phone number (10-11 digits only)
+            if (!this.adopter.phoneNumber) {
+                this.validationErrors.phoneNumber = "Phone number is required.";
+                isValid = false;
+            } else if (!/^\d{10,11}$/.test(this.adopter.phoneNumber)) {
+                this.validationErrors.phoneNumber = "Phone number must be 10-11 digits.";
+                isValid = false;
+            }
+
+            // Validate postal code (numbers only)
+            if (!this.adopter.postal) {
+                this.validationErrors.postal = "Postal code is required.";
+                isValid = false;
+            } else if (!/^\d+$/.test(this.adopter.postal)) {
+                this.validationErrors.postal = "Postal code should contain only numbers.";
+                isValid = false;
+            }
+
+            if (isValid) {
+                return true
+            }
+        },
+        closeAlert() {
+            this.alertOpen = false;
+        },
+
     },
 
 };

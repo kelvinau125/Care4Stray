@@ -55,7 +55,7 @@
         <div class="pt-2 justify-end items-end flex" v-if="isAdoptionRoute">
             <button
                 class="w-40 bg-secondaryMain text-mainText active:bg-secondTheme font-bold uppercase text-xs px-4 py-3 rounded-xl shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                @click="toCreateApplication" type="button">
+                @click="toCreateApplication(post.strayID)" type="button">
                 Adopt Now
             </button>
         </div>
@@ -131,6 +131,7 @@ export default {
             this.post.likeCount = this.getList['likeCount']
             this.post.commentCount = this.getList['commentCount']
 
+            this.post.strayID = this.getList["strayPost"]["strayId"]
             this.post.isVaccinated = this.getList["strayPost"]["isVaccinated"]
             this.post.isDewormed = this.getList["strayPost"]["isDewormed"]
             this.post.title = this.getList['strayPost']['name']
@@ -153,8 +154,14 @@ export default {
             }
         },
 
-        toCreateApplication() {
-            this.$router.push('/user/createapplication')
+        toCreateApplication(id) {
+            // Push
+            this.$router.push({
+                path: '/user/createapplication',
+                query: {
+                    strayID: id,
+                },
+            });
         }
     },
 };

@@ -58,11 +58,11 @@
                         </td>
 
                         <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                            <i :class="project.isVaccinated === 'yes' ? 'fas fa-check' : 'fas fa-times'"></i>
+                            <i :class="project.isVaccinated ? 'fas fa-check' : 'fas fa-times'"></i>
                         </td>
 
                         <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                            <i :class="project.isDeworm === 'yes' ? 'fas fa-check' : 'fas fa-times'"></i>
+                            <i :class="project.isDeworm ? 'fas fa-check' : 'fas fa-times'"></i>
                         </td>
 
                         <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -175,8 +175,8 @@ export default {
                     strayname: this.getList[i]["name"],
                     gender: this.getList[i]["gender"],
                     age: this.getList[i]["age"],
-                    isVaccinated: this.getList[i]["vaccinated"],
-                    isDeworm: this.getList[i]["dewormed"],
+                    isVaccinated: this.getList[i]["isVaccinated"],
+                    isDeworm: this.getList[i]["isDewormed"],
                     status: this.getList[i]["status"],
                 });
             }

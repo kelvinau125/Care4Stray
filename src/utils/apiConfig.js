@@ -117,6 +117,16 @@ export const getAllStrayList = '/getStray';
 
 export const getAllStrayDetailsByID = '/getStray/{strayID}';
 
+export const createAdoption = '/create_application';
+
+export const getAllAdoption = '/application_list';
+
+export const getAllAdoptionDetails = '/application/{applicationID}';
+
+export const updateAdoption = '/application/update';
+
+export const cancelAdoption = '/application/cancel';
+
 export const createStrayUrl = adoptionAdminBaseUrl + createStray;
 
 export const getAllStrayUrl = adoptionAdminBaseUrl + getAllStray;
@@ -128,6 +138,16 @@ export const updateStrayDetailsUrl = adoptionAdminBaseUrl + updateStrayDetails;
 export const getAllStrayListUrl = adoptionBaseUrl + getAllStrayList;
 
 export const getAllStrayDetailsByIDUrl = adoptionBaseUrl + getAllStrayDetailsByID;
+
+export const createAdoptionUrl = adoptionBaseUrl + createAdoption;
+
+export const getAllAdoptionUrl = adoptionBaseUrl + getAllAdoption;
+
+export const getAllAdoptionDetailsUrl = adoptionBaseUrl + getAllAdoptionDetails;
+
+export const updateAdoptionUrl = adoptionBaseUrl + updateAdoption;
+
+export const cancelAdoptionUrl = adoptionBaseUrl + cancelAdoption;
 
 // Post
 export const postBaseUrl = userBaseUrl + '/post';

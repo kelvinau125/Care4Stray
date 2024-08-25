@@ -268,8 +268,8 @@ export default {
         gender: result.gender,
         age: result.age,
         behaviors: result.behaviour,
-        vaccined: result.vaccinated,
-        dewormed: result.dewormed,
+        vaccined: result.isVaccinated,
+        dewormed: result.isDewormed,
       };
     },
     async editApplication() {

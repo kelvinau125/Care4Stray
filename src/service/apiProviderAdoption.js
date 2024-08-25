@@ -13,6 +13,7 @@ import {
     getAllStrayDetailsByIDUrl,
     getAllStrayListUrl,
     updateStrayDetailsUrl,
+    createAdoptionUrl,
 } from '@/utils/apiConfig.js';
 
 import VueCookies from 'vue-cookies';
@@ -149,6 +150,35 @@ export async function udpateStrayDetails(newsDetails) {
         }
     } catch (e) {
         console.log(`Unsuccessful in update news details provider: ${e}`);
+        return false;
+    }
+}
+
+// Create Adoption Application
+export async function createApplication(applicationDetails) {
+    const url = baseUrl + createAdoptionUrl;
+
+    const apiDetails = applicationDetails;
+
+    try {
+        const response = await postRequestWithToken(url, apiDetails);
+
+        const status = response.status;
+        const data = response.data;
+
+        console.log(data)
+
+        if (status === 200) {
+            return true;
+        } else if (status === 400) {
+            return data.message;
+        } else {
+            console.log(`Unsuccessfully in create application provider: ${status}`);
+            return false;
+        }
+
+    } catch (e) {
+        console.log(`Unsuccessful in create application provider: ${e}`);
         return false;
     }
 }
