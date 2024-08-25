@@ -21,16 +21,16 @@
                             <p>
                                 <strong>Application Status: </strong>
                                 <span :class="{
-                                    'text-yellow-500': application.status === 'Pending',
-                                    'text-red-500': application.status === 'Failed',
-                                    'text-green-500': application.status === 'Approved',
+                                    'text-yellow-500': application.status === 'PENDING',
+                                    'text-red-500': application.status === 'FAILED',
+                                    'text-green-500': application.status === 'APPROVED',
                                 }">
                                     {{ application.status }}
                                 </span>
                             </p>
                         </div>
 
-                        <button v-if="isEdit" ref="btnRef" v-on:click="togglePopover()"
+                        <button v-if="application.status === 'PENDING'" ref="btnRef" v-on:click="togglePopover()"
                             class="flex items-start hover:text-mainText outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 h-8"
                             type="button">
                             <i class="fas fa-ellipsis-v text-mainText text-xl"></i>

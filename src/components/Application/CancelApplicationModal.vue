@@ -29,10 +29,10 @@
 
                         <div class="justify-end flex px-6 py-3">
                             <button @click="closeModal" class="text-mainButton active:bg-secondTheme font-bold uppercase text-xs px-4 py-2 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                                Cancel
+                                Maybe Later
                             </button>
-                            <button class="w-32 bg-secondTheme text-mainText active:bg-secondTheme font-bold uppercase text-xs px-4 py-2 rounded-xl shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                                OK
+                            <button @click="cancel" class="w-32 bg-secondTheme text-mainText active:bg-secondTheme font-bold uppercase text-xs px-4 py-2 rounded-xl shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                Cancel
                             </button>
                         </div>
                     </div>
@@ -46,6 +46,8 @@
 <script>
 import closebtn from "@/assets/img/close-btn.png";
 
+import { cancelApplication } from "../../service/apiProviderAdoption";
+
 export default {
     props: {
         showModal: Boolean,
@@ -55,10 +57,20 @@ export default {
     data() {
         return {
             closebtn,
+
+            applicationID: this.$route.query.applicationID,
         };
     },
 
     methods: {
+        async cancel() {
+            const result = await cancelApplication(this.applicationID);
+
+            if(result.message == "success") {
+                this.$router.push('/user/application');
+            }
+        },
+
         closeModalOnEsc(event) {
             // Check if the pressed key is 'Esc' (key code 27)
             if (event.keyCode === 27) {

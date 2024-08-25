@@ -1,28 +1,45 @@
 <template>
-  <div class="p-4">
-    <div v-for="application in applications" :key="application.id"
-      class="border border-gray-300 p-4 mb-4 rounded-lg flex items-start space-x-4 cursor-pointer"
-      @click="toApplicationDetails(application.id)">
-      <img :src="application.image" alt="Application Image" class="md:w-4/12 xl:w-3/12 md:h-auto rounded-lg" />
-      <div class="flex-1">
-        <div class="flex justify-between">
-          <div class="items-start space-y-1">
-            <p><strong>Name:</strong> {{ application.name }}</p>
-            <p><strong>Gender:</strong> {{ application.gender }}</p>
-            <p><strong>Age:</strong> {{ application.age }} months</p>
-            <p><strong>Behavior:</strong></p>
-            <ul class="list-disc pl-20">
-              <li v-for="behavior in application.behaviors" :key="behavior">{{ behavior }}</li>
-            </ul>
-            <p><strong>Application Date:</strong> {{ application.date }}</p>
+  <div>
+    <div class="flex justify-center">
+      <div v-if="alertOpen" :class="alertClass">
+        <span class="text-xl inline-block mr-5 align-middle">
+          <i class="fas fa-bell"></i>
+        </span>
+        <span class="inline-block align-middle mr-8">
+          <b class="capitalize">{{ alertType }} ! </b> {{ alertMessage }}
+        </span>
+        <button
+          class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none"
+          @click="closeAlert">
+          <span>×</span>
+        </button>
+      </div>
+    </div>
+    <div class="p-4">
+      <div v-for="application in applications" :key="application.id"
+        class="border border-gray-300 p-4 mb-4 rounded-lg flex items-start space-x-4 cursor-pointer"
+        @click="toApplicationDetails(application.id)">
+        <img :src="application.image" alt="Application Image" class="md:w-4/12 xl:w-3/12 md:h-auto rounded-lg" />
+        <div class="flex-1">
+          <div class="flex justify-between">
+            <div class="items-start space-y-1">
+              <p><strong>Name:</strong> {{ application.name }}</p>
+              <p><strong>Gender:</strong> {{ application.gender }}</p>
+              <p><strong>Age:</strong> {{ application.age }} months</p>
+              <p><strong>Behavior:</strong></p>
+              <ul class="list-disc pl-20">
+                <li v-for="behavior in application.behaviors" :key="behavior">{{ behavior }}</li>
+              </ul>
+              <p><strong>Application Date:</strong> {{ application.date }}</p>
+            </div>
+            <span :class="{
+              'text-yellow-500': application.status === 'PENDING',
+              'text-red-500': application.status === 'FAILED',
+              'text-green-500': application.status === 'APPROVED',
+            }">
+              {{ application.status }}
+            </span>
           </div>
-          <span :class="{
-            'text-yellow-500': application.status === 'PENDING',
-            'text-red-500': application.status === 'FAILED',
-            'text-green-500': application.status === 'APPROVED',
-          }">
-            {{ application.status }}
-          </span>
         </div>
       </div>
     </div>
@@ -82,10 +99,43 @@ export default {
         //   status: 'Approved',
         // },
       ],
+
+      alertOpen: false,
+      alertType: "success",
+      alertMessage: "",
     };
+  },
+  computed: {
+    alertClass() {
+      return {
+        "text-white px-6 py-4 border-0 rounded-full fixed mb-4 z-50 w-6/12 mt-8": true,
+        "bg-orange-500": this.alertType === "waiting",
+        "bg-emerald-500": this.alertType === "success",
+        "bg-red-500": this.alertType === "error",
+      };
+    },
   },
   mounted() {
     this.getAllCreatedPostApi()
+
+    // Check if there's an alert message in sessionStorage
+    const alertType = sessionStorage.getItem('alertType');
+    const alertMessage = sessionStorage.getItem('alertMessage');
+
+    if (alertType && alertMessage) {
+      this.alertType = alertType;
+      this.alertMessage = alertMessage;
+      this.alertOpen = true;
+
+      // Set a timeout to close the alert after 3 seconds
+      setTimeout(() => {
+        this.alertOpen = false;
+      }, 3000);
+
+      // Remove the alert message from sessionStorage
+      sessionStorage.removeItem('alertType');
+      sessionStorage.removeItem('alertMessage');
+    }
   },
   methods: {
     async getAllCreatedPostApi() {

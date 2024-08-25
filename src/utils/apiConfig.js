@@ -121,7 +121,7 @@ export const createAdoption = '/create_application';
 
 export const getAllAdoption = '/application_list';
 
-export const getAllAdoptionDetails = '/application/{applicationID}';
+export const getAdoptionDetails = '/application/{applicationID}';
 
 export const updateAdoption = '/application/update';
 
@@ -143,7 +143,7 @@ export const createAdoptionUrl = adoptionBaseUrl + createAdoption;
 
 export const getAllAdoptionUrl = adoptionBaseUrl + getAllAdoption;
 
-export const getAllAdoptionDetailsUrl = adoptionBaseUrl + getAllAdoptionDetails;
+export const getAdoptionDetailsUrl = adoptionBaseUrl + getAdoptionDetails;
 
 export const updateAdoptionUrl = adoptionBaseUrl + updateAdoption;
 

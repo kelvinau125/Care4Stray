@@ -15,6 +15,9 @@ import {
     updateStrayDetailsUrl,
     createAdoptionUrl,
     getAllAdoptionUrl,
+    getAdoptionDetailsUrl,
+    updateAdoptionUrl,
+    cancelAdoptionUrl,
 } from '@/utils/apiConfig.js';
 
 import VueCookies from 'vue-cookies';
@@ -105,8 +108,6 @@ export async function getStrayDetails(strayID) {
 // Get All Stray List
 export async function getStrayList() {
     const url = baseUrl + getAllStrayListUrl;
-
-    console.log(url)
 
     try {
         const response = await getRequest(url);
@@ -207,6 +208,91 @@ export async function getAllApplicationList() {
 
     } catch (e) {
         console.log(`Unsuccessful in get all application list provider: ${e}`);
+        return false;
+    }
+}
+
+// Get Application Details
+export async function getApplicationDetails(applicationID) {
+    const url = baseUrl + (getAdoptionDetailsUrl.replace("{applicationID}", applicationID));
+
+    try {
+        const response = await getRequestWithToken(url);
+
+        const status = response.status;
+        const data = response.data;
+
+        if (status === 200) {
+            return data.data;
+        } else if (status === 400) {
+            return data.message;
+        } else {
+            console.log(`Unsuccessfully in get application details provider: ${status}`);
+            return false;
+        }
+
+    } catch (e) {
+        console.log(`Unsuccessful in get application details provider: ${e}`);
+        return false;
+    }
+}
+
+// Update Adoption Application
+export async function updateApplication(applicationDetails) {
+    const url = baseUrl + updateAdoptionUrl;
+
+    const apiDetails = applicationDetails;
+
+    try {
+        const response = await postRequestWithToken(url, apiDetails);
+
+        const status = response.status;
+        const data = response.data;
+
+        if (status === 200) {
+            return true;
+        } else if (status === 400) {
+            return data.message;
+        } else {
+            console.log(`Unsuccessfully in update application provider: ${status}`);
+            return false;
+        }
+
+    } catch (e) {
+        console.log(`Unsuccessful in update application provider: ${e}`);
+        return false;
+    }
+}
+
+// Cancel Adoption Application
+export async function cancelApplication(id) {
+    const url = baseUrl + cancelAdoptionUrl;
+
+    const apiDetails = {
+        adoptionId: id
+    };
+
+    apiDetails.user = {
+        id: VueCookies.get("id"),
+    }
+
+    try {
+        const response = await postRequestWithToken(url, apiDetails);
+
+        const status = response.status;
+        const data = response.data;
+
+        if (status === 200) {
+            return data;
+        } else if (status === 400) {
+            return data.message;
+        } else {
+            console.log(`Unsuccessfully in cancel application provider: ${status}`);
+            return false;
+        }
+
+    } catch (e) {
+        console.log(`Unsuccessful in cancel application provider: ${e}`);
         return false;
     }
 }
