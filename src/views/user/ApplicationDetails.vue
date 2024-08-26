@@ -94,9 +94,10 @@
                         </h6>
                     </div>
                 </div>
+                <form @submit.prevent="editApplication()">
                 <div class="flex-auto py-10 pt-0">
                     <hr class=" border-b-1 border-blueGray-300" />
-                    <form>
+                  
                         <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
                             User Information
                         </h6>
@@ -330,17 +331,16 @@
                                 </div>
                             </div>
                         </div>
-
-
-                    </form>
+             
                 </div>
                 <div class="justify-end flex px-3" v-if="isEdit">
                     <button
                         class="w-40 bg-secondTheme text-mainText active:bg-secondTheme font-bold uppercase text-xs px-4 py-2 rounded-xl shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="button">
+                        type="submit">
                         Submit
                     </button>
                 </div>
+            </form>
             </div>
         </div>
     </div>
@@ -415,7 +415,7 @@ export default {
     },
 
     methods: {
-        async submitApplication() {
+        async editApplication() {
             this.alertOpen = true;
             this.alertType = "waiting";
             this.alertMessage = "Please wait, profile is updating! ";
@@ -437,8 +437,13 @@ export default {
                 const result = await updateApplication(this.applicationDetails);
                 if (result) {
                     // Store success message in sessionStorage before refreshing
-                    sessionStorage.setItem('alertType', 'success');
-                    sessionStorage.setItem('alertMessage', 'Application upload successfully!');
+                    this.alertType = "success";
+                    this.alertMessage = "Application update successful";
+                    this.alertOpen = true;
+
+                    setTimeout(() => {
+                    this.alertOpen = false;
+                    }, 1000); // Close alert after 3 seconds
 
                     this.$router.push('/user/applicationdetails')
                 }

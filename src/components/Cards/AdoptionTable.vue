@@ -67,8 +67,7 @@
                             </span>
                         </td>
 
-                        <td
-                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
                             v-if="(project.status == 'pending')">
                             <a class="text-blueGray-500 py-1 px-3" href="#pablo" :ref="'btnDropdownRef' + index"
                                 @click.native.stop="toggleDropdown(index, $event)">
@@ -82,11 +81,11 @@
                                 }">
                                 <a href="javascript:void(0);"
                                     class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-                                   Approve
+                                    Approve
                                 </a>
                                 <a href="javascript:void(0);"
                                     class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-                                   Reject
+                                    Reject
                                 </a>
                             </div>
                         </td>
@@ -99,6 +98,8 @@
 
 <script>
 import { createPopper } from "@popperjs/core";
+
+import { getAllApplicationList } from '../../service/apiProviderAdoption';
 
 export default {
     components: {
@@ -116,33 +117,33 @@ export default {
                 { text: '' } // Empty header cell if needed
             ],
             projects: [
-                {
-                    id: "1",
-                    date: "2024/12/5",
-                    image: require('@/assets/img/team-1-800x800.jpg').default,
-                    name: "kelvin",
-                    strayimage: require('@/assets/img/team-2-800x800.jpg').default,
-                    strayname: "kelvin123",
-                    status: "pending",
-                },
-                {
-                    id: "2",
-                    date: "2024/12/5",
-                    image: require('@/assets/img/team-1-800x800.jpg').default,
-                    name: "kelvin",
-                    strayimage: require('@/assets/img/team-2-800x800.jpg').default,
-                    strayname: "kelvin123",
-                    status: "rejected",
-                },
-                {
-                    id: "3",
-                    date: "2024/12/5",
-                    image: require('@/assets/img/team-1-800x800.jpg').default,
-                    name: "kelvin",
-                    strayimage: require('@/assets/img/team-2-800x800.jpg').default,
-                    strayname: "kelvin123",
-                    status: "approve",
-                }
+                // {
+                //     id: "1",
+                //     date: "2024/12/5",
+                //     image: require('@/assets/img/team-1-800x800.jpg').default,
+                //     name: "kelvin",
+                //     strayimage: require('@/assets/img/team-2-800x800.jpg').default,
+                //     strayname: "kelvin123",
+                //     status: "pending",
+                // },
+                // {
+                //     id: "2",
+                //     date: "2024/12/5",
+                //     image: require('@/assets/img/team-1-800x800.jpg').default,
+                //     name: "kelvin",
+                //     strayimage: require('@/assets/img/team-2-800x800.jpg').default,
+                //     strayname: "kelvin123",
+                //     status: "rejected",
+                // },
+                // {
+                //     id: "3",
+                //     date: "2024/12/5",
+                //     image: require('@/assets/img/team-1-800x800.jpg').default,
+                //     name: "kelvin",
+                //     strayimage: require('@/assets/img/team-2-800x800.jpg').default,
+                //     strayname: "kelvin123",
+                //     status: "approve",
+                // }
             ]
         }
     },
@@ -152,7 +153,26 @@ export default {
             default: 'light'
         },
     },
+    mounted() {
+        this.getAllCreatedPostApi()
+    },
     methods: {
+        async getAllCreatedPostApi() {
+            this.getList = await getAllApplicationList();
+
+            for (let i = 0; i < this.getList.length; i++) {
+                this.projects.push({
+                    id: this.getList[i]["adoptionId"],
+                    date: new Date(this.getList[i]["applicationDate"]).toISOString().split('T')[0],
+                    image: this.getList[i]["user"]["userAvatar"],
+                    name: this.getList[i]["user"]["firstName"] + " " + this.getList[i]["user"]["lastName"],
+                    strayimage: this.getList[i]["stray"]["mainPicture"],
+                    strayname: this.getList[i]["stray"]["name"],
+                    status: this.getList[i]["stray"]["status"],
+                });
+            }
+        },
+
         toApplicationDetails(id) {
             // Push
             this.$router.push({
