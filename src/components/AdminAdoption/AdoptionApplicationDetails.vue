@@ -22,32 +22,13 @@
                                 <strong>Application Status: </strong>
                                 <span :class="{
                                     'text-yellow-500': application.status === 'PENDING',
-                                    'text-red-500': application.status === 'FAILED',
-                                    'text-green-500': application.status === 'APPROVED',
+                                    'text-red-500': application.status === 'ADOPTION_FAILED',
+                                    'text-green-500': application.status === 'ADOPTED',
                                 }">
                                     {{ application.status }}
                                 </span>
                             </p>
                         </div>
-
-                        <button v-if="application.status === 'PENDING'" ref="btnRef" v-on:click="togglePopover()"
-                            class="flex items-start hover:text-mainText outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 h-8"
-                            type="button">
-                            <i class="fas fa-ellipsis-v text-mainText text-xl"></i>
-                        </button>
-
-                        <div ref="popoverRef" v-bind:class="{ 'hidden': !popoverShow, 'block': popoverShow }"
-                            class="bg-mainTheme border-0 mr-3 block z-50 font-normal leading-normal text-sm max-w-xs text-left no-underline break-words rounded-lg">
-                            <button href="javascript:void(0);" @click="showCancelModal"
-                                class="text-sm py-2 px-4 font-normal w-full whitespace-nowrap bg-transparent text-blueGray-700 flex items-center">
-                                <i class="fas fa-times text-mainText text-lg mr-2"></i> Cancel Application
-                            </button>
-                            <button href="javascript:void(0);" @click="showModal"
-                                class="text-sm py-2 px-4 font-normal w-full whitespace-nowrap bg-transparent text-blueGray-700 flex items-center">
-                                <i class="fas fa-edit text-mainText text-base mr-1"></i> Edit Application
-                            </button>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -287,15 +268,15 @@
 
                     </form>
                 </div>
-                <div class="justify-end flex px-3 space-x-4 pt-4">
+                <div class="justify-end flex px-3 space-x-4 pt-4" v-if="application.status === 'PENDING'">
                     <button
                         class="w-40 bg-red-500 text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded-xl shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="button">
+                        @click="reject(application.id)">
                         Reject
                     </button>
                     <button
                         class="w-40 bg-emerald-500 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded-xl shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="button">
+                        @click="approve(application.id)">
                         Approve
                     </button>
                 </div>
@@ -315,6 +296,8 @@ import CancelApplicationModal from "@/components/Application/CancelApplicationMo
 import { createPopper } from "@popperjs/core";
 import { ref } from "vue";
 
+import { getApplicationDetails, updateStrayStatus } from "../../service/apiProviderAdoption";
+
 export default {
     components: {
         EditApplicationModal,
@@ -327,43 +310,85 @@ export default {
             isModalVisible: ref(false),
             isCancelModalVisible: ref(false),
 
-            isEdit: true,
+            isEdit: false,
 
             application: {
-                id: 1,
-                image: require('@/assets/img/team-1-800x800.jpg').default,
-                name: 'Doggy',
-                gender: 'Female',
-                age: 21,
-                behaviors: [
-                    'Affectionate feline',
-                    'Good with human',
-                    'Good for Beginner Adopter',
-                    'Good with other pets',
-                ],
-                date: '1/7/2024',
-                status: 'Pending',
+                id: "",
+                image: "",
+                name: '',
+                gender: '',
+                age: '',
+                behaviors: [],
+                date: '',
+                status: '',
             },
 
             vaccine,
             worm,
 
             adopter: {
-                firstName: 'Lucky',
-                lastName: 'Jesse',
-                dateOfBirth: '2024-01-07',
-                gender: 'male',
-                phoneNumber: '0123456789',
-                address: 'Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09',
-                city: 'New York',
-                state: 'kualaLumpur',
-                postalCode: '51200',
-                occupation: 'other',
-            }
+                firstName: '',
+                lastName: '',
+                dateOfBirth: '',
+                gender: '',
+                phoneNumber: '',
+                address: '',
+                city: '',
+                state: '',
+                postal: '',
+                occupation: '',
+            },
+
+            applicationID: this.$route.query.applicationID,
         };
     },
-
+    mounted() {
+        this.getDetailsApi();
+    },
     methods: {
+        async getDetailsApi() {
+            const result = await getApplicationDetails(this.applicationID);
+
+            this.application = {
+                id: result.stray.strayId,
+                image: result.stray.mainPicture,
+                name: result.stray.name,
+                gender: result.stray.gender,
+                age: result.stray.age,
+                behaviors: result.stray.behaviour,
+                vaccined: result.stray.isVaccinated,
+                dewormed: result.stray.isDewormed,
+                date: new Date(result.applicationDate).toISOString().split('T')[0],
+                status: result.stray.status,
+            };
+
+            this.adopter = {
+                firstName: result.user.firstName,
+                lastName: result.user.lastName,
+                dateOfBirth: result.user.dateOfBirth,
+                gender: result.user.gender,
+                phoneNumber: result.user.phoneNumber,
+                address: result.user.address,
+                city: result.user.city,
+                state: result.user.state,
+                postal: result.user.postal,
+                occupation: result.user.occupation,
+            };
+        },
+        async approve(id) {
+            const result = await updateStrayStatus("ADOPTED", id);
+
+            if(result) {
+                window.location.reload()
+            }
+        },
+        async reject(id) {
+            const result = await updateStrayStatus("ADOPTION_FAILED", id);
+
+            if(result) {
+                window.location.reload()
+            }
+        },
         togglePopover: function () {
             if (this.popoverShow) {
                 this.hidePopover();
@@ -425,6 +450,6 @@ export default {
 <style scoped>
 .disabled-bg {
     background-color: rgba(220, 226, 208, 1);
-    opacity: 0.5;
+    opacity: 1;
 }
 </style>

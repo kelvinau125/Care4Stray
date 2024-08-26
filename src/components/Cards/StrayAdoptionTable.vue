@@ -34,7 +34,8 @@
                 </thead>
 
                 <tbody>
-                    <tr v-for="(project, index) in projects" :key="index" @click="toStrayDetails(project.id)" class="cursor-pointer">
+                    <tr v-for="(project, index) in projects" :key="index" @click="toStrayDetails(project.id)"
+                        class="cursor-pointer">
                         <th
                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
                             <img :src="project.strayimage" class="h-12 w-12 bg-white rounded-full border" alt="..." />
@@ -89,7 +90,8 @@
                                     EDIT
                                 </a>
                                 <a href="javascript:void(0);"
-                                    class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
+                                    class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                    @click.native.stop="toDelete(project.id)">
                                     DELETE
                                 </a>
                             </div>
@@ -104,6 +106,7 @@
 <script>
 import { createPopper } from "@popperjs/core";
 import { getAllStrayList } from "@/service/apiProviderAdoption";
+import { deletePost } from "../../service/apiProviderPost";
 
 export default {
     components: {
@@ -184,14 +187,10 @@ export default {
 
         statusColor(status) {
             switch (status) {
-                case 'UNDER_REVIEW':
-                    return 'text-orange-500';
                 case 'AVAILABLE':
                     return 'text-emerald-500';
-                case 'ADOPTION_FAILED':
-                    return 'text-red-500';
                 case 'ADOPTED':
-                    return 'text-gray-500';
+                    return 'text-red-500';
                 default:
                     return 'text-gray-500';
             }
@@ -222,6 +221,19 @@ export default {
                     strayID: id,
                 },
             });
+        },
+
+        async toDelete(id) {
+            const originalProjects = [...this.projects];
+            this.projects = this.projects.filter(project => project.id !== id);
+
+            this.hideDropdown();
+
+            const result = await deletePost(id);
+
+            if (!result) {
+                this.projects = originalProjects; 
+            }
         },
 
         toggleDropdown(index, event) {

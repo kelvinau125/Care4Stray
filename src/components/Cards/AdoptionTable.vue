@@ -68,7 +68,7 @@
                         </td>
 
                         <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
-                            v-if="(project.status == 'pending')">
+                            v-if="(project.status == 'PENDING')">
                             <a class="text-blueGray-500 py-1 px-3" href="#pablo" :ref="'btnDropdownRef' + index"
                                 @click.native.stop="toggleDropdown(index, $event)">
                                 <i class="fas fa-ellipsis-v"></i>
@@ -80,12 +80,14 @@
                                     block: dropdownIndex === index,
                                 }">
                                 <a href="javascript:void(0);"
-                                    class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-                                    Approve
+                                    class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                    @click.native.stop="approve(project.strayid)">
+                                    APPROVE
                                 </a>
                                 <a href="javascript:void(0);"
-                                    class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-                                    Reject
+                                    class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                    @click.native.stop="reject(project.strayid)">
+                                    REJECT
                                 </a>
                             </div>
                         </td>
@@ -99,7 +101,7 @@
 <script>
 import { createPopper } from "@popperjs/core";
 
-import { getAllApplicationList } from '../../service/apiProviderAdoption';
+import { getAdminAllApplicationList, updateStrayStatus } from '../../service/apiProviderAdoption';
 
 export default {
     components: {
@@ -158,7 +160,7 @@ export default {
     },
     methods: {
         async getAllCreatedPostApi() {
-            this.getList = await getAllApplicationList();
+            this.getList = await getAdminAllApplicationList();
 
             for (let i = 0; i < this.getList.length; i++) {
                 this.projects.push({
@@ -166,6 +168,7 @@ export default {
                     date: new Date(this.getList[i]["applicationDate"]).toISOString().split('T')[0],
                     image: this.getList[i]["user"]["userAvatar"],
                     name: this.getList[i]["user"]["firstName"] + " " + this.getList[i]["user"]["lastName"],
+                    strayid: this.getList[i]["stray"]["strayId"],
                     strayimage: this.getList[i]["stray"]["mainPicture"],
                     strayname: this.getList[i]["stray"]["name"],
                     status: this.getList[i]["stray"]["status"],
@@ -183,13 +186,42 @@ export default {
             });
         },
 
+        async approve(id) {
+            const originalStatus = this.updateProjectStatus(id, 'ADOPTED'); 
+
+            const result = await updateStrayStatus("ADOPTED", id);
+
+            if (!result) {
+                 this.updateProjectStatus(id, originalStatus);
+            }
+        },
+        async reject(id) {
+            const originalStatus = this.updateProjectStatus(id, 'ADOPTION_FAILED');
+
+            const result = await updateStrayStatus("ADOPTION_FAILED", id);
+
+            if (!result) {
+               this.updateProjectStatus(id, originalStatus); 
+            }
+        },
+
+        updateProjectStatus(id, newStatus) {
+        const project = this.projects.find(project => project.strayid === id);
+        if (project) {
+            const originalStatus = project.status;
+            project.status = newStatus;
+            return originalStatus; 
+        }
+        return null; 
+    },
+
         statusColor(status) {
             switch (status) {
-                case 'pending':
+                case 'PENDING':
                     return 'text-orange-500';
-                case 'approve':
+                case 'ADOPTED':
                     return 'text-emerald-500';
-                case 'rejected':
+                case 'ADOPTION_FAILED':
                     return 'text-red-500';
                 default:
                     return 'text-gray-500';

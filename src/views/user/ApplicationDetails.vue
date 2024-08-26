@@ -609,7 +609,7 @@ export default {
 <style scoped>
 .disabled-bg {
     background-color: rgba(220, 226, 208, 1);
-    opacity: 0.5;
+    opacity: 0.8;
 }
 
 .loading-overlay {

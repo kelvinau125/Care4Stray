@@ -15,6 +15,7 @@ import {
     getCommentListUrl,
     getCreatedListByUserIDUrl,
     searchPostUrl,
+    deletePostUrl,
 } from '@/utils/apiConfig.js';
 
 import VueCookies from 'vue-cookies';
@@ -297,6 +298,35 @@ export async function searchAllPost(userID, searchKeyword) {
 
     } catch (e) {
         console.log(`Unsuccessful in search post provider: ${e}`);
+        return false;
+    }
+}
+
+// Delete Post - Admin
+export async function deletePost(id) {
+    const url = baseUrl + deletePostUrl;
+
+    const apiDetails = {
+        strayId: id,
+    };
+
+    try {
+        const response = await postRequestWithToken(url, apiDetails);
+
+        const status = response.status;
+        const data = response.data;
+
+        if (status === 200) {
+            return true;
+        } else if (status === 400) {
+            return data.message;
+        } else {
+            console.log(`Unsuccessfully in delete post provider: ${status}`);
+            return false;
+        }
+
+    } catch (e) {
+        console.log(`Unsuccessful in delete post provider: ${e}`);
         return false;
     }
 }

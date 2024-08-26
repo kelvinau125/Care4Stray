@@ -121,11 +121,15 @@ export const createAdoption = '/create_application';
 
 export const getAllAdoption = '/application_list';
 
+export const getAdminAllAdoption = '/application_list_admin';
+
 export const getAdoptionDetails = '/application/{applicationID}';
 
 export const updateAdoption = '/application/update';
 
 export const cancelAdoption = '/application/cancel';
+
+export const deletePost = '/delete_stray'
 
 export const createStrayUrl = adoptionAdminBaseUrl + createStray;
 
@@ -143,11 +147,15 @@ export const createAdoptionUrl = adoptionBaseUrl + createAdoption;
 
 export const getAllAdoptionUrl = adoptionBaseUrl + getAllAdoption;
 
+export const getAdminAllAdoptionUrl = adoptionAdminBaseUrl + getAdminAllAdoption;
+
 export const getAdoptionDetailsUrl = adoptionBaseUrl + getAdoptionDetails;
 
 export const updateAdoptionUrl = adoptionBaseUrl + updateAdoption;
 
 export const cancelAdoptionUrl = adoptionBaseUrl + cancelAdoption;
+
+export const deletePostUrl = adoptionAdminBaseUrl + deletePost;
 
 // Post
 export const postBaseUrl = userBaseUrl + '/post';
@@ -189,7 +197,6 @@ export const getCommentListUrl = postBaseUrl + getCommentList;
 export const getCreatedListByUserIDUrl = postBaseUrl + getCreatedListByUserID;
 
 export const searchPostUrl = postBaseUrl + searchPost;
-
 
 
 
