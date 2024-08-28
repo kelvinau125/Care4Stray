@@ -44,8 +44,8 @@
                                 <strong>Application Status: </strong>
                                 <span :class="{
                                     'text-yellow-500': application.status === 'PENDING',
-                                    'text-red-500': application.status === 'FAILED',
-                                    'text-green-500': application.status === 'APPROVED',
+                                    'text-red-500': application.status === 'ADOPTION_FAILED',
+                                    'text-green-500': application.status === 'ADOPTED',
                                 }">
                                     {{ application.status }}
                                 </span>

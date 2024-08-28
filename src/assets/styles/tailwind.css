@@ -2752,6 +2752,10 @@ select {
   margin-top: 8rem;
 }
 
+.mb-32 {
+  margin-bottom: 8rem;
+}
+
 .mt-48 {
   margin-top: 12rem;
 }

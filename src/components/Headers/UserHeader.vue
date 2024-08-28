@@ -28,7 +28,7 @@ export default {
         return 'Post'
       }
       else if (this.$route.path === '/user/search') {
-        return this.searchKeyword || 'Search';
+        return "Search findings for '" + this.searchKeyword + "'"|| 'Search';
       }
       else {
         return 'Adoption Application'

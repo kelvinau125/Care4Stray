@@ -4,7 +4,20 @@
       <CreatePostComponent />
     </div>
     <div>
-      <PostComponent v-for="post in posts" :key="post.id" :post="post" @like-post="handleLikePost" />
+      <!-- Show loading spinner while data is being fetched -->
+      <div v-if="isLoading" class="flex justify-center items-center mt-32 mb-32">
+        <img src="@/assets/img/pageloading.gif" style="width: 12rem;height: 12rem;" />
+      </div>
+
+      <!-- Show "nothing here" image if no posts are available and loading is complete -->
+      <div v-else-if="posts.length === 0" class="flex justify-center items-center mt-32 mb-32">
+        <img src="@/assets/img/nothinghere.png" style="width: 11rem;height: 12rem;" />
+      </div>
+
+      <!-- Display posts if available -->
+      <div v-else>
+        <PostComponent v-for="post in posts" :key="post.id" :post="post" @like-post="handleLikePost" />
+      </div>
     </div>
   </div>
 </template>
@@ -47,6 +60,7 @@ export default {
         // },
       ],
 
+      isLoading: true
     };
   },
   mounted() {
@@ -91,6 +105,8 @@ export default {
           duration: this.getList[i]["duration"],
         });
       }
+
+      this.isLoading = false
     },
   },
 };
