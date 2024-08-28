@@ -28,7 +28,15 @@
         </thead>
 
         <tbody>
-          <tr v-for="(project, index) in projects" :key="index">
+          <tr v-if="isLoading">
+            <td colspan="8" class="text-center">
+              <div class="flex justify-center items-center mt-2">
+                <img src="@/assets/img/pageloading.gif" style="width: 12rem; height: 12rem;" />
+              </div>
+            </td>
+          </tr>
+
+          <tr v-else v-for="(project, index) in projects" :key="index">
             <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
               <div class="flex">
                 {{ project.date }}
@@ -61,7 +69,9 @@ export default {
           date: "2024/15/2",
           details: "Kelvin",
         }
-      ]
+      ],
+
+      isLoading: false,
     }
   },
   props: {

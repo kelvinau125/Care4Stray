@@ -35,7 +35,16 @@
                 </thead>
 
                 <tbody>
-                    <tr v-for="(project, index) in projects" :key="index" @click="toApplicationDetails(project.id)">
+
+                    <tr v-if="isLoading">
+                        <td colspan="5" class="text-center">
+                            <div class="flex justify-center items-center mt-2">
+                                <img src="@/assets/img/pageloading.gif" style="width: 12rem; height: 12rem;" />
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr v-else v-for="(project, index) in projects" :key="index" @click="toApplicationDetails(project.id)">
                         <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                             <div class="flex">
                                 {{ project.date }}
@@ -146,7 +155,9 @@ export default {
                 //     strayname: "kelvin123",
                 //     status: "approve",
                 // }
-            ]
+            ],
+
+            isLoading: true,
         }
     },
     props: {
@@ -174,6 +185,8 @@ export default {
                     status: this.getList[i]["stray"]["status"],
                 });
             }
+
+            this.isLoading = true;
         },
 
         toApplicationDetails(id) {
@@ -187,12 +200,12 @@ export default {
         },
 
         async approve(id) {
-            const originalStatus = this.updateProjectStatus(id, 'ADOPTED'); 
+            const originalStatus = this.updateProjectStatus(id, 'ADOPTED');
 
             const result = await updateStrayStatus("ADOPTED", id);
 
             if (!result) {
-                 this.updateProjectStatus(id, originalStatus);
+                this.updateProjectStatus(id, originalStatus);
             }
         },
         async reject(id) {
@@ -201,19 +214,19 @@ export default {
             const result = await updateStrayStatus("ADOPTION_FAILED", id);
 
             if (!result) {
-               this.updateProjectStatus(id, originalStatus); 
+                this.updateProjectStatus(id, originalStatus);
             }
         },
 
         updateProjectStatus(id, newStatus) {
-        const project = this.projects.find(project => project.strayid === id);
-        if (project) {
-            const originalStatus = project.status;
-            project.status = newStatus;
-            return originalStatus; 
-        }
-        return null; 
-    },
+            const project = this.projects.find(project => project.strayid === id);
+            if (project) {
+                const originalStatus = project.status;
+                project.status = newStatus;
+                return originalStatus;
+            }
+            return null;
+        },
 
         statusColor(status) {
             switch (status) {

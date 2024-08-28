@@ -28,7 +28,15 @@
                 </thead>
 
                 <tbody>
-                    <tr v-for="(project, index) in projects" :key="index" @click="toUserProfile(project.id)">
+                    <tr v-if="isLoading">
+                        <td colspan="8" class="text-center">
+                            <div class="flex justify-center items-center mt-2">
+                                <img src="@/assets/img/pageloading.gif" style="width: 12rem; height: 12rem;" />
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr v-else v-for="(project, index) in projects" :key="index" @click="toUserProfile(project.id)">
                         <th
                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
                             <img :src="project.image" class="h-12 w-12 bg-white rounded-full border" alt="..." />
@@ -94,7 +102,6 @@
 import { createPopper } from "@popperjs/core";
 
 import { getUserList, updateUserStatus } from '@/service/apiProviderAuth';
-
 export default {
     data() {
         return {
@@ -140,7 +147,9 @@ export default {
                 //     numberAdopted: "1",
                 //     status: "active",
                 // },
-            ]
+            ],
+
+            isLoading: true,
         }
     },
     props: {
@@ -165,6 +174,8 @@ export default {
                     status: this.getUserList[i]["userStatus"],
                 });
             }
+
+            this.isLoading = false
         },
 
         async toUpdateStatus(id, status) {
