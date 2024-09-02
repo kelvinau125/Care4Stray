@@ -49,7 +49,7 @@
 
                         <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                             <div class="flex pl-10">
-                                <i :class="project.isAdopted === 'yes' ? 'fas fa-check' : 'fas fa-times'"></i>
+                                <i :class="(project.isAdopted) ? 'fas fa-check' : 'fas fa-times'"></i>
                             </div>
                         </td>
 
@@ -166,12 +166,12 @@ export default {
             this.getUserList = await getUserList();
             for (let i = 0; i < this.getUserList.length; i++) {
                 this.projects.push({
-                    id: this.getUserList[i]["id"],
-                    image: this.getUserList[i]["userAvatar"],
-                    name: this.getUserList[i]["firstName"] + " " + this.getUserList[i]["lastName"],
-                    isAdopted: "yes",
-                    numberAdopted: "123",
-                    status: this.getUserList[i]["userStatus"],
+                    id: this.getUserList[i]["user"]["id"],
+                    image: this.getUserList[i]["user"]["userAvatar"],
+                    name: this.getUserList[i]["user"]["firstName"] + " " + this.getUserList[i]["user"]["lastName"],
+                    isAdopted: this.getUserList[i]["adoptedStray"],
+                    numberAdopted: this.getUserList[i]["totalAdoptedStray"],
+                    status: this.getUserList[i]["user"]["userStatus"],
                 });
             }
 
