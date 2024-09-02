@@ -101,6 +101,9 @@ export default {
 
       this.numPost = postResult.total;
       this.percPost = postResult.percentageIncrease;
+
+      // this.numNoti = notificationResult.total;
+      // this.percNoti = notificationResult.percentageIncrease;
     },
   }
 };
