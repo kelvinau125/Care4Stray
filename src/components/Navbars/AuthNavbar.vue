@@ -15,8 +15,10 @@
           to="/">
           Care4Stray
         </router-link>
+
+        <div v-if="!isLogin"></div>
         
-        <div class="md:mt-auto block md:hidden">
+        <div v-if="isLogin" class="md:mt-auto block md:hidden">
           <user-dropdown />
         </div>
       </div>
@@ -24,7 +26,7 @@
       <div class="lg:flex flex-grow items-center bg-white lg:bg-opacity-0 lg:shadow-none"
         :class="[navbarOpen ? 'block rounded shadow-lg' : 'hidden']" id="example-navbar-warning">
 
-        <div class="flex w-full flex-wrap items-stretch px-4 pt-4"
+        <div v-if="isLogin" class="flex w-full flex-wrap items-stretch px-4 pt-4"
         :class="[navbarOpen ? 'block' : 'hidden']">
           <span
             class="z-10 h-full leading-snug font-normal text-center text-blueGray-600 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3">
@@ -35,7 +37,7 @@
         </div>
 
         <!-- Divider -->
-        <hr class="mx-4 mt-6" />
+        <hr v-if="isLogin" class="mx-4 mt-6" />
 
         <ul class="flex flex-col lg:flex-row list-none lg:ml-auto pt-2">
           <li class="flex items-center">
@@ -71,9 +73,17 @@
           </li>
 
           <!-- Divider -->
-          <hr class="mx-4 my-2" />
+          <hr v-if="isLogin" class="mx-4 my-2" />
 
-          <li class="flex items-center" :class="[navbarOpen ? 'block' : 'hidden']">
+          <li v-if="isLogin" class="flex items-center" :class="[navbarOpen ? 'block' : 'hidden']">
+            <router-link
+              class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+              to="/user" @click.native="closeNavbar">
+              Home
+            </router-link>
+          </li>
+
+          <li v-if="isLogin" class="flex items-center" :class="[navbarOpen ? 'block' : 'hidden']">
             <router-link
               class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
               to="/user/notification" @click.native="closeNavbar">
@@ -81,7 +91,7 @@
             </router-link>
           </li>
 
-          <li class="flex items-center" :class="[navbarOpen ? 'block' : 'hidden']">
+          <li v-if="isLogin" class="flex items-center" :class="[navbarOpen ? 'block' : 'hidden']">
             <router-link
               class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
               to="/user/application" @click.native="closeNavbar">
@@ -98,6 +108,8 @@
 import headerBackground from "@/assets/img/header-background.png";
 import UserDropdown from "@/components/Dropdowns/UserDropdown.vue";
 
+import VueCookies from 'vue-cookies';
+
 export default {
   components: {
     UserDropdown,
@@ -107,6 +119,8 @@ export default {
     return {
       navbarOpen: false,
       headerBackground,
+
+      isLogin: VueCookies.isKey('email'),
     };
   },
 

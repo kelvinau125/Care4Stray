@@ -11,7 +11,7 @@
           <i v-if="alertType !== 'waiting'" class="fas fa-bell"></i>
           <i v-if="alertType === 'waiting'" class="fas fa-spinner"></i>
         </span>
-        <span class="inline-block align-middle mr-8">
+        <span class="align-middle mr-8">
           <b class="capitalize">{{ alertType }} ! </b> {{ alertMessage }}
         </span>
         <button

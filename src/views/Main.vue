@@ -8,7 +8,7 @@
           <span class="text-xl inline-block mr-5 align-middle">
             <i class="fas fa-bell"></i>
           </span>
-          <span class="inline-block align-middle mr-8">
+          <span class="align-middle mr-8">
             <b class="capitalize">{{ alertType }} ! </b> {{ alertMessage }}
           </span>
           <button
@@ -568,7 +568,7 @@ export default {
 /* Small screens (smaller than 768px) */
 @media screen and (max-width: 447px) {
   .rightside {
-    height: 1580px;
+    height: auto;
   }
 
   .rightspace {

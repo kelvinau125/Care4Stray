@@ -11,7 +11,7 @@
         <span class="text-xl inline-block mr-5 align-middle">
           <i class="fas fa-bell"></i>
         </span>
-        <span class="inline-block align-middle mr-8">
+        <span class="align-middle mr-8">
           <b class="capitalize">{{ alertType }} ! </b> {{ alertMessage }}
         </span>
         <button

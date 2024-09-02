@@ -4,8 +4,8 @@
     <main>
       <section class="relative w-full h-full py-40 min-h-screen">
         <div class="container mx-auto px-4 h-full">
-          <div class="flex content-center items-center justify-center h-full">
-            <img :src="contactus" alt="contact picture" class="w-full lg:w-6/12 px-4 pr-4"/>
+          <div class="flex flex-col lg:flex-row content-center items-center justify-center h-full">
+            <img :src="contactus" alt="contact picture" class="w-full lg:w-6/12 px-4 pr-4 mb-8"/>
             <div class="w-full lg:w-6/12 px-4">
               <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-secondaryMain border-mainText border-2">
                 <div class="rounded-t mb-0 px-6 py-6">

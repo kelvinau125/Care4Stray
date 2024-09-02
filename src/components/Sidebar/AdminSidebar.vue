@@ -58,7 +58,7 @@
           </div>
         </div>
         <!-- Form -->
-        <form class="mt-6 mb-4 md:hidden">
+        <!-- <form class="mt-6 mb-4 md:hidden">
           <div class="mb-3 pt-0">
             <input
               type="text"
@@ -66,10 +66,12 @@
               class="border-0 px-3 py-2 h-12 border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal"
             />
           </div>
-        </form>
+        </form> -->
 
         <!-- Divider -->
-        <hr class="my-4 md:min-w-full" />
+        <!-- <hr class="my-4 md:min-w-full" /> -->
+
+        
         <!-- Heading -->
         <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
           Stray Control Pages
