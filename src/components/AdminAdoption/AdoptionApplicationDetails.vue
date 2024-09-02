@@ -501,4 +501,17 @@ export default {
     background-color: rgba(220, 226, 208, 1);
     opacity: 1;
 }
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9;
+}
 </style>

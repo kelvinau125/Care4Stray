@@ -1,6 +1,12 @@
 <template>
   <div>
     <div class="flex justify-center">
+
+      <!-- Loading Overlay -->
+      <div v-if="alertType === 'waiting'" class="loading-overlay">
+      </div>
+
+      <!-- Alert Box -->
       <div v-if="alertOpen" :class="alertClass">
         <span class="text-xl inline-block mr-5 align-middle">
           <i class="fas fa-bell"></i>
@@ -14,6 +20,8 @@
           <span>×</span>
         </button>
       </div>
+
+
     </div>
     <div class="border border-gray-300 mb-4 rounded-lg">
       <div class="p-4 flex flex-col min-w-0 break-words w-full mb-4">
@@ -419,5 +427,18 @@ export default {
 <style scoped>
 .cursor-pointer {
   cursor: pointer;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9;
 }
 </style>
