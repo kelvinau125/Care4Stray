@@ -131,6 +131,8 @@ export const cancelAdoption = '/application/cancel';
 
 export const deletePost = '/delete_stray'
 
+export const updateApplicationStatus = '/updateApplicationStatus/{applicationID}'
+
 export const createStrayUrl = adoptionAdminBaseUrl + createStray;
 
 export const getAllStrayUrl = adoptionAdminBaseUrl + getAllStray;
@@ -156,6 +158,8 @@ export const updateAdoptionUrl = adoptionBaseUrl + updateAdoption;
 export const cancelAdoptionUrl = adoptionBaseUrl + cancelAdoption;
 
 export const deletePostUrl = adoptionAdminBaseUrl + deletePost;
+
+export const updateApplicationStatusUrl = adoptionAdminBaseUrl + updateApplicationStatus;
 
 // Post
 export const postBaseUrl = userBaseUrl + '/post';

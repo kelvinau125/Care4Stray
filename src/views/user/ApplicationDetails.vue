@@ -43,16 +43,16 @@
                             <p>
                                 <strong>Application Status: </strong>
                                 <span :class="{
-                                    'text-yellow-500': application.status === 'PENDING',
-                                    'text-red-500': application.status === 'ADOPTION_FAILED',
-                                    'text-green-500': application.status === 'ADOPTED',
+                                    'text-yellow-500': application.status === 'ADOPTION_IN_PROGRESS',
+                                    'text-red-500': application.status === 'APPLICATION_FAILURE',
+                                    'text-green-500': application.status === 'APPLICATION_SUCCESS',
                                 }">
                                     {{ application.status }}
                                 </span>
                             </p>
                         </div>
 
-                        <button v-if="application.status === 'PENDING'" ref="btnRef" v-on:click="togglePopover()"
+                        <button v-if="application.status === 'ADOPTION_IN_PROGRESS'" ref="btnRef" v-on:click="togglePopover()"
                             class="flex items-start hover:text-mainText outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 h-8"
                             type="button">
                             <i class="fas fa-ellipsis-v text-mainText text-xl"></i>

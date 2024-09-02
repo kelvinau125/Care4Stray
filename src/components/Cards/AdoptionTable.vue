@@ -44,7 +44,7 @@
                         </td>
                     </tr>
 
-                    <tr v-else v-for="(project, index) in projects" :key="index" @click="toApplicationDetails(project.id)">
+                    <tr v-else v-for="(project, index) in projects" :key="index" @click="toApplicationDetails(project.id)" class="cursor-pointer">
                         <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                             <div class="flex">
                                 {{ project.date }}
@@ -77,7 +77,7 @@
                         </td>
 
                         <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
-                            v-if="(project.status == 'PENDING')">
+                            v-if="(project.status == 'APPLICATION_PENDING')">
                             <a class="text-blueGray-500 py-1 px-3" href="#pablo" :ref="'btnDropdownRef' + index"
                                 @click.native.stop="toggleDropdown(index, $event)">
                                 <i class="fas fa-ellipsis-v"></i>
@@ -90,12 +90,12 @@
                                 }">
                                 <a href="javascript:void(0);"
                                     class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                                    @click.native.stop="approve(project.strayid)">
+                                    @click.native.stop="approve(project.strayid, project.id)">
                                     APPROVE
                                 </a>
                                 <a href="javascript:void(0);"
                                     class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                                    @click.native.stop="reject(project.strayid)">
+                                    @click.native.stop="reject(project.strayid, project.id)">
                                     REJECT
                                 </a>
                             </div>
@@ -110,7 +110,7 @@
 <script>
 import { createPopper } from "@popperjs/core";
 
-import { getAdminAllApplicationList, updateStrayStatus } from '../../service/apiProviderAdoption';
+import { getAdminAllApplicationList, updateApplicationStatus } from '../../service/apiProviderAdoption';
 
 export default {
     components: {
@@ -182,11 +182,11 @@ export default {
                     strayid: this.getList[i]["stray"]["strayId"],
                     strayimage: this.getList[i]["stray"]["mainPicture"],
                     strayname: this.getList[i]["stray"]["name"],
-                    status: this.getList[i]["stray"]["status"],
+                    status: this.getList[i]["adoptionStatus"],
                 });
             }
 
-            this.isLoading = true;
+            this.isLoading = false;
         },
 
         toApplicationDetails(id) {
@@ -199,22 +199,22 @@ export default {
             });
         },
 
-        async approve(id) {
-            const originalStatus = this.updateProjectStatus(id, 'ADOPTED');
+        async approve(strayid, applicationid) {
+            const originalStatus = this.updateProjectStatus(strayid, 'APPLICATION_SUCCESS');
 
-            const result = await updateStrayStatus("ADOPTED", id);
+            const result = await updateApplicationStatus("APPLICATION_SUCCESS", strayid, applicationid);
 
             if (!result) {
-                this.updateProjectStatus(id, originalStatus);
+                this.updateProjectStatus(strayid, originalStatus);
             }
         },
-        async reject(id) {
-            const originalStatus = this.updateProjectStatus(id, 'ADOPTION_FAILED');
+        async reject(strayid, applicationid) {
+            const originalStatus = this.updateProjectStatus(strayid, 'APPLICATION_FAILURE');
 
-            const result = await updateStrayStatus("ADOPTION_FAILED", id);
+            const result = await updateApplicationStatus("APPLICATION_FAILURE", strayid, applicationid);
 
             if (!result) {
-                this.updateProjectStatus(id, originalStatus);
+                this.updateProjectStatus(strayid, originalStatus);
             }
         },
 
@@ -230,11 +230,11 @@ export default {
 
         statusColor(status) {
             switch (status) {
-                case 'PENDING':
+                case 'APPLICATION_PENDING':
                     return 'text-orange-500';
-                case 'ADOPTED':
+                case 'APPLICATION_SUCCESS':
                     return 'text-emerald-500';
-                case 'ADOPTION_FAILED':
+                case 'APPLICATION_FAILURE':
                     return 'text-red-500';
                 default:
                     return 'text-gray-500';

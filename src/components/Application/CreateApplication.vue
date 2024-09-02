@@ -137,9 +137,9 @@
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                         v-model="adopter.gender" required>
                                         <option value="">Select Gender</option>
-                                        <option value="MALE">Male</option>
-                                        <option value="FEMALE">Female</option>
-                                        <option value="OTHER">Other</option>
+                                        <option value="MALE">MALE</option>
+                                        <option value="FEMALE">FEMALE</option>
+                                        <option value="OTHER">OTHER</option>
                                     </select>
                                     <span v-if="validationErrors.gender" class="text-red-500 text-xs">{{
                                         validationErrors.gender }}</span>

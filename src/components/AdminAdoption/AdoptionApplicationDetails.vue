@@ -3,6 +3,28 @@
         <EditApplicationModal :showModal="isModalVisible" :closeModal="closeModal" />
         <CancelApplicationModal :showModal="isCancelModalVisible" :closeModal="closeCancelModal" />
 
+        <!-- Loading Overlay -->
+        <div v-if="alertType === 'waiting'" class="loading-overlay">
+        </div>
+
+        <!-- Alert Box -->
+        <div class="flex justify-center">
+            <div v-if="alertOpen" :class="alertClass" style="margin-top: -100px;">
+                <span class="text-xl inline-block mr-5 align-middle">
+                    <i v-if="alertType !== 'waiting'" class="fas fa-bell"></i>
+                    <i v-if="alertType === 'waiting'" class="fas fa-spinner"></i>
+                </span>
+                <span class="inline-block align-middle mr-8">
+                    <b class="capitalize">{{ alertType }} ! </b> {{ alertMessage }}
+                </span>
+                <button
+                    class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none"
+                    @click="closeAlert">
+                    <span>×</span>
+                </button>
+            </div>
+        </div>
+
         <div class="border border-gray-300 mb-4 rounded-lg bg-white">
             <div class="flex items-start p-4 space-x-4">
                 <img :src="application.image" alt="Application Image"
@@ -21,9 +43,9 @@
                             <p>
                                 <strong>Application Status: </strong>
                                 <span :class="{
-                                    'text-yellow-500': application.status === 'PENDING',
-                                    'text-red-500': application.status === 'ADOPTION_FAILED',
-                                    'text-green-500': application.status === 'ADOPTED',
+                                    'text-yellow-500': application.status === 'APPLICATION_PENDING',
+                                    'text-red-500': application.status === 'APPLICATION_FAILURE',
+                                    'text-green-500': application.status === 'APPLICATION_SUCCESS',
                                 }">
                                     {{ application.status }}
                                 </span>
@@ -107,9 +129,9 @@
                                         :class="{ 'disabled-bg': !isEdit }" :disabled="!isEdit"
                                         v-model="adopter.gender">
                                         <option value="">Select Gender</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Other</option>
+                                        <option value="male">MALE</option>
+                                        <option value="female">FEMALE</option>
+                                        <option value="other">OTHER</option>
                                     </select>
                                 </div>
                             </div>
@@ -193,7 +215,7 @@
                                     <input type="text" id="postal-code"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                         :class="{ 'disabled-bg': !isEdit }" :readonly="!isEdit"
-                                        v-model="adopter.postalCode" />
+                                        v-model="adopter.postal" />
                                 </div>
                             </div>
                         </div>
@@ -268,7 +290,7 @@
 
                     </form>
                 </div>
-                <div class="justify-end flex px-3 space-x-4 pt-4" v-if="application.status === 'PENDING'">
+                <div class="justify-end flex px-3 space-x-4 pt-4" v-if="application.status === 'APPLICATION_PENDING'">
                     <button
                         class="w-40 bg-red-500 text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded-xl shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         @click="reject(application.id)">
@@ -296,7 +318,7 @@ import CancelApplicationModal from "@/components/Application/CancelApplicationMo
 import { createPopper } from "@popperjs/core";
 import { ref } from "vue";
 
-import { getApplicationDetails, updateStrayStatus } from "../../service/apiProviderAdoption";
+import { getApplicationDetails, updateApplicationStatus } from "../../service/apiProviderAdoption";
 
 export default {
     components: {
@@ -339,6 +361,10 @@ export default {
                 occupation: '',
             },
 
+            alertOpen: false,
+            alertType: "success",
+            alertMessage: "",
+
             applicationID: this.$route.query.applicationID,
         };
     },
@@ -359,7 +385,7 @@ export default {
                 vaccined: result.stray.isVaccinated,
                 dewormed: result.stray.isDewormed,
                 date: new Date(result.applicationDate).toISOString().split('T')[0],
-                status: result.stray.status,
+                status: result.adoptionStatus,
             };
 
             this.adopter = {
@@ -375,17 +401,40 @@ export default {
                 occupation: result.user.occupation,
             };
         },
-        async approve(id) {
-            const result = await updateStrayStatus("ADOPTED", id);
+        async approve(strayid) {
+            this.alertOpen = true;
+            this.alertType = "waiting";
+            this.alertMessage = "Please wait! ";
 
-            if(result) {
+            const result = await updateApplicationStatus("APPLICATION_SUCCESS", strayid, this.applicationID);
+
+            if (result) {
+                this.alertType = "success";
+                this.alertMessage = "Application update successful";
+                this.alertOpen = true;
+
+                setTimeout(() => {
+                    this.alertOpen = false;
+                }, 1000); // Close alert after 3 seconds
+
                 window.location.reload()
             }
         },
-        async reject(id) {
-            const result = await updateStrayStatus("ADOPTION_FAILED", id);
+        async reject(strayid) {
+            this.alertOpen = true;
+            this.alertType = "waiting";
+            this.alertMessage = "Please wait! ";
+            const result = await updateApplicationStatus("APPLICATION_FAILURE", strayid, this.applicationID);
 
-            if(result) {
+            if (result) {
+                this.alertType = "success";
+                this.alertMessage = "Application update successful";
+                this.alertOpen = true;
+
+                setTimeout(() => {
+                    this.alertOpen = false;
+                }, 1000); // Close alert after 3 seconds
+
                 window.location.reload()
             }
         },

@@ -21,6 +21,7 @@ import {
     cancelAdoptionUrl,
     getAdminAllAdoptionUrl,
     updateStrayStatusUrl,
+    updateApplicationStatusUrl,
 } from '@/utils/apiConfig.js';
 
 import VueCookies from 'vue-cookies';
@@ -133,7 +134,7 @@ export async function getStrayList() {
     }
 }
 
-// Update Stray Details
+// Update Stray status
 export async function updateStrayStatus(status, strayID) {
     const url = baseUrl + (updateStrayStatusUrl.replace("{strayID}", strayID));
 
@@ -160,7 +161,6 @@ export async function updateStrayStatus(status, strayID) {
         return false;
     }
 }
-
 
 // Update Stray Details
 export async function udpateStrayDetails(newsDetails) {
@@ -317,6 +317,38 @@ export async function updateApplication(applicationDetails) {
 
     } catch (e) {
         console.log(`Unsuccessful in update application provider: ${e}`);
+        return false;
+    }
+}
+
+// Update application Details
+export async function updateApplicationStatus(status, strayId, applicationID) {
+    const url = baseUrl + (updateApplicationStatusUrl.replace("{applicationID}", applicationID));
+
+    const apiDetails = {
+        applicationStatus: status,
+        strayID: strayId
+    }
+
+    console.log(url)
+    console.log(apiDetails)
+
+    try {
+        const response = await putRequestWithToken(url, apiDetails);
+
+        const status = response.status;
+        const data = response.data;
+
+        if (status === 200) {
+            return true;
+        } else if (status === 400) {
+            return data.message;
+        } else {
+            console.log(`Unsuccessfully in update application status provider: ${status}`);
+            return false;
+        }
+    } catch (e) {
+        console.log(`Unsuccessful in update application status provider: ${e}`);
         return false;
     }
 }

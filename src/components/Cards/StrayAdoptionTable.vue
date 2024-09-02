@@ -194,7 +194,7 @@ export default {
                 });
             }
 
-            this.isLoading = true;
+            this.isLoading = false;
         },
 
         statusColor(status) {
