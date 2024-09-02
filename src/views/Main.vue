@@ -82,7 +82,22 @@
             <div class="w-full md:w-6/12 flex flex-col space-y-4">
               <!-- First Div -->
               <div class="px-4 bg-secondaryMain border-mainTheme border-2 rounded-2xl mb-5">
-                <div class="flex-auto px-4 lg:px-10 py-10 pt-10">
+                <div class="flex-auto px-4 lg:px-10 py-10 pt-10" v-if="isLogin">
+                  <div class="flex items-center justify-center pb-2 flex-col">
+                    <img :src="userAvatar" alt="user avatar" class="w-44 h-44 rounded-full" />
+                    <div class="font-bold text-lg text-mainText mt-4">@ {{ username }}</div>
+                  </div>
+
+                  <div class="text-center mt-4">
+                    <button
+                      class="bg-mainButton text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                      @click="toDashboard()">
+                      Go to Dashboard
+                    </button>
+                  </div>
+
+                </div>
+                <div class="flex-auto px-4 lg:px-10 py-10 pt-10" v-if="!isLogin">
                   <form @submit.prevent="signIn">
                     <div class="relative w-full mb-3">
                       <label class="block uppercase text-blueGray-600 text-sm font-bold mb-2" htmlFor="grid-password">
@@ -136,7 +151,8 @@
 
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div v-for="(pet, index) in pets" :key="index"
-                      class="border p-4 rounded-lg shadow-lg flex flex-col bg-secondaryMain cursor-pointer" style="height: 429px; width: auto;" @click="showRegisterModal()">
+                      class="border p-4 rounded-lg shadow-lg flex flex-col bg-secondaryMain cursor-pointer"
+                      style="height: 429px; width: auto;" @click="goToPostDetails(pet.id)">
                       <div class="items-center flex justify-center">
                         <img :src="pet.image" alt="Pet Image" class="w-full takemehomeimg h-auto mb-4 rounded-lg">
                       </div>
@@ -148,15 +164,17 @@
                         <li v-for="(trait, tIndex) in pet.traits" :key="tIndex">{{ trait }}</li>
                       </ul>
                       <div class="flex space-x-2">
-                        <span class="material-icons" v-if="pet.vaccined"><img :src="vaccine" alt="vaccine" class="w-8 h-8 p-1"></span>
-                        <span class="material-icons" v-if="pet.dewormed"><img :src="worm" alt="warm" class="w-8 h-8 p-1"></span>
+                        <span class="material-icons" v-if="pet.vaccined"><img :src="vaccine" alt="vaccine"
+                            class="w-8 h-8 p-1"></span>
+                        <span class="material-icons" v-if="pet.dewormed"><img :src="worm" alt="warm"
+                            class="w-8 h-8 p-1"></span>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="text-right mt-4 mr-3 text-mainText">
                   <span>
-                    <button @click="showRegisterModal()"
+                    <button @click="goToSeeMore()"
                       class="ml-1 background-transparent font-bold outline-none focus:outline-none ease-linear transition-all duration-150">
                       Show More...
                     </button>
@@ -272,7 +290,7 @@ import { ref } from "vue";
 import VueCookies from 'vue-cookies';
 
 // api
-import { login } from "@/service/apiProviderAuth.js";
+import { login, getUserInfo } from "@/service/apiProviderAuth.js";
 import { getNewsList } from '@/service/apiProviderNews';
 import { getStrayList } from "@/service/apiProviderAdoption";
 
@@ -344,6 +362,10 @@ export default {
         // },
       ],
 
+      userAvatar: "",
+      username: "",
+
+      isLogin: false,
 
       // login
       email: "",
@@ -379,8 +401,23 @@ export default {
   mounted() {
     this.getAllStrayListApi();
     this.generateNewsLists();
+
+    if (VueCookies.isKey('email')) {
+      this.isLogin = true;
+      this.getUserInfoApi();
+    }
   },
   methods: {
+    toDashboard() {
+      this.$router.push('/user')
+    },
+    async getUserInfoApi() {
+      const result = await getUserInfo(VueCookies.get('email'));
+
+      this.userAvatar = result.userAvatar;
+      this.username = result.username;
+    },
+
     async getAllStrayListApi() {
       this.getList = await getStrayList();
 
@@ -421,6 +458,25 @@ export default {
     },
     closeRegisterModal() {
       this.isRegisterModalVisible = false;
+    },
+    goToPostDetails(id) {
+      if (this.isLogin) {
+        this.$router.push({
+          path: '/user/postdetails',
+          query: {
+            postID: id,
+          },
+        });
+      } else {
+        this.showRegisterModal()
+      }
+    },
+    goToSeeMore() {
+      if (this.isLogin) {
+      this.$router.push("/user/adoption")
+      } else {
+        this.showRegisterModal()
+      }
     },
     async signIn() {
       const username = this.email;

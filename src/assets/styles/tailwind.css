@@ -2405,6 +2405,10 @@ select {
   height: 10rem;
 }
 
+.h-44 {
+  height: 11rem;
+}
+
 .h-60 {
   height: 15rem;
 }
@@ -4086,6 +4090,11 @@ select {
 .w-40 {
   width: 10rem;
 }
+
+.w-44 {
+  width: 11rem;
+}
+
 
 .w-60 {
   width: 15rem;
