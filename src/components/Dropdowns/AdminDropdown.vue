@@ -43,16 +43,29 @@ import { createPopper } from "@popperjs/core";
 
 import image from "@/assets/img/team-1-800x800.jpg";
 
+// api
+import { getUserInfo } from "@/service/apiProviderAuth.js";
+
+import VueCookies from 'vue-cookies';
 import { removeCookie } from '@/service/cookie';
 
 export default {
   data() {
     return {
       dropdownPopoverShow: false,
-      image: image,
+      image: "https://res.cloudinary.com/dfmnw3bin/image/upload/v1722330239/default_avatar.jpg",
     };
   },
+  mounted() {
+    this.getUserInfoApi()
+  },
   methods: {
+    async getUserInfoApi() {
+      const result = await getUserInfo(VueCookies.get('email'));
+
+      this.image = result.userAvatar;
+    },
+
     goHomePage() {
       removeCookie();
       this.$router.push('/')

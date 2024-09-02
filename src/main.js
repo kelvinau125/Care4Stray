@@ -78,7 +78,7 @@ import PaymentGateway from "@/views/PaymentGateway.vue";
 const routes = [
   {
     path: "/admin",
-    redirect: "/admin/dashboard",
+    redirect: "/admin/notification",
     component: Admin,
     children: [
       {

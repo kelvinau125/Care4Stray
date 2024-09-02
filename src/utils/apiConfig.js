@@ -202,10 +202,24 @@ export const getCreatedListByUserIDUrl = postBaseUrl + getCreatedListByUserID;
 
 export const searchPostUrl = postBaseUrl + searchPost;
 
+// stastistics
 
+export const stastisticsAdminBaseUrl = adminBaseUrl;
 
+export const getUserStatisstics = '/userstatistics';
 
+export const getDonationStatisstics = '/donationstatistics';
 
+export const getPostStatisstics = '/poststatistics';
 
+export const geNotificationStatisstics = '/notificationstatistics';
+
+export const getUserStatissticsUrl = stastisticsAdminBaseUrl + getUserStatisstics;
+
+export const getDonationStatissticsUrl = stastisticsAdminBaseUrl + getDonationStatisstics;
+
+export const getPostStatissticsUrl = stastisticsAdminBaseUrl + getPostStatisstics;
+
+export const geNotificationStatissticsUrl = stastisticsAdminBaseUrl + geNotificationStatisstics;
 
 

@@ -61,7 +61,7 @@ export default {
   data() {
     return {
       dropdownPopoverShow: false,
-      image: "",
+      image: "https://res.cloudinary.com/dfmnw3bin/image/upload/v1722330239/default_avatar.jpg",
       username: "",
       user_id: "",
     };
