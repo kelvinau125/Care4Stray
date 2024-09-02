@@ -31,7 +31,7 @@
                     <tr v-if="isLoading">
                         <td colspan="8" class="text-center">
                             <div class="flex justify-center items-center mt-2">
-                                <img src="@/assets/img/pageloading.gif" style="width: 12rem; height: 12rem;" />
+                                <img src="@/assets/img/pageloading.gif" style="width: 21rem; height: 12rem; padding: 1rem;" />
                             </div>
                         </td>
                     </tr>

@@ -6,7 +6,7 @@
     <div>
       <!-- Show loading spinner while data is being fetched -->
       <div v-if="isLoading" class="flex justify-center items-center mt-32 mb-32">
-        <img src="@/assets/img/pageloading.gif" style="width: 12rem;height: 12rem;" />
+        <img src="@/assets/img/pageloading.gif" style="width: 21rem; height: 12rem; padding: 1rem;" />
       </div>
 
       <!-- Show "nothing here" image if no posts are available and loading is complete -->
