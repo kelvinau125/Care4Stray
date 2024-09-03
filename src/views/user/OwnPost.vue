@@ -7,7 +7,19 @@
       </div>
     </div>
     <div>
-      <PostComponent v-for="post in posts" :key="post.id" :post="post" @like-post="handleLikePost" />
+      <!-- Show loading spinner while data is being fetched -->
+      <div v-if="isLoading" class="flex justify-center items-center mt-32 mb-32">
+        <img src="@/assets/img/pageloading.gif" style="width: 21rem; height: 12rem; padding: 1rem;" />
+      </div>
+
+      <!-- Show "nothing here" image if no posts are available and loading is complete -->
+      <div v-else-if="posts.length === 0" class="flex justify-center items-center mt-32 mb-32">
+        <img src="@/assets/img/nothinghere.png" style="width: 11rem;height: 12rem;" />
+      </div>
+
+      <div v-else>
+        <PostComponent v-for="post in posts" :key="post.id" :post="post" @like-post="handleLikePost" />
+      </div>
     </div>
   </div>
 </template>
@@ -49,6 +61,8 @@ export default {
       ],
 
       userID: this.$route.query.postID,
+
+      isLoading: true,
     };
   },
   mounted() {
@@ -84,15 +98,22 @@ export default {
           userAvatar: this.getList[i]["author"]["userAvatar"],
           username: this.getList[i]["author"]["firstName"] + " " + this.getList[i]["author"]["lastName"],
           date: new Date(this.getList[i]["createdDate"]).toISOString().split('T')[0],
-          title: this.getList[i]["content"],
-          description: this.getList[i]["content"],
-          images: this.getList[i]["picture"],
+          title: this.getList[i]["isAdoption"] ? this.getList[i]["strayPost"]["name"] : this.getList[i]["content"],
+          description: this.getList[i]["isAdoption"] ? this.getList[i]["strayPost"]["behaviour"] : "",
+          images: this.getList[i]["isAdoption"] ? [this.getList[i]["strayPost"]["mainPicture"]] : this.getList[i]["picture"],
           isliked: this.getList[i]["isLiked"],
           likeCount: this.getList[i]["likeCount"],
           commentCount: this.getList[i]["commentCount"],
           duration: this.getList[i]["duration"],
+
+          isVaccinated: this.getList[i]["isAdoption"] ? this.getList[i]["strayPost"]["isVaccinated"] : "",
+          isDewormed: this.getList[i]["isAdoption"] ? this.getList[i]["strayPost"]["isDewormed"] : "",
         });
       }
+
+      console.log(this.posts)
+
+      this.isLoading = false
     },
   },
 };
