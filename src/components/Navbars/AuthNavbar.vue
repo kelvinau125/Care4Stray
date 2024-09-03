@@ -30,10 +30,11 @@
         :class="[navbarOpen ? 'block' : 'hidden']">
           <span
             class="z-10 h-full leading-snug font-normal text-center text-blueGray-600 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3">
-            <i class="fas fa-search"></i>
+            <i class="fas fa-search cursor-pointer" @click="searchPostbyKeyword"></i>
           </span>
           <input type="text" placeholder="Search post..."
-            class="rounded-full border-0 px-3 py-3 placeholder-blueGray-600  text-blueGray-600 relative bg-secondTheme text-sm shadow outline-none focus:outline-none focus:ring w-full pl-10" />
+            class="rounded-full border-0 px-3 py-3 placeholder-blueGray-600  text-blueGray-600 relative bg-secondTheme text-sm shadow outline-none focus:outline-none focus:ring w-full pl-10" 
+            v-model="searchKeyword" @keyup.enter="searchPostbyKeyword" />
         </div>
 
         <!-- Divider -->
@@ -121,6 +122,8 @@ export default {
       headerBackground,
 
       isLogin: VueCookies.isKey('email'),
+
+      searchKeyword: "",
     };
   },
 
@@ -148,6 +151,26 @@ export default {
   },
 
   methods: {
+    searchPostbyKeyword() {
+      if (this.searchKeyword.trim() === "") {
+        return;
+      }
+
+      if (this.$route.path !== '/user/search') {
+        // Store the current path before navigating to the search page
+        sessionStorage.setItem('previousPage', this.$route.fullPath);
+      }
+
+      this.$router.push({
+        path: '/user/search',
+        query: {
+          keyword: this.searchKeyword,
+        },
+      });
+
+      this.closeNavbar()
+      this.searchKeyword = ""
+    },
     toggleNavbar(event) {
       event.stopPropagation();
       this.navbarOpen = !this.navbarOpen;
