@@ -3283,6 +3283,10 @@ select {
   padding-bottom: 10rem;
 }
 
+.pt-40 {
+  padding-top: 10rem;
+}
+
 .pt-44 {
   padding-top: 11rem;
 }

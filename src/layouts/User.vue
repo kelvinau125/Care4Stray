@@ -1,10 +1,10 @@
 <template>
-  <div> 
+  <div>
     <auth-navbar />
-    <user-navbar v-if="!isApplicationDetailsRoute"/>
+    <user-navbar v-if="!isApplicationDetailsRoute" />
 
     <UpdateProfileModal :showModal="isModalVisible" :closeModal="closeModal" />
-    
+
     <div class="flex flex-col md:flex-row">
       <!-- User Sidebar -->
       <div class="w-full md:w-60 fixed md:fixed left-0 top-0 md:h-full">
@@ -12,17 +12,23 @@
       </div>
 
       <!-- Main Content and Donation Sidebar Container -->
-      <div class="flex flex-col md:flex-row flex-grow ml-0 md:ml-60" :class="[isApplicationDetailsRoute ? 'md:pt-16' : 'md:pt-48']">
+      <div class="flex flex-col md:flex-row flex-grow ml-0 md:ml-60"
+        :class="[isApplicationDetailsRoute ? 'md:pt-16' : 'md:pt-48']">
         <!-- Main Content -->
         <div class="w-full">
-          <user-header v-if="isApplicationDetailsRoute || isPostApplicationDetailsRoute || isSearchRoute" class="pt-36 md:pt-4"/>
-          <PostDetailsComponent v-if="isPostApplicationDetailsRoute"/>
-          <div class="w-full md:flex-grow bg-white px-4 md:px-10 mx-auto md:pt-4 pt-44 relative">
+          <user-header v-if="isApplicationDetailsRoute || isPostApplicationDetailsRoute || isSearchRoute"
+            class="pt-36 md:pt-4" />
+          <PostDetailsComponent v-if="isPostApplicationDetailsRoute" />
+          <div :class="{
+            'pt-0': isApplicationDetailsRoute || isPostApplicationDetailsRoute || isSearchRoute,
+            'pt-40': !(isApplicationDetailsRoute || isPostApplicationDetailsRoute || isSearchRoute),
+            'w-full md:flex-grow bg-white px-4 md:px-10 mx-auto md:pt-4 relative': true
+          }">
             <router-view />
             <footer-admin v-if="!isNewsDetailsRoute" />
           </div>
           <div class="w-full px-12 pb-2 bg-secondaryMain" v-if="isNewsDetailsRoute">
-            <NewsFooter/>
+            <NewsFooter />
             <footer-admin />
           </div>
         </div>
@@ -68,8 +74,8 @@ export default {
   computed: {
     isApplicationDetailsRoute() {
       return this.$route.path.includes('/applicationdetails') ||
-      this.$route.path.includes('/editapplicationdetails')  ||
-      this.$route.path.includes('/createapplication')
+        this.$route.path.includes('/editapplicationdetails') ||
+        this.$route.path.includes('/createapplication')
     },
     isPostApplicationDetailsRoute() {
       return this.$route.path.includes('/postdetails')
@@ -91,17 +97,17 @@ export default {
   methods: {
     async getUserProfileStatus() {
       const result = await getUserInfoStatus(VueCookies.get("email"));
-      
-      if(!result){
+
+      if (!result) {
         this.showModal();
       }
     },
 
     showModal() {
-        this.isModalVisible = true;
+      this.isModalVisible = true;
     },
     closeModal() {
-        this.isModalVisible = false;
+      this.isModalVisible = false;
     },
   },
 
