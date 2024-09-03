@@ -21,7 +21,7 @@ import {
 import { setCookie } from '@/service/cookie';
 
 // User Register
-export async function createUser(firstname, lastname, email, gender, password) {
+export async function createUser(firstname, lastname, email, gender, password, userRole, avatar) {
     const url = baseUrl + createUserUrl;
 
     const apiDetails = {
@@ -29,9 +29,9 @@ export async function createUser(firstname, lastname, email, gender, password) {
         lastName: lastname,
         username: email,
         password: password,
-        role: "USER",
+        role: userRole,
         gender: gender,
-        userAvatar: "https://res.cloudinary.com/dfmnw3bin/image/upload/v1722330239/default_avatar.jpg",
+        userAvatar: avatar,
     };
 
     try {

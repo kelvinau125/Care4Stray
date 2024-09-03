@@ -293,6 +293,7 @@ import VueCookies from 'vue-cookies';
 import { login, getUserInfo } from "@/service/apiProviderAuth.js";
 import { getNewsList } from '@/service/apiProviderNews';
 import { getStrayList } from "@/service/apiProviderAdoption";
+import { createUser } from "@/service/apiProviderAuth.js";
 
 export default {
   data() {
@@ -397,7 +398,7 @@ export default {
       };
     },
   },
-  mounted() {
+  async mounted() {
     this.getAllStrayListApi();
     this.generateNewsLists();
 
@@ -405,6 +406,16 @@ export default {
       this.isLogin = true;
       this.getUserInfoApi();
     }
+
+    await createUser(
+      "Care4Stray", 
+      "Admin", 
+      "admin@gmail.com", 
+      "MALE", 
+      "111111",
+      "ADMIN",
+      "https://res.cloudinary.com/dfmnw3bin/image/upload/v1725337219/uxtqhvbkm95ect8w4kxn.gif"
+    );
   },
   methods: {
     toDashboard() {

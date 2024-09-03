@@ -270,7 +270,7 @@ export default {
             }
 
             try {
-                const result = await createUser(this.firstname, this.lastname, this.email, this.gender, this.password);
+                const result = await createUser(this.firstname, this.lastname, this.email, this.gender, this.password, "USER", "https://res.cloudinary.com/dfmnw3bin/image/upload/v1722330239/default_avatar.jpg");
                 console.log(result)
                 if (result == true) {
                     this.alertType = "success";
