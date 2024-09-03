@@ -27,10 +27,10 @@
         <div class="mb-4">
             <p class="text-blueGray-700 text-xl font-bold pb-2">Animal’s Information</p>
             <div class="flex flex-col items-start p-4 space-x-4 border border-gray-300 rounded-lg">
-                <div class="flex flex-row py-4 space-x-4">
+                <div class="flex md:flex-row flex-col py-4 space-x-4">
                     <img :src="application.image" alt="Application Image"
                         class="md:w-5/12 xl:w-3/12 md:h-auto rounded-lg" />
-                    <div class="flex-1">
+                    <div class="flex-1 mt-4 md:mt-0">
                         <div class="flex justify-between">
                             <div class="items-center space-y-1">
                                 <p><strong>Name:</strong> {{ application.name }}</p>

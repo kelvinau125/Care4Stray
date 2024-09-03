@@ -26,10 +26,10 @@
         </div>
 
         <div class="border border-gray-300 mb-4 rounded-lg bg-white">
-            <div class="flex items-start p-4 space-x-4">
+            <div class="flex flex-col md:flex-row items-start p-4 space-x-4">
                 <img :src="application.image" alt="Application Image"
                     class="md:w-4/12 xl:w-3/12 md:h-auto rounded-lg" />
-                <div class="flex-1">
+                <div class="flex-1 mt-4 md:mt-0">
                     <div class="flex justify-between">
                         <div class="items-center space-y-1">
                             <p><strong>Name:</strong> {{ application.name }}</p>

@@ -380,7 +380,6 @@ export default {
     FooterComponent,
     RegisterModal
   },
-
   computed: {
     totalPages() {
       return Math.ceil(this.items.length / this.itemsPerPage);

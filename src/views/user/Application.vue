@@ -29,10 +29,11 @@
       </div>
       <div class="p-4">
         <div v-for="application in applications" :key="application.id"
-          class="border border-gray-300 p-4 mb-4 rounded-lg flex items-start space-x-4 cursor-pointer"
+          class="border border-gray-300 p-4 mb-4 rounded-lg flex flex-col md:flex-row items-start space-x-4 cursor-pointer"
           @click="toApplicationDetails(application.id)">
           <img :src="application.image" alt="Application Image" class="md:w-4/12 xl:w-3/12 md:h-auto rounded-lg" />
-          <div class="flex-1">
+
+          <div class="mt-6 md:mt-0 flex-1">
             <div class="flex justify-between">
               <div class="items-start space-y-1">
                 <p><strong>Name:</strong> {{ application.name }}</p>
@@ -167,7 +168,7 @@ export default {
           vaccined: this.getList[i]["stray"]["isVaccinated"],
           dewormed: this.getList[i]["stray"]["isDewormed"],
           date: new Date(this.getList[i]["applicationDate"]).toISOString().split('T')[0],
-          status: this.getList[i]["stray"]["status"],
+          status: this.getList[i]["adoptionStatus"],
         });
       }
 

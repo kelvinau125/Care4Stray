@@ -3203,6 +3203,10 @@ select {
   padding-right: 1rem;
 }
 
+.pr-10 {
+  padding-right: 2.5rem;
+}
+
 .pb-4 {
   padding-bottom: 1rem;
 }
@@ -4491,6 +4495,11 @@ select {
   .md\:mt-0 {
     margin-top: 0px;
   }
+
+  .md\:mt-4 {
+    margin-top: 1.0rem;
+  }
+
 
   .md\:mb-0 {
     margin-bottom: 0px;
