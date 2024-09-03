@@ -4,6 +4,7 @@
   
     <DonationModal :showModal="isModalVisible" :closeModal="closeModal" :showRegisterModal="showRegisterModal"/>
     <RegisterModal :showRegModal="isRegisterModalVisible" :closeRegModal="closeRegisterModal" />
+    <DonationSuccessModal :showSuccessModal="isSuccessModalVisible" :closeSuccessModal="closeSuccessModal"/>
 
     <main>
       <section class="relative w-full h-full py-40 min-h-screen">
@@ -100,6 +101,7 @@ import donationPic from "@/assets/img/donation.png";
 import Navbar from "@/components/Navbars/AuthNavbar.vue";
 import FooterSmall from "@/components/Footers/FooterSmall.vue";
 
+import DonationSuccessModal from "@/components/Modal/DonationSuccessModal.vue";
 import DonationModal from "@/components/Modal/DonationModal.vue";
 import RegisterModal from "@/views/auth/RegisterModal.vue";
 
@@ -117,12 +119,14 @@ export default {
     FooterSmall,
     DonationModal,
     RegisterModal,
+    DonationSuccessModal,
   },
 
   data() {
     return {
       isModalVisible: ref(false),
       isRegisterModalVisible: ref(false),
+      isSuccessModalVisible: ref(false),
       
       isUser: VueCookies.isKey('email'),
 
@@ -145,6 +149,11 @@ export default {
     if(!this.isUser) {
       this.showModal()
     }
+
+    if(localStorage.getItem('donationSuccess')) {
+      this.showSuccessModal();
+      localStorage.removeItem('donationSuccess');
+    }
   },
 
   methods: {
@@ -160,6 +169,12 @@ export default {
     },
     closeRegisterModal() {
       this.isRegisterModalVisible = false;
+    },
+    showSuccessModal() {
+        this.isSuccessModalVisible = true;
+    },
+    closeSuccessModal() {
+        this.isSuccessModalVisible = false;
     },
     
     async getUserInfoApi() {

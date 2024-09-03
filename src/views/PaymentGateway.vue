@@ -165,11 +165,14 @@ export default {
           setTimeout(() => {
             this.isProcessing = false;
 
+            localStorage.setItem('donationSuccess', true);
             // Redirect to home page
             this.$router.push('/donation');
 
             localStorage.removeItem('donationAmount');
             localStorage.removeItem('transactionId');
+
+         
           }, 5000); // Simulate 5 seconds delay
         }
       }
