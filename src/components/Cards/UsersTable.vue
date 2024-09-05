@@ -31,7 +31,8 @@
                     <tr v-if="isLoading">
                         <td colspan="8" class="text-center">
                             <div class="flex justify-center items-center mt-2">
-                                <img src="@/assets/img/pageloading.gif" style="width: 21rem; height: 12rem; padding: 1rem;" />
+                                <img src="@/assets/img/pageloading.gif"
+                                    style="width: 21rem; height: 12rem; padding: 1rem;" />
                             </div>
                         </td>
                     </tr>
@@ -66,28 +67,25 @@
 
                         <td
                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                            <a
-                                class="text-blueGray-500 py-1 px-3"
-                                href="#pablo"
-                                :ref="'btnDropdownRef' + index"
-                                @click.native.stop="toggleDropdown(index, $event)"
-                            >
+                            <a class="text-blueGray-500 py-1 px-3" href="#pablo" :ref="'btnDropdownRef' + index"
+                                @click.native.stop="toggleDropdown(index, $event)">
                                 <i class="fas fa-ellipsis-v"></i>
                             </a>
-                            <div
-                                :ref="'popoverDropdownRef' + index"
+                            <div :ref="'popoverDropdownRef' + index"
                                 class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
                                 :class="{
                                     hidden: dropdownIndex !== index,
                                     block: dropdownIndex === index,
-                                }"
-                            >
-                                <a
-                                    href="javascript:void(0);"
+                                }">
+                                <a href="javascript:void(0);"
                                     class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                                    @click.native.stop="toUpdateStatus(project.id, project.status)"
-                                >
+                                    @click.native.stop="toUpdateStatus(project.id, project.status)">
                                     {{ project.status == "ACTIVE" ? "INACTIVE" : "ACTIVE" }}
+                                </a>
+                                <a href="javascript:void(0);"
+                                    class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                                    @click.native.stop="toUpdateStatus(project.id, 'DEACTIVATED')">
+                                    DELETE
                                 </a>
                             </div>
                         </td>
@@ -179,22 +177,29 @@ export default {
         },
 
         async toUpdateStatus(id, status) {
-           
-           const newStatus = status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
-           
-           const result = await updateUserStatus(id,newStatus);
+            // Determine the new status based on current status
+            const newStatus = status === 'DEACTIVATED'
+                ? 'DEACTIVATED'
+                : status === 'ACTIVE'
+                    ? 'INACTIVE'
+                    : 'ACTIVE';
 
-           this.hideDropdown();
-           
-           if (result) {
-               // Find the index of the project in the projects array
-               const projectIndex = this.projects.findIndex(project => project.id === id);
-               if (projectIndex !== -1) {
-                   // Update the status of the specific project
-                   this.projects[projectIndex].status = newStatus;
-               }
-           }
-       },
+            const result = await updateUserStatus(id, newStatus);
+
+            this.hideDropdown();
+
+            if (result) {
+                const projectIndex = this.projects.findIndex(project => project.id === id);
+
+                if (projectIndex !== -1) {
+                    if (newStatus === 'DEACTIVATED') {
+                        this.projects.splice(projectIndex, 1);
+                    } else {
+                        this.projects[projectIndex].status = newStatus;
+                    }
+                }
+            }
+        },
 
         statusColor(status) {
             switch (status) {
