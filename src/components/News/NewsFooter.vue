@@ -3,22 +3,32 @@
     <div>
       <p class="text-lg font-bold py-4">More</p>
       <div v-for="(item, index) in paginatedItems" :key="index" class="mb-4">
-        <div class="border p-4 rounded-lg shadow-lg flex" @click="toNewsDetails(item.id)">
+        <div class="border p-4 rounded-lg shadow-lg flex cursor-pointer" @click="toNewsDetails(item.id)">
 
           <div class="mr-5 flex items-center justify-center">
-            <img :src="item.image" alt="picture" class="md:w-4/5 xl:w-4/5 md:h-auto rounded-md"
-              style="width: 203px; height: 203px; margin: 12px;">
+            <!-- <img :src="item.image" alt="picture" class="md:w-4/5 xl:w-4/5 md:h-auto rounded-md"
+              style="width: 203px; height: 203px; margin: 12px;"> -->
+
+              <video v-if="isVideo(item.image)" autoplay muted class="md:w-4/5 xl:w-4/5 md:h-auto rounded-md"
+                style="width: 250px; height: 203px; margin: 12px;">
+                <source :src="item.image" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+
+              <img v-else :src="item.image" alt="news" class="md:w-4/5 xl:w-4/5 md:h-auto rounded-md"
+                style="width: 250px; height: 203px; margin: 12px;" />
           </div>
-          <div class="flex flex-col justify-between">
-            <div>
-              <h2 class="text-xl font-bold mb-2">{{ item.title }}</h2>
-              <p class="truncate-2-lines">{{ item.description }}</p>
+          
+          <div class="w-4/5 flex flex-col justify-between">
+              <div>
+                <h2 class="text-xl font-bold mb-2">{{ item.title }}</h2>
+                <p class="truncate-2-lines">{{ item.description }}</p>
+              </div>
+              <div class="flex justify-between">
+                <p class="text-sm text-gray-600">{{ item.author }}</p>
+                <p class="text-sm text-gray-600">{{ item.date }}</p>
+              </div>
             </div>
-            <div class="flex justify-between">
-              <p class="text-sm text-gray-600">{{ item.author }}</p>
-              <p class="text-sm text-gray-600">{{ item.date }}</p>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -117,7 +127,10 @@ export default {
           newsID: id,
         },
       })
-    }
+    },
+    isVideo(url) {
+      return url && url.toLowerCase().endsWith('.mp4');
+    },
   },
 };
 </script>

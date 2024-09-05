@@ -14,11 +14,20 @@
     <div class="relative w-full flex-grow mb-4">
       <div>
         <div v-for="(item, index) in paginatedItems" :key="index" class="mb-4">
-          <div class="border p-4 rounded-lg shadow-lg flex" @click="toNewsDetails(item.id)">
+          <div class="border p-4 rounded-lg shadow-lg flex cursor-pointer" @click="toNewsDetails(item.id)">
 
             <div class="mr-5 flex items-center justify-center">
-              <img :src="item.image" alt="picture" class="md:w-4/5 xl:w-4/5 md:h-auto rounded-md"
-                style="width: 203px; height: 203px; margin: 12px;">
+              <!-- <img :src="item.image" alt="picture" class="md:w-4/5 xl:w-4/5 md:h-auto rounded-md"
+                style="width: 203px; height: 203px; margin: 12px;"> -->
+
+              <video v-if="isVideo(item.image)" autoplay muted class="md:w-4/5 xl:w-4/5 md:h-auto rounded-md"
+                style="width: 250px; height: 203px; margin: 12px;">
+                <source :src="item.image" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+
+              <img v-else :src="item.image" alt="news" class="md:w-4/5 xl:w-4/5 md:h-auto rounded-md"
+                style="width: 250px; height: 203px; margin: 12px;" />
             </div>
 
             <div class="w-4/5 flex flex-col justify-between">
@@ -75,7 +84,7 @@ export default {
       ],
       currentPage: 1,
       itemsPerPage: 5,
-      
+
       isLoading: true,
     };
   },
@@ -132,7 +141,9 @@ export default {
       });
     },
 
-
+    isVideo(url) {
+      return url && url.toLowerCase().endsWith('.mp4');
+    },
   },
 };
 </script>

@@ -3,7 +3,17 @@
     <h1 class="text-3xl font-bold mb-4">{{ article.title }}</h1>
     <p class="text-gray-600 mb-2">{{ article.date }}</p>
     <p class="text-gray-600 mb-4">{{ article.author }}</p>
-    <img :src="article.imageUrl" :alt="article.imageAlt" class="w-full h-auto mb-6 rounded-lg shadow-lg" />
+
+    <template v-if="isVideo(article.imageUrl)">
+      <video autoplay controls  class="w-full h-auto mb-6 rounded-lg shadow-lg">
+        <source :src="article.imageUrl" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </template>
+    <template v-else>
+      <img :src="article.imageUrl" :alt="article.imageAlt" class="w-full h-auto mb-6 rounded-lg shadow-lg" />
+    </template>
+
     <div>
       {{ article.content }}
     </div>
@@ -38,7 +48,7 @@ export default {
   },
   watch: {
     '$route.query.newsID': {
-      immediate: true, 
+      immediate: true,
       handler(newNewsID) {
         this.newsID = newNewsID;
         this.getNewsDetailsApi();
@@ -61,6 +71,10 @@ export default {
         imageAlt: result.content,
         content: result.content,
       };
+    },
+    
+    isVideo(url) {
+      return url && url.toLowerCase().endsWith('.mp4');
     },
 
   },

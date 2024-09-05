@@ -197,90 +197,100 @@
               </div>
               <div>
                 <div v-for="(item, index) in paginatedItems" :key="index" class="rightspace">
-                  <div class="border-2 border-mainTheme p-4 rounded-lg shadow-lg flex">
-                    <div class="w-full mr-5 flex items-center justify-center">
+                  <div class="border-2 border-mainTheme p-4 rounded-lg shadow-lg flex cursor-pointer"
+                    @click="toNewsDetails(item.id)">
+                    <!-- <div class="w-full mr-5 flex items-center justify-center">
                       <img :src="item.image" alt="picture" class="h-auto rounded-md"
-                        style="width: 200px; height: 200px;">
-                    </div>
+                        style="width: 200px; height: 200px;"> -->
 
-                    <div class="w-full flex flex-col justify-between">
-                      <div>
-                        <h2 class="text-xl font-bold mb-2">{{ item.title }}</h2>
-                        <p>{{ item.description }}</p>
-                      </div>
-                      <div class="flex justify-between">
-                        <p class="text-sm text-gray-600">{{ item.author }}</p>
-                        <p class="text-sm text-gray-600">{{ item.date }}</p>
-                      </div>
+                    <video v-if="isVideo(item.image)" autoplay muted class="w-full mr-5 flex items-center justify-center"
+                      style="width: 200px; height: 203px">
+                      <source :src="item.image" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+
+                    <img v-else :src="item.image" alt="picture" class="w-full mr-5 flex items-center justify-center"
+                      style="width: 200px; height: 203px" />
+              
+
+                  <div class="w-full flex flex-col justify-between">
+                    <div>
+                      <h2 class="text-xl font-bold mb-2">{{ item.title }}</h2>
+                      <p>{{ item.description }}</p>
+                    </div>
+                    <div class="flex justify-between">
+                      <p class="text-sm text-gray-600">{{ item.author }}</p>
+                      <p class="text-sm text-gray-600">{{ item.date }}</p>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div class="flex justify-center space-x-2 mt-6">
-                  <button v-for="page in totalPages" :key="page" @click="currentPage = page" :class="{
-                    'px-3 py-1 border-2 border-mainTheme rounded-full': true,
-                    'bg-mainTheme text-white': currentPage === page,
-                    'bg-white text-mainTheme': currentPage !== page
-                  }">
-                    {{ page }}
-                  </button>
-                </div>
+              <div class="flex justify-center space-x-2 mt-6">
+                <button v-for="page in totalPages" :key="page" @click="currentPage = page" :class="{
+                  'px-3 py-1 border-2 border-mainTheme rounded-full': true,
+                  'bg-mainTheme text-white': currentPage === page,
+                  'bg-white text-mainTheme': currentPage !== page
+                }">
+                  {{ page }}
+                </button>
               </div>
             </div>
           </div>
         </div>
-      </section>
+  </div>
+  </section>
 
-      <section class="pb-4 relative block bg-mainTheme">
-        <div class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
-          style="transform: translateZ(0);">
-          <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
-            version="1.1" viewBox="0 0 2560 100" x="0" y="0">
-            <polygon class="text-mainTheme fill-current" points="2560 0 2560 100 0 100"></polygon>
-          </svg>
-        </div>
+  <section class="pb-4 relative block bg-mainTheme">
+    <div class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
+      style="transform: translateZ(0);">
+      <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+        version="1.1" viewBox="0 0 2560 100" x="0" y="0">
+        <polygon class="text-mainTheme fill-current" points="2560 0 2560 100 0 100"></polygon>
+      </svg>
+    </div>
 
-        <div class="container mx-auto px-4 py-12 lg:pt-24 lg:pb-32">
-          <div class="flex">
-            <div class="w-full">
-              <div class="flex mb-5">
-                <img :src="logo" alt="logo" class="w-28 md:h-auto h-4/5 mr-10">
-                <div>
-                  <h2 class="md:text-4xl text-xl font-semibold text-secondaryMain">
-                    Spare a Paw, Share Some Love:
-                  </h2>
-                  <span class="inline-block md:text-4xl text-lg font-semibold text-secondaryMain mt-2">Donate to
-                    Care4Strays!</span>
-                </div>
-              </div>
-              <p class="md:text-3xl text-base leading-relaxed mt-10 mb-4 text-secondaryMain lg:w-9/12">
-                Together, we're making a meaningful difference in their lives. Thank you for believing in Care4Strays
-              </p>
+    <div class="container mx-auto px-4 py-12 lg:pt-24 lg:pb-32">
+      <div class="flex">
+        <div class="w-full">
+          <div class="flex mb-5">
+            <img :src="logo" alt="logo" class="w-28 md:h-auto h-4/5 mr-10">
+            <div>
+              <h2 class="md:text-4xl text-xl font-semibold text-secondaryMain">
+                Spare a Paw, Share Some Love:
+              </h2>
+              <span class="inline-block md:text-4xl text-lg font-semibold text-secondaryMain mt-2">Donate to
+                Care4Strays!</span>
             </div>
           </div>
-
-          <div class="mt-10">
-            <router-link to="/donation"
-              class="get-started text-mainText font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-secondaryMain active:bg-secondaryMain uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150">
-              Donate for Strays
-            </router-link>
-          </div>
-
-
+          <p class="md:text-3xl text-base leading-relaxed mt-10 mb-4 text-secondaryMain lg:w-9/12">
+            Together, we're making a meaningful difference in their lives. Thank you for believing in Care4Strays
+          </p>
         </div>
-      </section>
-    </main>
-    <footer-component />
+      </div>
+
+      <div class="mt-10">
+        <router-link to="/donation"
+          class="get-started text-mainText font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-secondaryMain active:bg-secondaryMain uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150">
+          Donate for Strays
+        </router-link>
+      </div>
+
+
+    </div>
+  </section>
+  </main>
+  <footer-component />
   </div>
 </template>
 <script>
 import Navbar from "@/components/Navbars/AuthNavbar.vue";
 import FooterComponent from "@/components/Footers/Footer.vue";
 
-import team1 from "@/assets/img/team-1-800x800.jpg";
-import team2 from "@/assets/img/team-2-800x800.jpg";
-import team3 from "@/assets/img/team-3-800x800.jpg";
-import team4 from "@/assets/img/team-4-470x470.png";
+// import team1 from "@/assets/img/team-1-800x800.jpg";
+// import team2 from "@/assets/img/team-2-800x800.jpg";
+// import team3 from "@/assets/img/team-3-800x800.jpg";
+// import team4 from "@/assets/img/team-4-470x470.png";
 
 import takeMeHome from "@/assets/img/takeMeHome.png";
 import animalNews from "@/assets/img/animalNews.png";
@@ -303,10 +313,10 @@ import { createUser } from "@/service/apiProviderAuth.js";
 export default {
   data() {
     return {
-      team1,
-      team2,
-      team3,
-      team4,
+      // team1,
+      // team2,
+      // team3,
+      // team4,
       takeMeHome,
       animalNews,
       headerBackground,
@@ -519,11 +529,31 @@ export default {
 
       } else {
         this.isLoading = false;
-        
+
         this.alertType = "error";
         this.alertMessage = result || "An error occurred.";
         this.openAlert();
       }
+    },
+    toNewsDetails(id) {
+      if (this.isLogin) {
+        this.$router.push({
+          path: '/user/newsdetails',
+          query: {
+            newsID: id,
+          },
+        });
+      } else {
+        this.$router.push({
+          path: '/guestnews',
+          query: {
+            newsID: id,
+          },
+        });
+      }
+    },
+    isVideo(url) {
+      return url && url.toLowerCase().endsWith('.mp4');
     },
 
     openAlert() {
@@ -542,8 +572,10 @@ export default {
 
 <style scoped>
 .loading-overlay {
-  background-color: rgba(0, 0, 0, 0.5); /* Overlay background */
-  z-index: 9999; /* Ensure it is above other content */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Overlay background */
+  z-index: 9999;
+  /* Ensure it is above other content */
 }
 
 /* Extra Large screens (1280px and above) */
