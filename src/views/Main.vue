@@ -518,6 +518,8 @@ export default {
         }
 
       } else {
+        this.isLoading = false;
+        
         this.alertType = "error";
         this.alertMessage = result || "An error occurred.";
         this.openAlert();

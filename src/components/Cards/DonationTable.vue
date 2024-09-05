@@ -114,7 +114,9 @@ export default {
       for (let i = 0; i < this.getList.length; i++) {
         this.projects.push({
           date: new Date(this.getList[i]["createdDate"]).toISOString().split('T')[0],
-          name: this.getList[i]["user"]["firstName"] + " " + this.getList[i]["user"]["lastName"],
+          name: this.getList[i]["isAnonymously"]
+            ? "Anonymously"
+            : this.getList[i]["user"]["firstName"] + " " + this.getList[i]["user"]["lastName"],
           amount: this.getList[i]["amount"],
           isAnonymously: this.getList[i]["isAnonymously"],
           status: this.getList[i]["status"],

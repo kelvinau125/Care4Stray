@@ -89,6 +89,8 @@ export const updateDonationStatus = '/updateStatus/{donationID}';
 
 export const getAllDonationlistAdmin = '/all'
 
+export const getAllDonationlistUser = '/all'
+
 export const getAllDonationlist = '/donationList'
 
 export const getDonationbyUserID = '/list?userId={userID}'
@@ -102,6 +104,8 @@ export const getAllDonationlistUrl = donationBaseUrl + getAllDonationlist;
 export const getDonationbyUserIDUrl = donationBaseUrl + getDonationbyUserID;
 
 export const getAllDonationlistAdminUrl = donationAdminBaseUrl + getAllDonationlistAdmin; // Admin
+
+export const getAllDonationlistUserUrl = donationBaseUrl + getAllDonationlistUser; // Admin
 
 // Adoption
 

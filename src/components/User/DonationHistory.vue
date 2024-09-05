@@ -3,8 +3,14 @@
     <div class="py-8">
       <div class="flex flex-row mb-1 sm:mb-0 justify-between w-full">
         <h2 class="text-2xl leading-tight">
-          Donation Transactions
+          {{ !showOwnDonations ? 'All Donator Transactions' : 'Own Donation Transactions' }} 
         </h2>
+
+        <button
+          class="bg-emerald-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          type="button" @click="toggleDonations">
+          {{ showOwnDonations ? 'All' : 'Own' }}
+        </button>
       </div>
       <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
         <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
@@ -61,7 +67,7 @@
 </template>
 
 <script>
-import { getDonationByUserID } from '@/service/apiProviderDonation';
+import { getDonationByUserID, getAllDonationlistUser } from '@/service/apiProviderDonation';
 
 export default {
   data() {
@@ -82,14 +88,17 @@ export default {
         //   status: "Pending"
         // },
         // Add more transactions here
-      ]
+      ],
+
+      showOwnDonations: true,
     };
   },
   mounted() {
-    this.getAllDonationApi();
+    this.getOwnDonationApi();
   },
   methods: {
-    async getAllDonationApi() {
+    async getOwnDonationApi() {
+      this.transactions = [];
       this.getList = await getDonationByUserID();
       for (let i = 0; i < this.getList.length; i++) {
         this.transactions.push({
@@ -99,6 +108,31 @@ export default {
           date: new Date(this.getList[i]["createdDate"]).toISOString().split('T')[0],
           status: this.getList[i]["status"],
         });
+      }
+    },
+
+    async getAllDonationApi() {
+      this.transactions = [];
+      this.getList = await getAllDonationlistUser();
+      for (let i = 0; i < this.getList.length; i++) {
+        this.transactions.push({
+          date: new Date(this.getList[i]["createdDate"]).toISOString().split('T')[0],
+          donorName: this.getList[i]["isAnonymously"]
+            ? "Anonymously"
+            : this.getList[i]["user"]["firstName"] + " " + this.getList[i]["user"]["lastName"],
+          amount: this.getList[i]["amount"],
+          isAnonymously: this.getList[i]["isAnonymously"],
+          status: this.getList[i]["status"],
+        });
+      }
+    },
+
+    toggleDonations() {
+      this.showOwnDonations = !this.showOwnDonations; // Toggle state
+      if (this.showOwnDonations) {
+        this.getOwnDonationApi(); // Fetch user's donations
+      } else {
+        this.getAllDonationApi(); // Fetch all donations
       }
     },
 
