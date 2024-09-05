@@ -2,6 +2,11 @@
   <div>
     <navbar />
     <RegisterModal :showRegModal="isRegisterModalVisible" :closeRegModal="closeRegisterModal" />
+
+    <div v-if="isLoading" class="loading-overlay fixed inset-0 flex justify-center items-center">
+      <img src="@/assets/img/pageloading.gif" style="width: 21rem; height: 12rem; padding: 1rem;" />
+    </div>
+
     <main>
       <div class="flex justify-center">
         <div v-if="alertOpen" :class="alertClass">
@@ -367,6 +372,7 @@ export default {
       username: "",
 
       isLogin: false,
+      isLoading: false,
 
       // login
       email: "",
@@ -408,10 +414,10 @@ export default {
     }
 
     await createUser(
-      "Care4Stray", 
-      "Admin", 
-      "admin@gmail.com", 
-      "MALE", 
+      "Care4Stray",
+      "Admin",
+      "admin@gmail.com",
+      "MALE",
       "111111",
       "ADMIN",
       "https://res.cloudinary.com/dfmnw3bin/image/upload/v1725337219/uxtqhvbkm95ect8w4kxn.gif"
@@ -425,7 +431,7 @@ export default {
       const result = await getUserInfo(VueCookies.get('email'));
 
       this.userAvatar = result.userAvatar;
-      this.username = result.username;
+      this.username = result.firstName + " " + result.lastName;
     },
 
     async getAllStrayListApi() {
@@ -483,18 +489,22 @@ export default {
     },
     goToSeeMore() {
       if (this.isLogin) {
-      this.$router.push("/user/adoption")
+        this.$router.push("/user/adoption")
       } else {
         this.showRegisterModal()
       }
     },
     async signIn() {
+      this.isLoading = true;
+
       const username = this.email;
       const password = this.password;
 
       const result = await login(username, password);
 
       if (result == true) {
+        this.isLoading = false;
+
         this.alertType = "success";
         this.alertMessage = "Login successfully!";
         this.openAlert();
@@ -529,6 +539,11 @@ export default {
 </script>
 
 <style scoped>
+.loading-overlay {
+  background-color: rgba(0, 0, 0, 0.5); /* Overlay background */
+  z-index: 9999; /* Ensure it is above other content */
+}
+
 /* Extra Large screens (1280px and above) */
 .rightside {
   height: 1417px;

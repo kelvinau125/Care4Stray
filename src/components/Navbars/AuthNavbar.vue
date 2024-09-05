@@ -2,6 +2,8 @@
   <nav 
     class="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg"
     :style="navbarStyle">
+    <RegisterModal :showRegModal="isRegisterModalVisible" :closeRegModal="closeRegisterModal" />
+
     <div class="container px-4 mx-auto flex flex-wrap items-center justify-between">
       <div class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
         <button
@@ -44,7 +46,7 @@
           <li class="flex items-center">
             <router-link 
               class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-              to="/user/nearme" @click.native="closeNavbar">
+              :to="isLogin ? redirectTo : '#'" @click.native="closeNavbarStray">
               StraysCommunity
             </router-link>
           </li>
@@ -57,7 +59,15 @@
             </router-link>
           </li>
 
-          <li class="flex items-center">
+          <li v-if="!isLogin" class="flex items-center">
+            <router-link
+              class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+              to="/contactus" @click.native="closeNavbar">
+              Contact Us
+            </router-link>
+          </li>
+
+          <li v-if="isLogin" class="flex items-center">
             <router-link
               class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
               to="/user/adoption" @click.native="closeNavbar">
@@ -109,21 +119,29 @@
 import headerBackground from "@/assets/img/header-background.png";
 import UserDropdown from "@/components/Dropdowns/UserDropdown.vue";
 
+import RegisterModal from "@/views/auth/RegisterModal.vue";
+
+import { ref } from "vue";
 import VueCookies from 'vue-cookies';
 
 export default {
   components: {
     UserDropdown,
+    RegisterModal,
   },
 
   data() {
     return {
       navbarOpen: false,
       headerBackground,
+      
+      redirectTo: '/user/nearme',
 
       isLogin: VueCookies.isKey('email'),
 
       searchKeyword: "",
+
+      isRegisterModalVisible: ref(false),
     };
   },
 
@@ -178,10 +196,23 @@ export default {
     closeNavbar() {
       this.navbarOpen = false;
     },
+    closeNavbarStray() {
+      if(!this.isLogin){
+        this.showRegisterModal()
+        this.navbarOpen = false;
+      }
+      this.navbarOpen = false;
+    },
     handleClickOutside(event) {
       if (!this.$el.contains(event.target)) {
         this.closeNavbar();
       }
+    },
+    showRegisterModal() {
+      this.isRegisterModalVisible = true;
+    },
+    closeRegisterModal() {
+      this.isRegisterModalVisible = false;
     },
   },
 

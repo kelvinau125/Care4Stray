@@ -93,7 +93,7 @@ export async function checkToken() {
     const url = baseUrl + checkTokenUrl;
 
     const apiDetails = {
-        userId: VueCookies.get("email"),
+        userId: VueCookies.get("id"),
         token: VueCookies.get("token"),
     };
 

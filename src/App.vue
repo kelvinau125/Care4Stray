@@ -18,11 +18,7 @@ export default {
   },
   methods: {
     async checkTokenAPi() {
-      console.log("hahahah")
-
       const result = await checkToken();
-
-      console.log(result)
 
       if (!result) {
         removeCookie();
