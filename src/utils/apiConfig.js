@@ -15,9 +15,13 @@ export const createUser = '/register';
 
 export const login = '/login';
 
+export const checkToken = '/validate-token';
+
 export const createUserUrl = userAuthBaseUrl + createUser; // create user
 
 export const loginUrl = userAuthBaseUrl + login; // login
+
+export const checkTokenUrl = userAuthBaseUrl + checkToken;
 
 // User Info
 export const userInfoBaseUrl = userBaseUrl + '/user';

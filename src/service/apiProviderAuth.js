@@ -16,8 +16,10 @@ import {
     getAllUserListUrl,
     updateUserStatusUrl,
     getUserInfoAdminUrl,
+    checkTokenUrl,
 } from '@/utils/apiConfig.js';
 
+import VueCookies from 'vue-cookies';
 import { setCookie } from '@/service/cookie';
 
 // User Register
@@ -82,6 +84,35 @@ export async function login(email, password) {
         }
     } catch (e) {
         console.log(`Unsuccessful in login provider: ${e}`);
+        return false;
+    }
+}
+
+// Check Token
+export async function checkToken() {
+    const url = baseUrl + checkTokenUrl;
+
+    const apiDetails = {
+        userId: VueCookies.get("email"),
+        token: VueCookies.get("token"),
+    };
+
+    try {
+        const response = await postRequest(url, apiDetails);
+
+        const status = response.status;
+        const data = response.data;
+
+        if (status === 200) {
+            return data.data;
+        } else if (status === 400) {
+            return data.message;
+        } else {
+            console.log(`Unsuccessfully in check token: ${status}`);
+            return false;
+        }
+    } catch (e) {
+        console.log(`Unsuccessful in check token: ${e}`);
         return false;
     }
 }
