@@ -48,6 +48,7 @@
                   <input type="text" v-model="expiryYear" @input="updateExpiryDate" placeholder="YY"
                     class="border-0 px-3 py-3 placeholder-gray-700 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
                 </div>
+                <p v-if="expiryError" class="text-red-500 text-xs mt-1">{{ expiryError }}</p>
               </div>
             </div>
             <button type="submit"
@@ -102,13 +103,14 @@ export default {
       cvv: '',
       expiryMonth: '',
       expiryYear: '',
-      password: '',
+      password: '',   
 
       amount: parseFloat(localStorage.getItem('donationAmount')) || 0,
       transactionId: "CSA 00" + localStorage.getItem('transactionId') || 'Unknown',
 
       cvvError: '',
       cardHolderNameError: '',
+      expiryError: '',
       isProcessing: false,  // New state for loading
     };
   },
@@ -148,14 +150,31 @@ export default {
       }
     },
     updateExpiryDate() {
-      // This method is invoked when expiry month or year is changed
+      const currentYear = new Date().getFullYear() % 100; // Get the last two digits of the current year
+      const currentMonth = new Date().getMonth() + 1; // Get the current month (0-based, so we add 1)
+
+      const expiryYear = parseInt(this.expiryYear, 10);
+      const expiryMonth = parseInt(this.expiryMonth, 10);
+
+      // Validate if the month is between 1 and 12
+      if (expiryMonth < 1 || expiryMonth > 12) {
+        this.expiryError = 'Invalid month. Please enter a valid month between 01 and 12.';
+
+      }
+
+      // Validate if the expiry date is not earlier than the current date
+      else if (expiryYear < currentYear || (expiryYear === currentYear && expiryMonth < currentMonth)) {
+        this.expiryError = 'The expiry date cannot be in the past.';
+      } else {
+        this.expiryError = '';
+      }
     },
     async handleSubmit() {
       // Perform validation before proceeding
       this.validateCardHolderName();
       this.validateCVV();
 
-      if (!this.cardHolderNameError && !this.cvvError) {
+      if (!this.cardHolderNameError && !this.cvvError && !this.expiryError) {
         this.isProcessing = true;
 
         const result = await updateDonationStatus(localStorage.getItem('transactionId'), "SUCCESS");
@@ -172,7 +191,7 @@ export default {
             localStorage.removeItem('donationAmount');
             localStorage.removeItem('transactionId');
 
-         
+
           }, 5000); // Simulate 5 seconds delay
         }
       }

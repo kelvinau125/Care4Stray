@@ -1,7 +1,7 @@
 
 import {
     postRequest,
-    putRequestWithToken,
+    putRequest,
     getRequest,
     getRequestWithToken,
 } from '@/service/apiRequestMethod';
@@ -62,8 +62,12 @@ export async function updateDonationStatus(donationID, status) {
         donationStatus: status
     };
 
+    console.log("hahahah")
+    console.log(apiDetails)
+    console.log(url)
+
     try {
-        const response = await putRequestWithToken(url, apiDetails);
+        const response = await putRequest(url, apiDetails);
 
         const status = response.status;
         const data = response.data;

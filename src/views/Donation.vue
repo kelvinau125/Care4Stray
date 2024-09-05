@@ -183,7 +183,7 @@ export default {
 
         this.donation.username = result.firstName + " " + result.lastName;
         this.donation.phoneNo = result.phoneNumber;
-        this.donation.email = result.email;
+        this.donation.email = result.username;
       } else {
         this.donation.username = "Anonymously";
         this.donation.phoneNo = "";
