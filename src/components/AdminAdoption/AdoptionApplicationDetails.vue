@@ -129,9 +129,9 @@
                                         :class="{ 'disabled-bg': !isEdit }" :disabled="!isEdit"
                                         v-model="adopter.gender">
                                         <option value="">Select Gender</option>
-                                        <option value="male">MALE</option>
-                                        <option value="female">FEMALE</option>
-                                        <option value="other">OTHER</option>
+                                        <option value="MALE">MALE</option>
+                                        <option value="FEMALE">FEMALE</option>
+                                        <option value="OTHER">OTHER</option>
                                     </select>
                                 </div>
                             </div>

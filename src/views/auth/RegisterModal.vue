@@ -40,10 +40,14 @@
                                     <h6 class="text-mainText text-3xl font-bold">
                                         Sign up
                                     </h6>
-                                    <h3 class="text-mainText text-base font-normal mt-3">Please note that
+                                    <!-- <h3 class="text-mainText text-base font-normal mt-3">Please note that
                                         <span class="underline font-semibold">Volunteer Registration</span>
                                         is separated.
-                                    </h3>
+                                    </h3> -->
+                                    <h3 class="text-mainText text-base font-normal mt-3 mr-10">Join
+                                        <span class="underline font-semibold">Care4Stray</span>
+                                        and make a difference today.           
+                                    </h3> 
                                 </div>
                                 <div>
                                     <button class="w-8" @click="closeModal">

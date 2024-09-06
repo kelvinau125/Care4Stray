@@ -93,7 +93,7 @@
                   class="fas fa-list mr-2 text-sm"
                   :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
                 ></i>
-                Adoption
+                Application
               </a>
             </router-link>
           </li>
