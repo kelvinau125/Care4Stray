@@ -42,7 +42,7 @@
                         </td>
                     </tr>
 
-                    <tr v-else v-for="(project, index) in projects" :key="index">
+                    <tr v-else v-for="(project, index) in projects" :key="index" class="cursor-pointer" @click="toEditNews(project.id)">
                         <th
                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 max-w-200-px truncate">
                             <div class="flex">
