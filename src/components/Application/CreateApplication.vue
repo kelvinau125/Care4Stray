@@ -29,7 +29,7 @@
             <div class="flex flex-col items-start p-4 space-x-4 border border-gray-300 rounded-lg">
                 <div class="flex md:flex-row flex-col py-4 space-x-4">
                     <img :src="application.image" alt="Application Image"
-                        class="md:w-5/12 xl:w-3/12 md:h-auto rounded-lg" />
+                        class="md:w-5/12  md:h-auto rounded-lg" />
                     <div class="flex-1 mt-4 md:mt-0">
                         <div class="flex justify-between">
                             <div class="items-center space-y-1">

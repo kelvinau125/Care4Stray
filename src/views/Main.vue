@@ -460,8 +460,8 @@ export default {
           name: this.getList[i]["name"],
           age: this.getList[i]["age"],
           traits: this.getList[i]["behaviour"].slice(0, 4),
-          vaccined: this.getList[i]["vaccinated"],
-          dewormed: this.getList[i]["dewormed"],
+          vaccined: this.getList[i]["isVaccinated"],
+          dewormed: this.getList[i]["isDewormed"],
         });
       }
     },

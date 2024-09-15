@@ -46,7 +46,7 @@
                 <p><strong>Application Date:</strong> {{ application.date }}</p>
               </div>
               <span :class="{
-                'text-yellow-500': application.status === 'ADOPTION_IN_PROGRESS',
+                'text-yellow-500': application.status === 'APPLICATION_PENDING',
                 'text-red-500': application.status === 'APPLICATION_FAILURE',
                 'text-green-500': application.status === 'APPLICATION_SUCCESS',
               }">

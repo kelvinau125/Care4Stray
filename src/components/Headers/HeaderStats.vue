@@ -5,7 +5,7 @@
       <div>
         <!-- Card stats -->
         <div class="flex flex-wrap">
-          <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+          <div class="w-full lg:w-6/12 xl:w-3/12 px-4 cursor-pointer">
             <card-stats
               statSubtitle="Post"
               :statTitle="numPost || '-'"

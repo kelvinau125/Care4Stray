@@ -198,7 +198,7 @@ export default {
   },
   methods: {
     validateName() {
-      const namePattern = /^[A-Za-z]+$/;
+      const namePattern = /^[A-Za-z\s]+$/; 
       if (!namePattern.test(this.stray.name)) {
         this.nameError = 'Name can only contain alphabetic characters.';
       } else {

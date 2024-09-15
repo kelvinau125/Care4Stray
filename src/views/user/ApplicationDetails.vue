@@ -445,7 +445,7 @@ export default {
                     this.alertOpen = false;
                     }, 1000); // Close alert after 3 seconds
 
-                    this.$router.push('/user/applicationdetails')
+                    this.$router.go(-1);
                 }
             } else {
                 this.alertType = "error";

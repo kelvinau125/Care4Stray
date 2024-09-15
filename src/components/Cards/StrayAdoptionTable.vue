@@ -94,7 +94,8 @@
                                 }">
                                 <a href="javascript:void(0);"
                                     class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-                                    @click.native.stop="toEditApplication(project.id)">
+                                    @click.native.stop="toEditApplication(project.id)"
+                                    v-if="!project.ishasAdoptionApplication">
                                     EDIT
                                 </a>
                                 <a href="javascript:void(0);"
@@ -191,6 +192,7 @@ export default {
                     isVaccinated: this.getList[i]["isVaccinated"],
                     isDeworm: this.getList[i]["isDewormed"],
                     status: this.getList[i]["status"],
+                    ishasAdoptionApplication: this.getList[i]["hasAdoptionApplication"]
                 });
             }
 
