@@ -371,6 +371,16 @@ export default {
     mounted() {
         this.getDetailsApi();
     },
+    computed: {
+        alertClass() {
+            return {
+                "text-white px-6 py-4 border-0 rounded-full fixed mb-4 z-50 w-6/12": true,
+                "bg-orange-500": this.alertType === "waiting",
+                "bg-emerald-500": this.alertType === "success",
+                "bg-red-500": this.alertType === "error",
+            };
+        },
+    },
     methods: {
         async getDetailsApi() {
             const result = await getApplicationDetails(this.applicationID);

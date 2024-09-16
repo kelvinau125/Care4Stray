@@ -2760,6 +2760,10 @@ select {
   margin-bottom: 8rem;
 }
 
+.mb-72 {
+  margin-bottom: 18rem;
+}
+
 .mt-48 {
   margin-top: 12rem;
 }

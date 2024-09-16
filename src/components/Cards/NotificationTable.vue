@@ -36,11 +36,16 @@
             </td>
           </tr>
 
-          <tr v-else v-for="(project, index) in projects" :key="index">
-            <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <div class="flex">
-                {{ project.date }}
-              </div>
+          <tr v-else v-for="(project, index) in projects" :key="index" class="cursor-pointer"
+            @click="toRoute(project.applicationID)">
+            <th
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+              <img :src="project.image" class="h-12 w-12 bg-white rounded-full border" alt="..." />
+              <span class="ml-3 font-bold" :class="[
+                color === 'light' ? 'text-blueGray-600' : 'text-white',
+              ]">
+                {{ project.name }}
+              </span>
             </th>
 
             <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -57,21 +62,25 @@
 
 <script>
 
+import { getNotification } from "../../service/apiProviderNotification";
+
 export default {
   data() {
     return {
       tableHeaders: [
-        { text: "Date" },
+        { text: 'Sender' },
         { text: 'Details' },
       ],
       projects: [
-        {
-          date: "2024/15/2",
-          details: "Kelvin",
-        }
+        // {
+        //   date: "2024/15/2",
+        //   details: "Kelvin",
+        //   image: "",
+        //   name: "kelvin",
+        // }
       ],
 
-      isLoading: false,
+      isLoading: true,
     }
   },
   props: {
@@ -80,7 +89,34 @@ export default {
       default: 'light'
     },
   },
+  mounted() {
+    this.generateNotificationsLists()
+  },
   methods: {
+    toRoute(applicationID) {
+      this.$router.push({
+        path: '/admin/adminadoption',
+        query: {
+          applicationID: applicationID,
+        },
+      });
+    },
+    async generateNotificationsLists() {
+      this.getList = await getNotification();
+      for (let i = 0; i < this.getList.length; i++) {
+        this.projects.push({
+          id: this.getList[i]["notificationId"],
+          image: this.getList[i]["sender"]["userAvatar"],
+          name: "@ " + this.getList[i]["sender"]["firstName"] + " " + this.getList[i]["sender"]["lastName"],
+          details: this.getList[i]["message"],
+
+          applicationID: this.getList[i]['adoption'] ? this.getList[i]['adoption']['adoptionId'] : null,
+        });
+      }
+
+      this.isLoading = false;
+    },
+
     statusColor(status) {
       switch (status) {
         case 'pending':
@@ -95,6 +131,7 @@ export default {
           return 'text-gray-500';
       }
     },
-  }
+  },
+
 }
 </script>

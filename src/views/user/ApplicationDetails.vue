@@ -517,7 +517,7 @@ export default {
                 vaccined: result.stray.isVaccinated,
                 dewormed: result.stray.isDewormed,
                 date: new Date(result.applicationDate).toISOString().split('T')[0],
-                status: result.stray.status,
+                status: result.adoptionStatus,
             };
 
             this.adopter = {
