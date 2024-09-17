@@ -109,7 +109,7 @@ export default {
           title: this.getList[i]["isAdoption"] ? this.getList[i]["strayPost"]["name"] : this.getList[i]["content"],
           description: this.getList[i]["isAdoption"] ? this.getList[i]["strayPost"]["behaviour"] : "",
           images: this.getList[i]["isAdoption"] ? [this.getList[i]["strayPost"]["mainPicture"]] : this.getList[i]["picture"],
-          isliked: this.getList[i]["isLiked"],
+          isliked: this.getList[i]["isLiked"] === 'LIKE' ? true : false,
           likeCount: this.getList[i]["likeCount"],
           commentCount: this.getList[i]["commentCount"],
           duration: this.getList[i]["duration"],

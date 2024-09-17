@@ -125,7 +125,7 @@ export default {
             this.post.title = this.getList['content']
             this.post.description = this.getList['content']
             this.post.images = this.getList['picture']
-            this.post.isliked = this.getList['isliked']
+            this.post.isliked = this.getList['isliked'] === 'LIKE' ? true : false;
             this.post.duration = this.getList['duration']
             this.post.isAdoption = this.getList['isAdoption']
             this.post.likeCount = this.getList['likeCount']

@@ -99,7 +99,7 @@ export default {
           title: this.getList[i]["content"],
           description: this.getList[i]["content"],
           images: this.getList[i]["picture"],
-          isliked: this.getList[i]["isLiked"],
+          isliked: this.getList[i]["isLiked"] === 'LIKE' ? true : false,
           likeCount: this.getList[i]["likeCount"],
           commentCount: this.getList[i]["commentCount"],
           duration: this.getList[i]["duration"],

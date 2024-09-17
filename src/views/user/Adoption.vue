@@ -105,7 +105,7 @@ export default {
           images: this.getList[i]["stray"]["pictureUrl"],
           isVaccinated: this.getList[i]["stray"]["isVaccinated"],
           isDewormed: this.getList[i]["stray"]["isDewormed"],
-          isliked: this.getList[i]["isLike"],
+          isliked: this.getList[i]["isLike"] === 'LIKE' ? true : false,
           likeCount: this.getList[i]["likeCount"],
           commentCount: this.getList[i]["commentCount"],
           duration: this.getList[i]["duration"],
