@@ -85,8 +85,13 @@ export default {
           details: this.getList[i]["message"],
           notificationType: this.getList[i]['notificationType'],
 
-          postID: this.getList[i]['post'] ? this.getList[i]['post']['postId'] : null,
-          applicationID: this.getList[i]['adoption'] ? this.getList[i]['adoption']['adoptionId'] : null,
+          // postID: this.getList[i]['comment']['post'] ? this.getList[i]['comment']['post']['postId'] : null,
+          postID: this.getList[i]['comment']?.['post']?.['postId'] || null,
+         
+          // applicationID: this.getList[i]['adoption'] ? this.getList[i]['adoption']['adoptionId'] : null,
+          applicationID: this.getList[i]['adoption']?.['adoptionId'] || null,
+
+          duration: this.getList[i]['duration'],
         });
       }
 

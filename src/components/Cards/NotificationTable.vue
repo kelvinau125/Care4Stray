@@ -38,6 +38,12 @@
 
           <tr v-else v-for="(project, index) in projects" :key="index" class="cursor-pointer"
             @click="toRoute(project.applicationID)">
+            <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+              <div class="flex">
+                {{ project.date }}
+              </div>
+            </th>
+
             <th
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
               <img :src="project.image" class="h-12 w-12 bg-white rounded-full border" alt="..." />
@@ -52,6 +58,16 @@
               <div class="flex">
                 {{ project.details }}
               </div>
+            </td>
+
+            <td
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+              <img :src="project.strayimage" class="h-12 w-12 bg-white rounded-full border" alt="..." />
+              <span class="ml-3 font-bold" :class="[
+                color === 'light' ? 'text-blueGray-600' : 'text-white',
+              ]">
+                {{ project.strayname }}
+              </span>
             </td>
           </tr>
         </tbody>
@@ -68,8 +84,10 @@ export default {
   data() {
     return {
       tableHeaders: [
+        { text: 'Date' },
         { text: 'Sender' },
         { text: 'Details' },
+        { text: 'Stray' },
       ],
       projects: [
         // {
@@ -110,7 +128,11 @@ export default {
           name: "@ " + this.getList[i]["sender"]["firstName"] + " " + this.getList[i]["sender"]["lastName"],
           details: this.getList[i]["message"],
 
-          applicationID: this.getList[i]['adoption'] ? this.getList[i]['adoption']['adoptionId'] : null,
+          // applicationID: this.getList[i]['adoption'] ? this.getList[i]['adoption']['adoptionId'] : null,
+          strayimage: this.getList[i]['adoption']?.['stray']?.['mainPicture'] || null,
+          strayname: this.getList[i]['adoption']?.['stray']?.['name'] || null,
+
+          date: new Date(this.getList[i]["createdDate"]).toISOString().split('T')[0],
         });
       }
 
