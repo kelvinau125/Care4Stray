@@ -161,7 +161,7 @@
                       <div class="items-center flex justify-center">
                         <img :src="pet.image" alt="Pet Image" class="w-full takemehomeimg h-auto mb-4 rounded-lg">
                       </div>
-                      <div class="flex flex-row items-end">
+                      <div class="flex flex-col items-start">
                         <h2 class="text-xl font-bold mb-2 mr-2">{{ pet.name }}</h2>
                         <p class="text-gray-600 mb-2">{{ pet.age }} years old</p>
                       </div>
@@ -197,26 +197,27 @@
               </div>
               <div>
                 <div v-for="(item, index) in paginatedItems" :key="index" class="rightspace">
-                  <div class="border-2 border-mainTheme p-4 rounded-lg shadow-lg flex cursor-pointer"
+                  <div class="border-2 border-mainTheme p-4 rounded-lg shadow-lg flex md:flex-row flex-col cursor-pointer"
                     @click="toNewsDetails(item.id)">
-                    <!-- <div class="w-full mr-5 flex items-center justify-center">
-                      <img :src="item.image" alt="picture" class="h-auto rounded-md"
+                    <div class="md:w-4/5 w-full flex items-center justify-center">
+                    <!--   <img :src="item.image" alt="picture" class="h-auto rounded-md"
                         style="width: 200px; height: 200px;"> -->
 
                     <video v-if="isVideo(item.image)" autoplay muted class="w-full mr-5 flex items-center justify-center"
-                      style="width: 200px; height: 203px">
+                      style="width: 200px; height: 200px">
                       <source :src="item.image" type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
 
                     <img v-else :src="item.image" alt="picture" class="w-full mr-5 flex items-center justify-center"
-                      style="width: 200px; height: 203px" />
+                      style="width: 200px; height: 200px" />
               
+                    </div>
 
-                  <div class="w-full flex flex-col justify-between">
+                  <div class="w-full flex flex-col justify-between mt-3 md:mt-0">
                     <div>
                       <h2 class="text-xl font-bold mb-2">{{ item.title }}</h2>
-                      <p>{{ item.description }}</p>
+                      <p class="truncate-2-lines">{{ item.description }}</p>
                     </div>
                     <div class="flex justify-between">
                       <p class="text-sm text-gray-600">{{ item.author }}</p>
@@ -638,4 +639,13 @@ export default {
     width: 50%;
   }
 }
+
+.truncate-2-lines {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 </style>

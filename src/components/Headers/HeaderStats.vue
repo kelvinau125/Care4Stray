@@ -62,7 +62,7 @@
 <script>
 import CardStats from "@/components/Cards/CardStats.vue";
 
-import { getUserStatisstics, getDonationStatisstics, getPostStatisstics} from "../../service/apiProiderStatistics";
+import { getUserStatisstics, getDonationStatisstics, getPostStatisstics, getNotificationStatisstics} from "../../service/apiProiderStatistics";
 
 export default {
   components: {
@@ -91,7 +91,7 @@ export default {
       const userResult = await getUserStatisstics();
       const donationResult = await getDonationStatisstics();
       const postResult = await getPostStatisstics();
-      // const notificationResult = await getNotificationStatisstics();
+      const notificationResult = await getNotificationStatisstics();
 
       this.numUser = userResult.total;
       this.percUser = userResult.percentageIncrease;
@@ -102,8 +102,8 @@ export default {
       this.numPost = postResult.total;
       this.percPost = postResult.percentageIncrease;
 
-      // this.numNoti = notificationResult.total;
-      // this.percNoti = notificationResult.percentageIncrease;
+      this.numNoti = notificationResult.total;
+      this.percNoti = notificationResult.percentageIncrease;
     },
   }
 };

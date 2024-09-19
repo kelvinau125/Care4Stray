@@ -3,7 +3,7 @@
     <div>
       <p class="text-lg font-bold py-4">More</p>
       <div v-for="(item, index) in paginatedItems" :key="index" class="mb-4">
-        <div class="border p-4 rounded-lg shadow-lg flex cursor-pointer" @click="toNewsDetails(item.id)">
+        <div class="border p-4 rounded-lg shadow-lg flex cursor-pointer md:flex-row flex-col" @click="toNewsDetails(item.id)">
 
           <div class="mr-5 flex items-center justify-center">
             <!-- <img :src="item.image" alt="picture" class="md:w-4/5 xl:w-4/5 md:h-auto rounded-md"
@@ -19,12 +19,12 @@
                 style="width: 250px; height: 203px; margin: 12px;" />
           </div>
           
-          <div class="w-4/5 flex flex-col justify-between">
+          <div class="md:w-4/5 w-full  flex flex-col justify-between">
               <div>
                 <h2 class="text-xl font-bold mb-2">{{ item.title }}</h2>
                 <p class="truncate-2-lines">{{ item.description }}</p>
               </div>
-              <div class="flex justify-between">
+              <div class="flex justify-between mt-3 md:mt-0">
                 <p class="text-sm text-gray-600">{{ item.author }}</p>
                 <p class="text-sm text-gray-600">{{ item.date }}</p>
               </div>

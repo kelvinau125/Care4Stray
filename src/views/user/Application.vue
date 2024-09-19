@@ -34,7 +34,7 @@
           <img :src="application.image" alt="Application Image" class="md:w-4/12 xl:w-3/12 md:h-auto rounded-lg" />
 
           <div class="mt-6 md:mt-0 flex-1">
-            <div class="flex justify-between">
+            <div class="flex justify-between md:flex-row flex-col">
               <div class="items-start space-y-1">
                 <p><strong>Name:</strong> {{ application.name }}</p>
                 <p><strong>Gender:</strong> {{ application.gender }}</p>

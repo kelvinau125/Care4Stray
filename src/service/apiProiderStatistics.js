@@ -87,7 +87,7 @@ export async function getPostStatisstics() {
 }
 
 // Get Post Statistics
-export async function geNotificationStatisstics() {
+export async function getNotificationStatisstics() {
     const url = baseUrl + geNotificationStatissticsUrl;
 
     try {
