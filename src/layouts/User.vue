@@ -16,8 +16,8 @@
         :class="[isApplicationDetailsRoute ? 'md:pt-16' : 'md:pt-48']">
         <!-- Main Content -->
         <div class="w-full">
-          <user-header v-if="isApplicationDetailsRoute || isPostApplicationDetailsRoute || isSearchRoute"
-            class="pt-36 md:pt-4" />
+          <user-header :class="isApplicationDetailsRoute ? 'pt-20 md:pt-4' : 'pt-36 md:pt-4'"
+            v-if="isApplicationDetailsRoute || isPostApplicationDetailsRoute || isSearchRoute" />
           <PostDetailsComponent v-if="isPostApplicationDetailsRoute" />
           <div :class="{
             'pt-0': isApplicationDetailsRoute || isPostApplicationDetailsRoute || isSearchRoute,
@@ -34,9 +34,14 @@
         </div>
 
         <!-- Donation Sidebar -->
-        <div class="w-full md:w-60">
+        <!-- <div class="w-full md:w-60 bg-third">
           <donation-sidebar />
-        </div>
+        </div> -->
+      </div>
+
+      <!-- Donation Sidebar -->
+      <div :class="isApplicationDetailsRoute ? 'w-full md:w-60 bg-third md:pt-20' : 'w-full md:w-60 bg-third md:pt-48 pt-0'">
+        <donation-sidebar />
       </div>
     </div>
   </div>

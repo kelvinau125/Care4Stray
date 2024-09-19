@@ -33,7 +33,11 @@
             <div class="md:w-4/5 w-full flex flex-col justify-between">
               <div>
                 <h2 class="text-xl font-bold mb-2">{{ item.title }}</h2>
-                <p class="truncate-2-lines">{{ item.description }}</p>
+                <!-- <p class="truncate-2-lines">{{ item.description }}</p> -->
+
+                <p  v-for="(paragraph, index) in item.description.split('\n').slice(0, 2)" :key="index">
+                  {{ paragraph }}
+                </p>
               </div>
               <div class="flex justify-between mt-3 md:mt-0">
                 <p class="text-sm text-gray-600">{{ item.author }}</p>

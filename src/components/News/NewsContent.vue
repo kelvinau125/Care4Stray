@@ -14,8 +14,8 @@
       <img :src="article.imageUrl" :alt="article.imageAlt" class="w-full h-auto mb-6 rounded-lg shadow-lg" />
     </template>
 
-    <div>
-      {{ article.content }}
+    <div v-for="(paragraph, index) in article.content.split('\n')" :key="index" class="mb-4 text-gray-800">
+      {{ paragraph }}
     </div>
     <!-- <div v-for="paragraph in article.content" :key="paragraph" class="mb-4 text-gray-800">
       {{ paragraph }}
@@ -31,7 +31,7 @@ export default {
     return {
       newsID: this.$route.query.newsID,
 
-      article: {
+      // article: {
         // title: "Rescued dog 'trapped for several days' down well",
         // date: "24 April 2024",
         // author: "Federica Bedendo, BBC News, North East and Cumbria",
@@ -43,6 +43,16 @@ export default {
         //   "Initially it was thought he was a badger due to his grey and white colouring, and those looking after the dog have named him after the animal after he was safely rescued.",
         //   "An appeal is under way to try and find Badger's owner."
         // ]
+      // }
+
+      article: {
+        id: null,
+        title: '',
+        date: '',
+        author: '',
+        imageUrl: '',
+        imageAlt: '',
+        content: '', // Initialize content as an empty string
       }
     };
   },

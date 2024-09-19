@@ -102,7 +102,7 @@ export default {
       for (let i = 0; i < this.getList.length; i++) {
         this.posts.push({
           id: this.getList[i]["postId"],
-          userid: this.userID,
+          userid: this.getList[i]["author"]["id"],
           userAvatar: this.getList[i]["author"]["userAvatar"],
           username: this.getList[i]["author"]["firstName"] + " " + this.getList[i]["author"]["lastName"],
           date: new Date(this.getList[i]["createdDate"]).toISOString().split('T')[0],

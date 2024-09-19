@@ -129,6 +129,7 @@ export default {
           details: this.getList[i]["message"],
 
           // applicationID: this.getList[i]['adoption'] ? this.getList[i]['adoption']['adoptionId'] : null,
+          applicationID: this.getList[i]['adoption']?.['adoptionId'] || null,
           strayimage: this.getList[i]['adoption']?.['stray']?.['mainPicture'] || null,
           strayname: this.getList[i]['adoption']?.['stray']?.['name'] || null,
 

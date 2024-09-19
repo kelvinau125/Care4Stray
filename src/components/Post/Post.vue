@@ -14,7 +14,12 @@
       <p class="text-gray-700 whitespace-pre-line text-sm mr-2">{{ post.duration }}</p>
     </div>
     <div class="mb-4">
-      <h3 class="font-bold text-lg mb-2">{{ post.title }}</h3>
+      <!-- <h3 class="font-bold text-lg mb-2">{{ post.title }}</h3> -->
+
+      <h3 v-for="(paragraph, index) in post.title.split('\n')" :key="index" class="font-bold text-lg mb-2">
+         {{ paragraph }}
+      </h3>
+
       <p class="text-gray-700 whitespace-pre-line ml-2" v-if="isAdoptionRoute">
         <ul>
           <li v-for="(item, index) in post.description" :key="index">

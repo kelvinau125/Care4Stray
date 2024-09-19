@@ -3,7 +3,7 @@
     <div class="py-8">
       <div class="flex flex-row mb-1 sm:mb-0 justify-between w-full">
         <h2 class="text-2xl leading-tight">
-          {{ !showOwnDonations ? 'All Donator Transactions' : 'Own Donation Transactions' }} 
+          {{ !showOwnDonations ? 'All Donator Transactions' : 'Own Donation Transactions' }}
         </h2>
 
         <button
@@ -58,6 +58,18 @@
                   </span>
                 </td>
               </tr>
+
+              <td colspan="8">
+                <!-- Show loading spinner while data is being fetched -->
+                <div v-if="isLoading" class="flex justify-center items-center mt-24 mb-24">
+                  <img src="@/assets/img/pageloading.gif" style="width: 21rem; height: 12rem; padding: 1rem;" />
+                </div>
+
+                <!-- Show "nothing here" image if no posts are available and loading is complete -->
+                <div v-else-if="transactions.length === 0" class="flex justify-center items-center mt-24 mb-24">
+                  <img src="@/assets/img/nothinghere.png" style="width: 11rem;height: 12rem;" />
+                </div>
+              </td>
             </tbody>
           </table>
         </div>
@@ -91,6 +103,8 @@ export default {
       ],
 
       showOwnDonations: true,
+
+      isLoading: true,
     };
   },
   mounted() {
@@ -109,6 +123,8 @@ export default {
           status: this.getList[i]["status"],
         });
       }
+
+      this.isLoading = false;
     },
 
     async getAllDonationApi() {
@@ -125,6 +141,8 @@ export default {
           status: this.getList[i]["status"],
         });
       }
+
+      this.isLoading = false;
     },
 
     toggleDonations() {
