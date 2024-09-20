@@ -1,11 +1,12 @@
 <template>
-  <div class="max-w-3xl mx-auto p-6 bg-white">
+  <!-- <div class="max-w-3xl mx-auto p-6 bg-white"> -->
+  <div :class="['max-w-3xl mx-auto p-6 bg-white', { 'mt-16 md:mt-0': isGuestNews }]">
     <h1 class="text-3xl font-bold mb-4">{{ article.title }}</h1>
     <p class="text-gray-600 mb-2">{{ article.date }}</p>
     <p class="text-gray-600 mb-4">{{ article.author }}</p>
 
     <template v-if="isVideo(article.imageUrl)">
-      <video autoplay controls  class="w-full h-auto mb-6 rounded-lg shadow-lg">
+      <video autoplay controls class="w-full h-auto mb-6 rounded-lg shadow-lg">
         <source :src="article.imageUrl" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
@@ -32,17 +33,17 @@ export default {
       newsID: this.$route.query.newsID,
 
       // article: {
-        // title: "Rescued dog 'trapped for several days' down well",
-        // date: "24 April 2024",
-        // author: "Federica Bedendo, BBC News, North East and Cumbria",
-        // imageUrl: require('@/assets/img/team-2-800x800.jpg').default,
-        // imageAlt: "The Caucasian Shepherd fell about 15ft (4.5m) into a well at Phoenix Sidings, near Stockton",
-        // content: [
-        //   "A dog rescued from a well had been trapped for several days and was 'giving up' in front of his rescuers' eyes, it has emerged.",
-        //   "It is believed the Caucasian Shepherd 'accidentally tumbled' 15ft (4.5m) at Phoenix Sidings, Newton, near Stockton, before becoming trapped in the water, Cleveland Fire Brigade said.",
-        //   "Initially it was thought he was a badger due to his grey and white colouring, and those looking after the dog have named him after the animal after he was safely rescued.",
-        //   "An appeal is under way to try and find Badger's owner."
-        // ]
+      // title: "Rescued dog 'trapped for several days' down well",
+      // date: "24 April 2024",
+      // author: "Federica Bedendo, BBC News, North East and Cumbria",
+      // imageUrl: require('@/assets/img/team-2-800x800.jpg').default,
+      // imageAlt: "The Caucasian Shepherd fell about 15ft (4.5m) into a well at Phoenix Sidings, near Stockton",
+      // content: [
+      //   "A dog rescued from a well had been trapped for several days and was 'giving up' in front of his rescuers' eyes, it has emerged.",
+      //   "It is believed the Caucasian Shepherd 'accidentally tumbled' 15ft (4.5m) at Phoenix Sidings, Newton, near Stockton, before becoming trapped in the water, Cleveland Fire Brigade said.",
+      //   "Initially it was thought he was a badger due to his grey and white colouring, and those looking after the dog have named him after the animal after he was safely rescued.",
+      //   "An appeal is under way to try and find Badger's owner."
+      // ]
       // }
 
       article: {
@@ -65,6 +66,11 @@ export default {
       }
     }
   },
+  computed: {
+    isGuestNews() {
+      return this.$route.path === '/guestnews';
+    }
+  },
 
   methods: {
     async getNewsDetailsApi() {
@@ -82,7 +88,7 @@ export default {
         content: result.content,
       };
     },
-    
+
     isVideo(url) {
       return url && url.toLowerCase().endsWith('.mp4');
     },

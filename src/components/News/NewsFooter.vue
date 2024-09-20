@@ -51,6 +51,7 @@
 
 <script>
 import { getNewsList } from '@/service/apiProviderNews';
+import VueCookies from 'vue-cookies';
 
 export default {
   data() {
@@ -75,6 +76,8 @@ export default {
       ],
       currentPage: 1,
       itemsPerPage: 3,
+
+      isLogin: false,
     };
   },
 
@@ -91,6 +94,10 @@ export default {
   },
   mounted() {
     this.generateNewsLists()
+
+    if (VueCookies.isKey('email')) {
+      this.isLogin = true;
+    }
   },
   methods: {
     async generateNewsLists() {
@@ -126,7 +133,7 @@ export default {
     toNewsDetails(id) {
       this.currentPage = 1;
       this.$router.push({
-        path: '/user/newsdetails',
+        path: (this.isLogin) ? '/user/newsdetails' : '/guestnews',
         query: {
           newsID: id,
         },

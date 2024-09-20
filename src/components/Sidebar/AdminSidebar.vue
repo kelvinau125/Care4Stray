@@ -23,9 +23,9 @@
       </router-link>
       <!-- User -->
       <ul class="md:hidden items-center flex flex-wrap list-none">
-        <li class="inline-block relative">
+        <!-- <li class="inline-block relative">
           <notification-dropdown />
-        </li>
+        </li> -->
         <li class="inline-block relative">
           <admin-dropdown />
         </li>
@@ -41,7 +41,7 @@
             <div class="w-6/12">
               <router-link
                 class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-                to="/"
+                to="/admin"
               >
                 Admin
               </router-link>
@@ -232,7 +232,7 @@
 </template>
 
 <script>
-import NotificationDropdown from "@/components/Dropdowns/NotificationDropdown.vue";
+// import NotificationDropdown from "@/components/Dropdowns/NotificationDropdown.vue";
 import AdminDropdown from "@/components/Dropdowns/AdminDropdown.vue";
 
 export default {
@@ -259,7 +259,7 @@ export default {
     document.removeEventListener("click", this.handleClickOutside);
   },
   components: {
-    NotificationDropdown,
+    // NotificationDropdown,
     AdminDropdown,
   },
 };

@@ -26,11 +26,18 @@
         block: dropdownPopoverShow,
       }"
     >
+      
+
+      <!-- <hr class="md:min-w-full my-2" /> -->
+
       <a
         href="javascript:void(0);"
         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
         @click="goHomePage()"
       >
+      <h6 class="md:hidden block md:min-w-full text-blueGray-500 text-xs uppercase font-bold pt-1 pb-4 no-underline">
+        @Admin
+      </h6>
         Logout
       </a>
       <!-- <div class="h-0 my-2 border border-solid border-blueGray-100" /> -->
