@@ -3,7 +3,7 @@
     <div class="border border-gray-300 mb-4 rounded-lg bg-white">
       <div class="p-4 flex flex-col min-w-0 break-words w-full mb-4">
         <div class="flex items-center justify-center pb-2 pt-4">
-          <img :src="adopter.image" alt="Application Image" class="md:w-4/12 xl:w-3/12 md:h-auto rounded-full" />
+          <img :src="adopter.image" alt="Application Image" class="w-60 h-60 rounded-full" />
         </div>
         <div class="rounded-t mb-0 py-6">
           <div class="text-center flex justify-between">

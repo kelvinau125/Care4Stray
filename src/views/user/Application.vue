@@ -49,6 +49,7 @@
                 'text-yellow-500': application.status === 'APPLICATION_PENDING',
                 'text-red-500': application.status === 'APPLICATION_FAILURE',
                 'text-green-500': application.status === 'APPLICATION_SUCCESS',
+                'text-orange-500': application.status === 'APPLICATION_CANCELLED',
               }">
                 {{ application.status }}
               </span>

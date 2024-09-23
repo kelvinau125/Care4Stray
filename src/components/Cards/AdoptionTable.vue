@@ -236,6 +236,8 @@ export default {
                     return 'text-emerald-500';
                 case 'APPLICATION_FAILURE':
                     return 'text-red-500';
+                case 'APPLICATION_CANCELLED':
+                    return 'text-yellow-500';
                 default:
                     return 'text-gray-500';
             }

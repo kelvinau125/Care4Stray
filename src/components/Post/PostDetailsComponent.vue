@@ -12,7 +12,11 @@
             <p class="text-gray-700 whitespace-pre-line text-sm mr-2">{{ post.date }}</p>
         </div>
         <div class="mb-4">
-            <h3 class="font-bold text-lg mb-2">{{ post.title }}</h3>
+            <!-- <h3 class="font-bold text-lg mb-2">{{ post.title }}</h3> -->
+
+            <h3 v-for="(paragraph, index) in post.title.split('\n')" :key="index" class="font-bold text-lg mb-2">
+                {{ paragraph }}
+            </h3>
             <p class="text-gray-700 whitespace-pre-line ml-2" v-if="isAdoptionRoute">
             <ul>
                 <li v-for="(item, index) in post.description" :key="index">
@@ -121,7 +125,7 @@ export default {
             this.post.userId = this.getList['author']['id']
             this.post.userAvatar = this.getList['author']['userAvatar']
             this.post.username = this.getList['author']['firstName'] + " " + this.getList['author']['lastName'],
-            this.post.date = new Date(this.getList["createdDate"]).toISOString().split('T')[0]
+                this.post.date = new Date(this.getList["createdDate"]).toISOString().split('T')[0]
             this.post.title = this.getList['content']
             this.post.description = this.getList['content']
             this.post.images = this.getList['picture']
