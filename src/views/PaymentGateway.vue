@@ -43,9 +43,9 @@
               <div class="w-1/2">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Expiry Date</label>
                 <div class="flex space-x-2">
-                  <input type="text" v-model="expiryMonth" @input="updateExpiryDate" placeholder="MM"
+                  <input type="text" required v-model="expiryMonth" @input="updateExpiryDate" placeholder="MM"
                     class="border-0 px-3 py-3 placeholder-gray-700 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
-                  <input type="text" v-model="expiryYear" @input="updateExpiryDate" placeholder="YY"
+                  <input type="text" required v-model="expiryYear" @input="updateExpiryDate" placeholder="YY"
                     class="border-0 px-3 py-3 placeholder-gray-700 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
                 </div>
                 <p v-if="expiryError" class="text-red-500 text-xs mt-1">{{ expiryError }}</p>
@@ -159,9 +159,7 @@ export default {
       // Validate if the month is between 1 and 12
       if (expiryMonth < 1 || expiryMonth > 12) {
         this.expiryError = 'Invalid month. Please enter a valid month between 01 and 12.';
-
       }
-
       // Validate if the expiry date is not earlier than the current date
       else if (expiryYear < currentYear || (expiryYear === currentYear && expiryMonth < currentMonth)) {
         this.expiryError = 'The expiry date cannot be in the past.';
