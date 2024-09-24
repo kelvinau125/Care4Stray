@@ -1,5 +1,9 @@
 <template>
     <div>
+        <div v-if="isLoading" class="loading-overlay fixed inset-0 flex justify-center items-center">
+            <img src="@/assets/img/pageloading.gif" style="width: 21rem; height: 12rem; padding: 1rem;" />
+        </div>
+
         <div class="flex justify-center">
             <div v-if="alertOpen" :class="alertClass">
                 <span class="text-xl inline-block mr-5 align-middle">
@@ -46,8 +50,8 @@
                                     </h3> -->
                                     <h3 class="text-mainText text-base font-normal mt-3 mr-10">Join
                                         <span class="underline font-semibold">Care4Stray</span>
-                                        and make a difference today.           
-                                    </h3> 
+                                        and make a difference today.
+                                    </h3>
                                 </div>
                                 <div>
                                     <button class="w-8" @click="closeModal">
@@ -160,7 +164,9 @@
 
 <script>
 import closebtn from "@/assets/img/close-btn.png";
-import { createUser } from "@/service/apiProviderAuth.js";
+import { login, createUser } from "@/service/apiProviderAuth.js";
+
+import VueCookies from 'vue-cookies';
 
 export default {
     props: {
@@ -183,7 +189,9 @@ export default {
             alertOpen: false,
             alertType: "success",
             alertMessage: "",
-            validationErrors: {}
+            validationErrors: {},
+
+            isLoading: false,
         };
     },
     computed: {
@@ -274,16 +282,45 @@ export default {
             }
 
             try {
+                this.isLoading = true;
+
                 const result = await createUser(this.firstname, this.lastname, this.email, this.gender, this.password, "USER", "https://res.cloudinary.com/dfmnw3bin/image/upload/v1722330239/default_avatar.jpg");
-                console.log(result)
+                // console.log(result)
                 if (result == true) {
                     this.alertType = "success";
                     this.alertMessage = "Account created successfully!";
-                   
-                    if(this.$route.path !== '/') {
-                        this.$router.push("/");
-                    }  
-                    this.closeModal();
+
+                    // if(this.$route.path !== '/') {
+                    //     this.$router.push("/");
+                    // }  
+                    // this.closeModal();
+
+                    const result = await login(this.email, this.password);
+
+                    if (result == true) {
+                        this.isLoading = false;
+
+                        this.alertType = "success";
+                        this.alertMessage = "Login successfully!";
+
+                        if (VueCookies.get("role") == "ADMIN") {
+                            this.$router.push('/admin')
+                            this.closeModal();
+                        } else if (VueCookies.get("role") == "USER") {
+                            this.$router.push('/user')
+                            this.closeModal();
+                        } else {
+                            this.$router.push('/')
+                            this.closeModal();
+                        }
+
+                    } else {
+                        this.isLoading = false;
+
+                        this.alertType = "error";
+                        this.alertMessage = result || "An error occurred.";
+                    }
+
                 } else {
                     this.alertType = "error";
                     this.alertMessage = result || "An error occurred.";
@@ -325,5 +362,12 @@ export default {
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
+}
+
+.loading-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Overlay background */
+  z-index: 9999;
+  /* Ensure it is above other content */
 }
 </style>
