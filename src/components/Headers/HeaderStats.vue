@@ -9,9 +9,9 @@
             <card-stats
               statSubtitle="Post"
               :statTitle="numPost || '-'"
-              statArrow="up"
-               :statPercent="percPost || '-'"
-              statPercentColor="text-emerald-500"
+              :statArrow="postStatArrow"
+              :statPercent="formattedPostPercent"
+              :statPercentColor="postStatPercentColor"
               statDescripiron="Since last week"
               statIconName="far fa-chart-bar"
               statIconColor="bg-red-500"
@@ -21,9 +21,9 @@
             <card-stats
               statSubtitle="NEW USERS"
               :statTitle="numUser || '-'"
-              statArrow="up"
-              :statPercent="percUser || '-'"
-              statPercentColor="text-emerald-500"
+              :statArrow="userStatArrow"
+              :statPercent="formattedUserPercent"
+              :statPercentColor="userStatPercentColor"
               statDescripiron="Since last week"
               statIconName="fas fa-chart-pie"
               statIconColor="bg-orange-500"
@@ -33,9 +33,9 @@
             <card-stats
               statSubtitle="Donation Amount"
               :statTitle="'RM ' + (numDonation || '-')"
-              statArrow="up"
-              :statPercent="percDonation || '-'"
-              statPercentColor="text-emerald-500"
+              :statArrow="donationStatArrow"
+              :statPercent="formattedDonationPercent"
+              :statPercentColor="donationStatPercentColor"
               statDescripiron="Since last week"
               statIconName="fas fa-users"
               statIconColor="bg-pink-500"
@@ -45,9 +45,9 @@
             <card-stats
               statSubtitle="Notification"
               :statTitle="numNoti || '-'"
-              statArrow="up"
-             :statPercent="percNoti || '-'"
-              statPercentColor="text-emerald-500"
+              :statArrow="notiStatArrow"
+              :statPercent="formattedNotiPercent"
+              :statPercentColor="notiStatPercentColor"
               statDescripiron="Since last week"
               statIconName="fas fa-percent"
               statIconColor="bg-emerald-500"
@@ -61,8 +61,7 @@
 
 <script>
 import CardStats from "@/components/Cards/CardStats.vue";
-
-import { getUserStatisstics, getDonationStatisstics, getPostStatisstics, getNotificationStatisstics} from "../../service/apiProiderStatistics";
+import { getUserStatisstics, getDonationStatisstics, getPostStatisstics, getNotificationStatisstics } from "../../service/apiProiderStatistics";
 
 export default {
   components: {
@@ -85,6 +84,51 @@ export default {
   },
   mounted() {
     this.getUserApi();
+  },
+  computed: {
+    // Compute for Post Stats
+    postStatArrow() {
+      return this.percPost && this.percPost >= 0 ? 'up' : 'down';
+    },
+    postStatPercentColor() {
+      return this.percPost && this.percPost >= 0 ? 'text-emerald-500' : 'text-red-500';
+    },
+    formattedPostPercent() {
+      return this.percPost ? parseFloat(this.percPost).toFixed(2) : '-';
+    },
+
+    // Compute for User Stats
+    userStatArrow() {
+      return this.percUser && this.percUser >= 0 ? 'up' : 'down';
+    },
+    userStatPercentColor() {
+      return this.percUser && this.percUser >= 0 ? 'text-emerald-500' : 'text-red-500';
+    },
+    formattedUserPercent() {
+      return this.percUser ? parseFloat(this.percUser).toFixed(2) : '-';
+    },
+
+    // Compute for Donation Stats
+    donationStatArrow() {
+      return this.percDonation && this.percDonation >= 0 ? 'up' : 'down';
+    },
+    donationStatPercentColor() {
+      return this.percDonation && this.percDonation >= 0 ? 'text-emerald-500' : 'text-red-500';
+    },
+    formattedDonationPercent() {
+      return this.percDonation ? parseFloat(this.percDonation).toFixed(2) : '-';
+    },
+
+    // Compute for Notification Stats
+    notiStatArrow() {
+      return this.percNoti && this.percNoti >= 0 ? 'up' : 'down';
+    },
+    notiStatPercentColor() {
+      return this.percNoti && this.percNoti >= 0 ? 'text-emerald-500' : 'text-red-500';
+    },
+    formattedNotiPercent() {
+      return this.percNoti ? parseFloat(this.percNoti).toFixed(2) : '-';
+    },
   },
   methods: {
     async getUserApi() {
