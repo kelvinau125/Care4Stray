@@ -19,7 +19,7 @@
           </div>
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
-              statSubtitle="NEW USERS"
+              statSubtitle="USERS"
               :statTitle="numUser || '-'"
               :statArrow="userStatArrow"
               :statPercent="formattedUserPercent"

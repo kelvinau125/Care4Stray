@@ -58,7 +58,7 @@
 
             <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
               <div class="flex">
-                <i :class="project.isAnonymously === 'true' ? 'fas fa-check' : 'fas fa-times'"></i>
+                <i :class="project.isAnonymously === true ? 'fas fa-check' : 'fas fa-times'"></i>
               </div>
             </td>
 

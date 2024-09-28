@@ -322,13 +322,19 @@ export default {
                     }
 
                 } else {
+                    this.isLoading = false;
+
                     this.alertType = "error";
                     this.alertMessage = result || "An error occurred.";
                 }
             } catch (error) {
+                this.isLoading = false;
+
                 this.alertType = "error";
                 this.alertMessage = error.response.data || "An error occurred.";
             } finally {
+                this.isLoading = false;
+
                 this.alertOpen = true;
                 setTimeout(() => {
                     this.alertOpen = false;
