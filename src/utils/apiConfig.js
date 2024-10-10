@@ -1,4 +1,6 @@
-export const baseUrl = "http://192.168.0.150:8081"
+// export const baseUrl = "http://192.168.0.149:8081"
+export const baseUrl = "http://192.168.222.243:8081/"
+
 // export const baseUrl = "http://localhost:8081"
 
 // Upload File -  Cloudinary
@@ -230,4 +232,10 @@ export const getPostStatissticsUrl = stastisticsAdminBaseUrl + getPostStatisstic
 
 export const geNotificationStatissticsUrl = stastisticsAdminBaseUrl + geNotificationStatisstics;
 
+// notification
 
+export const notificationUserBaseUrl = userBaseUrl;
+
+export const getNotification = '/notifications/user/{userID}';
+
+export const getNotificationUrl = notificationUserBaseUrl + getNotification;

@@ -39,7 +39,7 @@
                     Birth</label>
                   <input type="date" id="date-of-birth"
                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    v-model="adopter.dateOfBirth" disabled />
+                    v-model="adopter.dateOfBirth" disabled :max="new Date().toISOString().split('T')[0]" />
                 </div>
               </div>
               <div class="w-full lg:w-6/12 px-4">
